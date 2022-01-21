@@ -1,0 +1,7 @@
+{
+  "name": "COVID_Tracking-SOEN390",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
