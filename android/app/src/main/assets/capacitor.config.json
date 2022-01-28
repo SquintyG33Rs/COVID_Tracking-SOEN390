@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "COVID_Tracking-SOEN390",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
