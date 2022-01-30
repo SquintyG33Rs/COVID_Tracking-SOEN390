@@ -7,7 +7,7 @@ const events = require('./events');
 const connection = mysql.createConnection({
   host     : 'concordia-database-server.mysql.database.azure.com',
   user     : 'databaseadmin@concordia-database-server',
-  password : '********',
+  password : 'covid19Sucks',
   database : 'CovidTrackingDatabase'
 });
 
