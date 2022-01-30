@@ -1,5 +1,5 @@
 {
-	"appId": "io.ionic.starter",
+	"appId": "covid.concordia.app",
 	"appName": "COVID_Tracking-SOEN390",
 	"webDir": "www",
 	"bundledWebRuntime": false
