@@ -6,5 +6,5 @@ project requires node.js and ionic to be installed on your machine to compile
 https://nodejs.org/en/
 
 then
-"$ npm install -g @ionic/cli"
+"npm install -g @ionic/cli"
 in Bash or CMD
