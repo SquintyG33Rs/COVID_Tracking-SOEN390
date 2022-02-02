@@ -25695,3 +25695,8 @@ ion-navbar.toolbar {
   padding-bottom: 4px;
   min-height: 46px;
 }
+
+page-login form, page-login input, page-login optgroup, page-login select {
+  padding: 10px;
+  text-align: center;
+}
