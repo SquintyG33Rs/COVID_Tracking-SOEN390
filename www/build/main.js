@@ -150,8 +150,8 @@ var LoginPage = /** @class */ (function () {
     }
     LoginPage.prototype.addUserTest = function () {
         console.log("button click");
-        email = document.getElementById("email").value;
-        pssw = document.getElementById("pssw").value;
+        var email = document.getElementById("email").value;
+        var pssw = document.getElementById("pssw").value;
         console.log(email + " " + pssw);
         //router.post("Dunand","Simon","password","patient","5141234567","simon@concordia.com","some address");
         // lastName VARCHAR(25),
@@ -166,12 +166,11 @@ var LoginPage = /** @class */ (function () {
     };
     LoginPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-login',template:/*ion-inline-start:"C:\Users\Squinty\Documents\GitHub\COVID_Tracking-SOEN390\src\pages\login\login.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>login</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <p style="text-align:center">Please sign into your account:</p>\n  <form>\n    <label for="fname">e-mail:</label><br>\n    <input type="text" id="email" name="email" value=""><br>\n    <label for="lname">password:</label><br>\n    <input type="text" id="pssw" name="pssw" value=""><br><br>\n  </form> \n  <button ion-button (click)="addUserTest()" padding size="large">\n    Log In\n  </button>\n</ion-content>\n'/*ion-inline-end:"C:\Users\Squinty\Documents\GitHub\COVID_Tracking-SOEN390\src\pages\login\login.html"*/
+            selector: 'page-login',template:/*ion-inline-start:"C:\Users\Squinty\Documents\GitHub\COVID_Tracking-SOEN390\src\pages\login\login.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>login</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <p style="text-align:center">Please sign into your account:</p>\n  <form>\n    <label for="fname">e-mail:</label><br>\n    <input type="text" id="email" name="email" value="e-mail"><br>\n    <label for="lname">password:</label><br>\n    <input type="text" id="pssw" name="pssw" value="password"><br><br>\n  </form> \n  <button ion-button (click)="addUserTest()" padding size="large">\n    Log In\n  </button>\n</ion-content>\n'/*ion-inline-end:"C:\Users\Squinty\Documents\GitHub\COVID_Tracking-SOEN390\src\pages\login\login.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */]) === "function" && _a || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */]])
     ], LoginPage);
     return LoginPage;
-    var _a;
 }());
 
 //# sourceMappingURL=login.js.map

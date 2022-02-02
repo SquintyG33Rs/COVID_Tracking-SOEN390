@@ -13,8 +13,9 @@ export class LoginPage {
 
 	addUserTest(){
 		console.log("button click");
-		email = document.getElementById("email").value;
-		pssw = document.getElementById("pssw").value;
+		var email = (<HTMLInputElement>document.getElementById("email")).value;
+		var pssw = (<HTMLInputElement>document.getElementById("pssw")).value; 
+
 
 		console.log(email + " " + pssw);
 		//router.post("Dunand","Simon","password","patient","5141234567","simon@concordia.com","some address");
