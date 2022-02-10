@@ -11,5 +11,47 @@
 </ion-header>
 
 <ion-content padding>
-
+    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+     <ion-list lines="full" class="ion-no-margin">
+        <ion-item>
+          <ion-label position="floating">Date</ion-label>
+          <ion-input type="date" formControlName="date" placeholder="01 jan 2022"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Temperature</ion-label>
+          <ion-input type="number" min='35' max='42' formControlName="temp" placeholder="Celcius"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Weight</ion-label>
+          <ion-input type="number" min='35' max='600' formControlName="weight" placeholder="lb"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-checkbox formControlName="cough"></ion-checkbox>
+          <ion-label>Coughing</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-checkbox formControlName="head"></ion-checkbox>
+          <ion-label>Headache</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-checkbox formControlName="throat"></ion-checkbox>
+          <ion-label>Sore Throat</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-checkbox formControlName="fever"></ion-checkbox>
+          <ion-label>Fever</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-checkbox formControlName="taste"></ion-checkbox>
+          <ion-label>Loss of taste or smell</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-checkbox formControlName="tired"></ion-checkbox>
+          <ion-label>Tiredness</ion-label>
+        </ion-item>
+        <button ion-button expand="block" type="submit">
+          Submit
+        </button>
+      </ion-list>
+    </form>
 </ion-content>
