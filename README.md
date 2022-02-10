@@ -8,3 +8,10 @@ https://nodejs.org/en/
 then
 "npm install -g @ionic/cli"
 in Bash or CMD
+
+To use with docker on windows & mac:
+install: https://www.docker.com/products/docker-desktop
+
+run
+`docker-compose up`
+in root directory.
