@@ -1,6 +1,6 @@
 webpackJsonp([1],{
 
-/***/ 108:
+/***/ 109:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -13,11 +13,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 108;
+webpackEmptyAsyncContext.id = 109;
 
 /***/ }),
 
-/***/ 149:
+/***/ 150:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -37,12 +37,12 @@ function webpackAsyncContext(req) {
 webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 	return Object.keys(map);
 };
-webpackAsyncContext.id = 149;
+webpackAsyncContext.id = 150;
 module.exports = webpackAsyncContext;
 
 /***/ }),
 
-/***/ 193:
+/***/ 194:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -77,7 +77,7 @@ var HomePage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 194:
+/***/ 195:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -134,13 +134,13 @@ var ListPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 195:
+/***/ 196:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(27);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -189,69 +189,6 @@ var LoginPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 196:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StatusUpdatePage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(27);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-/**
- * Generated class for the StatusUpdatePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var StatusUpdatePage = /** @class */ (function () {
-    function StatusUpdatePage(navCtrl, navParams, formBuilder) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.formBuilder = formBuilder;
-        this.updateForm = this.formBuilder.group({
-            date: '',
-            temp: '',
-            weight: '',
-            cough: false,
-            head: false,
-            throat: false,
-            fever: false,
-            taste: false,
-            tired: false
-        });
-    }
-    StatusUpdatePage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad StatusUpdatePage');
-    };
-    StatusUpdatePage.prototype.onSubmit = function () {
-        console.log("button click");
-        console.log(this.updateForm.value);
-    };
-    StatusUpdatePage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-status-update',template:/*ion-inline-start:"C:\Users\Squinty\Documents\GitHub\COVID_Tracking-SOEN390\src\pages\status-update\status-update.html"*/'<!--\n  Generated template for the StatusUpdatePage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n    <ion-title>StatusUpdate</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">\n     <ion-list lines="full" class="ion-no-margin">\n        <ion-item>\n          <ion-label position="floating">Date</ion-label>\n          <ion-input type="date" formControlName="date" placeholder="01 jan 2022"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label position="floating">Temperature</ion-label>\n          <ion-input type="number" min=\'35\' max=\'42\' formControlName="temp" placeholder="Celcius"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label position="floating">Weight</ion-label>\n          <ion-input type="number" min=\'35\' max=\'600\' formControlName="weight" placeholder="lb"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-checkbox formControlName="cough"></ion-checkbox>\n          <ion-label>Coughing</ion-label>\n        </ion-item>\n        <ion-item>\n          <ion-checkbox formControlName="head"></ion-checkbox>\n          <ion-label>Headache</ion-label>\n        </ion-item>\n        <ion-item>\n          <ion-checkbox formControlName="throat"></ion-checkbox>\n          <ion-label>Sore Throat</ion-label>\n        </ion-item>\n        <ion-item>\n          <ion-checkbox formControlName="fever"></ion-checkbox>\n          <ion-label>Fever</ion-label>\n        </ion-item>\n        <ion-item>\n          <ion-checkbox formControlName="taste"></ion-checkbox>\n          <ion-label>Loss of taste or smell</ion-label>\n        </ion-item>\n        <ion-item>\n          <ion-checkbox formControlName="tired"></ion-checkbox>\n          <ion-label>Tiredness</ion-label>\n        </ion-item>\n        <button ion-button expand="block" type="submit">\n          Submit\n        </button>\n      </ion-list>\n    </form>\n</ion-content>\n'/*ion-inline-end:"C:\Users\Squinty\Documents\GitHub\COVID_Tracking-SOEN390\src\pages\status-update\status-update.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */]])
-    ], StatusUpdatePage);
-    return StatusUpdatePage;
-}());
-
-//# sourceMappingURL=status-update.js.map
-
-/***/ }),
-
 /***/ 197:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -275,12 +212,12 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(263);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_list_list__ = __webpack_require__(194);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_login_login__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_status_update_status_update__ = __webpack_require__(196);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_status_bar__ = __webpack_require__(189);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_splash_screen__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_list_list__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_login_login__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_status_update_status_update__ = __webpack_require__(99);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_status_bar__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_splash_screen__ = __webpack_require__(193);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -346,12 +283,12 @@ var AppModule = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(189);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(192);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_list_list__ = __webpack_require__(194);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_login_login__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_status_update_status_update__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_list_list__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_login_login__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_status_update_status_update__ = __webpack_require__(99);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -411,6 +348,69 @@ var MyApp = /** @class */ (function () {
 }());
 
 //# sourceMappingURL=app.component.js.map
+
+/***/ }),
+
+/***/ 99:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StatusUpdatePage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(27);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+/**
+ * Generated class for the StatusUpdatePage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var StatusUpdatePage = /** @class */ (function () {
+    function StatusUpdatePage(navCtrl, navParams, formBuilder) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.formBuilder = formBuilder;
+        this.updateForm = this.formBuilder.group({
+            date: '',
+            temp: '',
+            weight: '',
+            cough: false,
+            head: false,
+            throat: false,
+            fever: false,
+            taste: false,
+            tired: false
+        });
+    }
+    StatusUpdatePage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad StatusUpdatePage');
+    };
+    StatusUpdatePage.prototype.onSubmit = function () {
+        console.log("button click");
+        console.log(this.updateForm.value);
+    };
+    StatusUpdatePage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-status-update',template:/*ion-inline-start:"C:\Users\Squinty\Documents\GitHub\COVID_Tracking-SOEN390\src\pages\status-update\status-update.html"*/'<!--\n  Generated template for the StatusUpdatePage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar>\n      <button ion-button menuToggle>\n        <ion-icon name="menu"></ion-icon>\n      </button>\n    <ion-title>StatusUpdate</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">\n     <ion-list lines="full" class="ion-no-margin">\n        <ion-item>\n          <ion-label position="floating">Date</ion-label>\n          <ion-input type="date" formControlName="date" placeholder="01 jan 2022"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label position="floating">Temperature</ion-label>\n          <ion-input type="number" min=\'35\' max=\'42\' formControlName="temp" placeholder="Celcius"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label position="floating">Weight</ion-label>\n          <ion-input type="number" min=\'35\' max=\'600\' formControlName="weight" placeholder="lb"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-checkbox formControlName="cough"></ion-checkbox>\n          <ion-label>Coughing</ion-label>\n        </ion-item>\n        <ion-item>\n          <ion-checkbox formControlName="head"></ion-checkbox>\n          <ion-label>Headache</ion-label>\n        </ion-item>\n        <ion-item>\n          <ion-checkbox formControlName="throat"></ion-checkbox>\n          <ion-label>Sore Throat</ion-label>\n        </ion-item>\n        <ion-item>\n          <ion-checkbox formControlName="fever"></ion-checkbox>\n          <ion-label>Fever</ion-label>\n        </ion-item>\n        <ion-item>\n          <ion-checkbox formControlName="taste"></ion-checkbox>\n          <ion-label>Loss of taste or smell</ion-label>\n        </ion-item>\n        <ion-item>\n          <ion-checkbox formControlName="tired"></ion-checkbox>\n          <ion-label>Tiredness</ion-label>\n        </ion-item>\n        <button ion-button expand="block" type="submit">\n          Submit\n        </button>\n      </ion-list>\n    </form>\n</ion-content>\n'/*ion-inline-end:"C:\Users\Squinty\Documents\GitHub\COVID_Tracking-SOEN390\src\pages\status-update\status-update.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */]])
+    ], StatusUpdatePage);
+    return StatusUpdatePage;
+}());
+
+//# sourceMappingURL=status-update.js.map
 
 /***/ })
 
