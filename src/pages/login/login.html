@@ -1,21 +1,30 @@
-<ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>login</ion-title>
-  </ion-navbar>
-</ion-header>
+<!DOCTYPE html>
+<html>
+  <ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>login</ion-title>
+    </ion-navbar>
+  </ion-header>
 
-<ion-content padding style="text-align:center">
-  <p>Please sign into your account:</p>
-  <form>
-    <label for="fname">e-mail:</label><br>
-    <input type="text" id="email" name="email" value="e-mail"><br>
-    <label for="lname">password:</label><br>
-    <input type="text" id="pssw" name="pssw" value="password"><br><br>
-  </form> 
-  <button ion-button (click)="addUserTest()" padding size="large">
-    Log In
-  </button>
-</ion-content>
+  <ion-content padding style="text-align:center">
+    <p>Please sign into your account:</p>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+     <ion-list lines="full" class="ion-no-margin">
+        <ion-item>
+          <ion-label position="floating">e-mail</ion-label>
+          <ion-input type="email" formControlName="email" placeholder="email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">password</ion-label>
+          <ion-input type="password" formControlName="pssw" placeholder="password"></ion-input>
+        </ion-item>
+        <button ion-button expand="block" type="submit">
+          Log In
+        </button>
+      </ion-list>
+    </form>
+  </ion-content>
+</html>

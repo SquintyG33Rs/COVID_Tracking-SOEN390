@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { NavController } from 'ionic-angular';
 
 @Component({
@@ -7,17 +8,20 @@ import { NavController } from 'ionic-angular';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController) {
+	loginForm = this.formBuilder.group({
+		email:'',
+		pssw:''
+	});
 
-  }
+	constructor(public navCtrl: NavController , private formBuilder: FormBuilder) {
 
-	addUserTest(){
+	}
+
+	onSubmit(){
+
 		console.log("button click");
-		var email = (<HTMLInputElement>document.getElementById("email")).value;
-		var pssw = (<HTMLInputElement>document.getElementById("pssw")).value; 
-
-
-		console.log(email + " " + pssw);
+		console.log(this.loginForm.value);
+		this.loginForm.reset();
 		//router.post("Dunand","Simon","password","patient","5141234567","simon@concordia.com","some address");
 		// lastName VARCHAR(25),
 		// firstName VARCHAR(25),
@@ -28,7 +32,4 @@ export class LoginPage {
 		// address varchar(255)
 	}
 
-  login() {
-
-  }
 }

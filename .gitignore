@@ -16,6 +16,7 @@ $RECYCLE.BIN/
 *.log
 log.txt
 npm-debug.log*
-www/*
-node_modules/*
-android/*
+**/www
+**/node_modules
+**/android
+*.map
