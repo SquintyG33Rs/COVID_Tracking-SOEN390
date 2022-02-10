@@ -26,7 +26,6 @@ export class LoginPage {
 		// telephone varchar(25),
 		// email VARCHAR(25),
 		// address varchar(255)
-
 	}
 
   login() {
