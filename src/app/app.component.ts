@@ -2,11 +2,16 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { StatusUpdatePage } from '../pages/status-update/status-update';
+
+import {WelcomePage} from "../pages/welcome/welcome";
+import {SignupPage} from "../pages/signup/signup";
+import {SigninPage} from "../pages/signin/signin";
+
+
 
 @Component({
   templateUrl: 'app.html'
@@ -14,7 +19,11 @@ import { StatusUpdatePage } from '../pages/status-update/status-update';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage;
+  // rootPage: any = LoginPage;
+  rootPage: any = WelcomePage;
+
+
+
 
   pages: Array<{title: string, component: any}>;
 
@@ -23,9 +32,12 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
+      { title: 'Welcome', component: WelcomePage },
+      { title: 'Signup', component: SignupPage },
+      { title: 'Signin', component: SigninPage },
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage },
-      { title: 'Login', component: LoginPage },
+      { title: 'Login', component: LoginPage },     // Old, Done by Simon.
       { title: 'Update my Status', component: StatusUpdatePage }
     ];
 
