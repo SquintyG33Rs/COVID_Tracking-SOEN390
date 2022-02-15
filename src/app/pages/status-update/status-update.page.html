@@ -1,11 +1,12 @@
-<ion-header>
-  <ion-navbar>
-      <ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </ion-button>
-    <ion-title>StatusUpdate</ion-title>
-  </ion-navbar>
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+    <ion-title>STATUS UPDATE</ion-title>
+  </ion-toolbar>
 </ion-header>
+
 
 <ion-content padding>
     <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
