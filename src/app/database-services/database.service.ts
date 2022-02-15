@@ -1,11 +1,11 @@
-// import {Injectable} from "@angular/core";
-import {User} from "../entities/User";
 import {Injectable} from "@angular/core";
+import {User} from "../entities/User";
 
 
 
-
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class DatabaseService {
   activeUser: User;
 

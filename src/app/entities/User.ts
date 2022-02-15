@@ -1,3 +1,7 @@
+import {AccountType} from "./AccountType";
+
+
+
 export class User {
   username: string;
   password: string;

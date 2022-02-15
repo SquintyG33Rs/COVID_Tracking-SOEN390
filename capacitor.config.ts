@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'covid.concordia.app',
-  appName: 'COVID_Tracking-SOEN390',
+  appId: 'io.ionic.starter',
+  appName: 'Covid-Tracker-Application',
   webDir: 'www',
   bundledWebRuntime: false
 };
