@@ -23,20 +23,10 @@ export class AppComponent {
      });
    }
 
-//Auto generated pages examples
-
-  /*[
-    { title: 'Inbox', url: '/folder/Inbox', icon: 'mail' },
-    { title: 'Outbox', url: '/folder/Outbox', icon: 'paper-plane' },
-    { title: 'Favorites', url: '/folder/Favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/Archived', icon: 'archive' },
-    { title: 'Trash', url: '/folder/Trash', icon: 'trash' },
-    { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
-  ];*/
    sideMenu() {  
      this.navigate =   
      [  
-        { title: 'Home', url:'/home-page', icon: 'home-outline' },    //Placeholder temp
+        { title: 'Home', url:'/home-page', icon: 'home-outline' /* find a list of all possible icons at https://ionic.io/ionicons */ },
         { title: 'Update my Status', url:'/status-update', icon: 'newspaper-outline' },
         { title: 'back to welcome', url:'/welcome-page', icon: 'planet-outline' }, //these three are only for demonstration purposes
         { title: 'to sign-in', url:'/signin-page', icon: 'person-outline' },
