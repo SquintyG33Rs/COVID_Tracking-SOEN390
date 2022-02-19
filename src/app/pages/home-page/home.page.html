@@ -1,19 +1,24 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-      <ion-buttons slot="start">
+      <ion-buttons >
         <ion-menu-button></ion-menu-button>
+        <ion-title>HOME PAGE</ion-title>
+        <ion-button slot="right" (click)="logOut()">
+          <ion-icon name="log-out-outline" slot="icon-only"></ion-icon>
+        </ion-button>
       </ion-buttons>
-    <ion-title>HOME PAGE</ion-title>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
   <ion-card>
-
-      <ion-label>ACTIVE USER</ion-label>
-      <p class="ion-text-center">{{activeUser.firstName}}</p>
-      <p class="ion-text-center">{{activeUser.lastName}}</p>
-      <p class="ion-text-center">{{activeUser.accountType}}</p>
-
+    <ion-label>ACTIVE USER</ion-label>
+    <p class="ion-text-center">User First Name: {{activeUser.firstName}}</p>
+    <p class="ion-text-center">User Last Name: {{activeUser.lastName}}</p>
+    <p class="ion-text-center">User Account-Type: {{activeUser.accountType}}</p>
+    <p class="ion-text-center">User Address: {{activeUser.address}}</p>
+    <p class="ion-text-center">User Telephone: {{activeUser.telephone}}</p>
+    <p class="ion-text-center">User Email: {{activeUser.email}}</p>
   </ion-card>
 </ion-content>

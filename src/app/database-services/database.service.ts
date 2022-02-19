@@ -21,6 +21,8 @@ export class DatabaseService {
   findUser(username: string, password: string, accountType: string): User {
     const foundUser: User = this.users.find(user => user.username === username && user.password === password && user.accountType === accountType);
     this.activeUser = foundUser;
+    // Persist Active-User to Disk:
+    localStorage.setItem("activeUser", JSON.stringify(this.activeUser));
     return foundUser;
   }
 }
