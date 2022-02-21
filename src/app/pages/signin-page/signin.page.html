@@ -18,23 +18,24 @@
       <ion-card-content>
         <ion-item>
           <ion-icon name="key"></ion-icon>
-          <ion-input type="text" placeholder="Username" [(ngModel)]="username"></ion-input>
+          <ion-input style = "color:black" type="text" placeholder="Username" [(ngModel)]="username"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-icon name="lock-closed"></ion-icon>
-          <ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
+          <app-show-hide-password>
+              <ion-input style = "color:black" type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
+          </app-show-hide-password>
         </ion-item>
 
         <ion-item>
           <ion-icon name="person-circle-outline"></ion-icon>
-          <ion-label>Account Type</ion-label>
-          <ion-select value="AccountType" okText="OK" cancelText="CANCEL" [(ngModel)]="accountType">
-            <ion-select-option value="ADMIN">Administrator</ion-select-option>
-            <ion-select-option value="PATIENT">Patient</ion-select-option>
-            <ion-select-option value="MEDICALDOCTOR">Medical Doctor</ion-select-option>
-            <ion-select-option value="HEALTHOFFICIAL">Health Official</ion-select-option>
-            <ion-select-option value="IMMIGRATIONOFFICER">Immigration Officer</ion-select-option>
+          <ion-label style = "color:black">Account Type</ion-label>
+          <ion-select style = "color:black" value="accountType" okText="OK" cancelText="CANCEL" [(ngModel)]="accountType">
+            <ion-select-option style = "color:black" value="ADMIN">Administrator</ion-select-option>
+            <ion-select-option style = "color:black" value="PATIENT">Patient</ion-select-option>
+            <ion-select-option style = "color:black" value="MEDICALDOCTOR">Medical Doctor</ion-select-option>
+            <ion-select-option style = "color:black" value="HEALTHOFFICIAL">Health Official</ion-select-option>
+            <ion-select-option style = "color:black" value="IMMIGRATIONOFFICER">Immigration Officer</ion-select-option>
           </ion-select>
         </ion-item>
 

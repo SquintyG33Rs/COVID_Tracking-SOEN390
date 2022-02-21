@@ -1,13 +1,11 @@
-import {AccountType} from "./AccountType";
-
-
+import { AccountType } from "./AccountType";
 
 export class User {
   username: string;
   password: string;
   firstName: string;
   lastName: string;
-  accountType: string;
+  accountType: AccountType;
   telephone: string;
   email: string;
   address: string;
@@ -16,10 +14,11 @@ export class User {
                 password: string,
                 firstName: string,
                 lastName: string,
-                accountType: string,
+                accountType: AccountType,
                 telephone: string,
                 email: string,
-                address: string) {
+                address: string) 
+                {
     this.username = username;
     this.password = password;
     this.firstName = firstName;
