@@ -1,8 +1,9 @@
+import { AccountType } from './../../entities/AccountType';
 import { Component, OnInit } from '@angular/core';
-import {DatabaseService} from "../../database-services/database.service";
-import {User} from "../../entities/User";
-import {Router} from "@angular/router";
-
+import { DatabaseService } from "../../database-services/database.service";
+import { User } from "../../entities/User";
+import { Router } from "@angular/router";
+import { ShowHidePasswordComponent } from './show-hide-password.component';
 
 
 @Component({
@@ -16,16 +17,18 @@ export class SigninPage implements OnInit {
 
   username: string;
   password: string;
-  accountType: string;
+  accountType: AccountType;
 
-  constructor(databaseService: DatabaseService, router: Router) {
+  constructor(databaseService: DatabaseService, router: Router)
+  {
     this.databaseService = databaseService;
     this.router = router;
   }
 
   ngOnInit() { }
 
-  onSignin() {
+  onSignin() 
+  {
     const signInUser: User = this.databaseService.findUser(this.username, this.password, this.accountType)
     if(signInUser) {
       console.log("Sign-in User:");

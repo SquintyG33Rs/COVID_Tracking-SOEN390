@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { SigninPagePageRoutingModule } from './signin-page-routing.module';
 import { SigninPage } from './signin.page';
+import { ShowHidePasswordComponent } from './show-hide-password.component';
 
 
 
@@ -12,8 +13,13 @@ import { SigninPage } from './signin.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    SigninPagePageRoutingModule
+    SigninPagePageRoutingModule,
   ],
-  declarations: [SigninPage]
+  declarations: [SigninPage,
+    ShowHidePasswordComponent
+  ],
+  exports: [
+      ShowHidePasswordComponent
+  ]
 })
 export class SigninPageModule {}

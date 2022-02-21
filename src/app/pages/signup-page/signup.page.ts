@@ -1,7 +1,8 @@
+import { AccountType } from './../../entities/AccountType';
 import { Component, OnInit } from '@angular/core';
-import {DatabaseService} from "../../database-services/database.service";
-import {User} from "../../entities/User";
-import {Router} from "@angular/router";
+import { DatabaseService } from "../../database-services/database.service";
+import { User } from "../../entities/User";
+import { Router } from "@angular/router";
 
 
 
@@ -10,7 +11,8 @@ import {Router} from "@angular/router";
   templateUrl: './signup.page.html',
   styleUrls: ['./signup.page.scss'],
 })
-export class SignupPage implements OnInit {
+export class SignupPage implements OnInit 
+{
   private databaseService;
   private router: Router;
   successfulSignup: boolean = false;
@@ -19,19 +21,21 @@ export class SignupPage implements OnInit {
   password: string;
   firstName: string;
   lastName: string;
-  accountType: string;
+  accountType: AccountType;
   telephone: string;
   email: string;
   address: string;
 
-  constructor(databaseService: DatabaseService, router: Router) {
+  constructor(databaseService: DatabaseService, router: Router) 
+  {
     this.databaseService = databaseService;
     this.router = router;
   }
 
-  ngOnInit() {  }
+  ngOnInit() {}
 
-  onSignup() {
+  onSignup() 
+  {
     const signupUser: User = new User(this.username, this.password, this.firstName, this.lastName, this.accountType, this.telephone, this.email, this.address);
     this.databaseService.users.push(signupUser);
     this.successfulSignup = true;
