@@ -1,9 +1,12 @@
-version: '3'
+version: '3.9'
 services:
   web:
+    container_name: covid-app
     build: .
     ports:
       - 4200:4200
-
-volumes:
-  db-data:
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    environment:
+      - CHOKIDAR_USEPOLLING=true
