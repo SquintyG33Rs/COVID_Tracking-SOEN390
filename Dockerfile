@@ -5,11 +5,13 @@ WORKDIR /app
 COPY package*.json ./
 
 RUN npm install
+#RUN npm install -g @ionic/cli
+#RUN npm install -g @angular/cli
 
 COPY . .
 
-ENV PORT=8100
+ENV PORT=4200
 
-EXPOSE 8100
+EXPOSE 4200
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "docker-start"]
