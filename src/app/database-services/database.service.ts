@@ -1,7 +1,7 @@
 import { AccountType } from './../entities/AccountType';
 import {Injectable} from "@angular/core";
 import {User} from "../entities/User";
-
+import { Appointment } from '../entities/Appointment';
 
 
 @Injectable({
@@ -19,6 +19,7 @@ export class DatabaseService
     new User('immigrationOfficer.username', 'immigrationOfficer.password', 'immigrationOfficer.firstName', 'immigrationOfficer.lastName', AccountType.IMMIGRATIONOFFICER, '5144444444', 'immigrationOfficer@domain.com', 'ImmigrationOfficerCity'),
     new User('patient.username', 'patient.password', 'patient.firstName', 'patient.lastName', AccountType.PATIENT, '5145555555', 'patient@domain.com', 'PatientCity'),
   ];
+  appointments:Appointment[]=[];
 
 
   findUser(username: string, password: string, accountType: AccountType): User 

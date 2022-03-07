@@ -1,11 +1,11 @@
 import { AccountType } from "./AccountType";
 
 export class User {
-  username: string;
+  public username: string;
   password: string;
   firstName: string;
   lastName: string;
-  accountType: AccountType;
+  public accountType: AccountType;
   telephone: string;
   email: string;
   address: string;

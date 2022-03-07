@@ -1,0 +1,54 @@
+
+<ion-header class="ion-no-border">
+    <ion-toolbar>
+        <ion-button slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-button>
+      <ion-title>APPOINTMENT</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding >
+    <p id="Not_a_doctor">
+        ONLY MEDICAL DOCTORS CAN MAKE APPOINTMENTS
+    </p>
+    <div id="A_doctor">
+        <h1>
+            HERE ARE YOUR NEXT APPOINTMENTS
+        </h1>
+        <ion-list *ngFor="let item of appointments">
+            <ion-label>{{item.date+"  :"+item.patient.firstName+" "+item.patient.lastName}}</ion-label>
+        </ion-list>
+
+        <table class="appointment_table"></table>
+        <h2>Schedule an appointment</h2>
+            <ion-item>
+                <ion-label position="floating">Date <ion-icon style="float: right;" name='arrow-down'></ion-icon></ion-label>
+                <ion-input type="date" placeholder="01 jan 2022" [(ngModel)]="date"></ion-input>
+            </ion-item>
+        
+            
+            <ion-radio-group [(ngModel)]="appointmentUsername" *ngFor="let item of patients">
+                <ion-item>
+                        <ion-radio value={{item.username}} style="margin-right: 15px"></ion-radio>
+                        <ion-label>{{item.firstName+" "+item.lastName}}</ion-label>
+                </ion-item>
+            </ion-radio-group>
+            
+        
+        <ion-button (click)="CreateAppointment()" shape="round" expand="block">Create appointment</ion-button>
+        
+        <ion-footer class="ion-no-border" *ngIf="successfullAppointment">
+            <ion-toolbar color="primary">
+                <ion-title class="ion-text-center">Appointment successfully<br> created</ion-title>
+            </ion-toolbar>
+        </ion-footer>
+        
+            
+        
+            
+
+    </div>
+</ion-content>
+
+
