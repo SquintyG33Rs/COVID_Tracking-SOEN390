@@ -49,6 +49,7 @@ export class AppComponent
         { title: 'Home', url:'/home-page', icon: 'home-outline' /* find a list of all possible icons at https://ionic.io/ionicons */ },
         { title: 'Update my Status', url:'/status-update', icon: 'newspaper-outline' },
         { title: 'back to welcome', url:'/welcome-page', icon: 'planet-outline' }, //these three are only for demonstration purposes
+        {title:'Appointment',url:'/appointment',icon:'calendar-outline'},
         { title: 'to sign-in', url:'/signin-page', icon: 'person-outline' },
         { title: 'to sign-up', url:'/signup-page', icon: 'hand-right-outline' }
      ];
