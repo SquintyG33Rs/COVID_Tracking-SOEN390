@@ -19,18 +19,25 @@ export class AppComponent
 
   constructor( private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar, private router: Router, private databaseService: DatabaseService) 
   {
-    // Read Active-User from Disk:
-    let activeUser: User = JSON.parse(localStorage.getItem('activeUser'));
-    console.log(activeUser);
-
-    if(activeUser != null) 
+    if (localStorage.getItem('activeUser') === 'undefined')
     {
-      this.databaseService.activeUser = activeUser;
-      this.router.navigateByUrl("/home-page");
+      console.log("Could not find active user.")
     }
+    else
+    {
+      // Read Active-User from Disk:
+      let activeUser: User = JSON.parse(localStorage.getItem('activeUser'));
+      console.log(activeUser);
 
+      if(activeUser != null) 
+      {
+        this.databaseService.activeUser = activeUser;
+        this.router.navigateByUrl("/home-page");
+      }
+    }
     this.sideMenu();
     this.initializeApp();
+  
   }
 
    initializeApp() 
