@@ -6,6 +6,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "external-start": "ng serve --host=157.90.24.112",
     "docker-start": "ng serve --host=0.0.0.0",
     "build": "ng build",
     "test": "ng test",
