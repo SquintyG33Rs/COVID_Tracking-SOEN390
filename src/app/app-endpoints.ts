@@ -1,39 +1,39 @@
 import { Injectable } from  '@angular/core';
 import { HttpClient } from  '@angular/common/http';
 import { Observable } from 'rxjs';
-import { UserI } from './entities/UserI'
+//import { UserI } from './entities/UserI'
 
 
 @Injectable()
 export  class  Endpoints {
 
-    private url:string = 'http://api.localhost:8080/';
+    private url:string = 'https://api.team23soen390.xyz/';
 
     constructor(private  http : HttpClient) { }
 
     // Sending a GET request to /products
 
-    public getUsers(): Observable<UserI[]>{
-        return this.http.get<UserI[]>(this.url + 'users');
+    public getUsers(): Observable<any[]>{
+        return this.http.get<any[]>(this.url + 'users');
     }
 
-    public getDoctors(): Observable<UserI[]>{
-        return this.http.get<UserI[]>(this.url + 'doctors');
+    public getDoctors(): Observable<any[]>{
+        return this.http.get<any[]>(this.url + 'doctors');
     }
     
-    public getPatients(): Observable<UserI[]>{
-        return this.http.get<UserI[]>(this.url + 'patients');
+    public getPatients(): Observable<any[]>{
+        return this.http.get<any[]>(this.url + 'patients');
     }
 
-    public getAppointments(): Observable<UserI[]>{
-        return this.http.get<UserI[]>(this.url + 'appointments');
+    public getAppointments(): Observable<any[]>{
+        return this.http.get<any[]>(this.url + 'appointments');
     }
     
-    public getUserById(id): Observable<UserI[]>{
-        return this.http.get<UserI[]>(this.url + '/users/' + id);
+    public getUserById(id): Observable<any[]>{
+        return this.http.get<any[]>(this.url + '/users/' + id);
     }
 
-    public getUserByUsername(username): Observable<UserI[]>{
-        return this.http.get<UserI[]>(this.url + '/users/?username=' + username);
+    public getUserByUsername(username): Observable<any[]>{
+        return this.http.get<any[]>(this.url + '/users/?username=' + username);
     }
 }

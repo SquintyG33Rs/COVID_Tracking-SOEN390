@@ -1,0 +1,251 @@
+Example of return values from app-endpoints.ts endpoints:
+
+if it doesn't exist, it'll return []
+if the endpoint is wrong, it'll return a 404
+
+getUsers():
+[
+    {
+        "id": 1,
+        "username": "patient1",
+        "email": "p@e.com",
+        "provider": "local",
+        "confirmed": false,
+        "blocked": false,
+        "role": {
+            "id": 1,
+            "name": "Authenticated",
+            "description": "Default role given to authenticated user.",
+            "type": "authenticated"
+        },
+        "first_name": "Patient",
+        "last_name": "1",
+        "account_type": "Patient",
+        "address": "a",
+        "phone": "123",
+        "created_at": "2022-03-16T20:15:51.864Z",
+        "updated_at": "2022-03-16T20:15:51.871Z"
+    },
+    {
+        "id": 2,
+        "username": "patient2",
+        "email": "p@a.com",
+        "provider": "local",
+        "confirmed": false,
+        "blocked": false,
+        "role": {
+            "id": 1,
+            "name": "Authenticated",
+            "description": "Default role given to authenticated user.",
+            "type": "authenticated"
+        },
+        "first_name": "Patient",
+        "last_name": "2",
+        "account_type": "Patient",
+        "address": "a",
+        "phone": "1231231234",
+        "created_at": "2022-03-16T20:16:30.932Z",
+        "updated_at": "2022-03-16T20:16:30.941Z"
+    },
+    {
+        "id": 3,
+        "username": "doctor1",
+        "email": "d@a.com",
+        "provider": "local",
+        "confirmed": false,
+        "blocked": false,
+        "role": {
+            "id": 1,
+            "name": "Authenticated",
+            "description": "Default role given to authenticated user.",
+            "type": "authenticated"
+        },
+        "first_name": "Doctor",
+        "last_name": "1",
+        "account_type": "Doctor",
+        "address": "a",
+        "phone": "1231231234",
+        "created_at": "2022-03-16T20:17:12.293Z",
+        "updated_at": "2022-03-16T20:17:12.298Z"
+    }
+]
+
+getDoctors():
+[
+    {
+        "id": 1,
+        "is_user": {
+            "id": 3,
+            "username": "doctor1",
+            "email": "d@a.com",
+            "provider": "local",
+            "confirmed": false,
+            "blocked": false,
+            "role": 1,
+            "first_name": "Doctor",
+            "last_name": "1",
+            "account_type": "Doctor",
+            "address": "a",
+            "phone": "1231231234",
+            "created_at": "2022-03-16T20:17:12.293Z",
+            "updated_at": "2022-03-16T20:17:12.298Z"
+        },
+        "published_at": "2022-03-16T20:18:26.805Z",
+        "created_at": "2022-03-16T20:17:27.804Z",
+        "updated_at": "2022-03-16T20:18:26.841Z",
+        "patients": [
+            {
+                "id": 1,
+                "is_user": 1,
+                "current_doctor": 1,
+                "published_at": "2022-03-16T20:17:42.240Z",
+                "created_at": "2022-03-16T20:17:37.850Z",
+                "updated_at": "2022-03-16T20:17:42.260Z"
+            },
+            {
+                "id": 2,
+                "is_user": 2,
+                "current_doctor": 1,
+                "published_at": "2022-03-16T20:18:20.512Z",
+                "created_at": "2022-03-16T20:17:49.917Z",
+                "updated_at": "2022-03-16T20:18:20.527Z"
+            }
+        ]
+    }
+]
+
+getPatients():
+[
+    {
+        "id": 1,
+        "is_user": {
+            "id": 1,
+            "username": "patient1",
+            "email": "p@e.com",
+            "provider": "local",
+            "confirmed": false,
+            "blocked": false,
+            "role": 1,
+            "first_name": "Patient",
+            "last_name": "1",
+            "account_type": "Patient",
+            "address": "a",
+            "phone": "123",
+            "created_at": "2022-03-16T20:15:51.864Z",
+            "updated_at": "2022-03-16T20:15:51.871Z"
+        },
+        "current_doctor": {
+            "id": 1,
+            "is_user": 3,
+            "published_at": "2022-03-16T20:18:26.805Z",
+            "created_at": "2022-03-16T20:17:27.804Z",
+            "updated_at": "2022-03-16T20:18:26.841Z"
+        },
+        "published_at": "2022-03-16T20:17:42.240Z",
+        "created_at": "2022-03-16T20:17:37.850Z",
+        "updated_at": "2022-03-16T20:17:42.260Z"
+    },
+    {
+        "id": 2,
+        "is_user": {
+            "id": 2,
+            "username": "patient2",
+            "email": "p@a.com",
+            "provider": "local",
+            "confirmed": false,
+            "blocked": false,
+            "role": 1,
+            "first_name": "Patient",
+            "last_name": "2",
+            "account_type": "Patient",
+            "address": "a",
+            "phone": "1231231234",
+            "created_at": "2022-03-16T20:16:30.932Z",
+            "updated_at": "2022-03-16T20:16:30.941Z"
+        },
+        "current_doctor": {
+            "id": 1,
+            "is_user": 3,
+            "published_at": "2022-03-16T20:18:26.805Z",
+            "created_at": "2022-03-16T20:17:27.804Z",
+            "updated_at": "2022-03-16T20:18:26.841Z"
+        },
+        "published_at": "2022-03-16T20:18:20.512Z",
+        "created_at": "2022-03-16T20:17:49.917Z",
+        "updated_at": "2022-03-16T20:18:20.527Z"
+    }
+]
+
+getAppointments():
+[
+    {
+        "id": 1,
+        "patient": {
+            "id": 1,
+            "is_user": 1,
+            "current_doctor": 1,
+            "published_at": "2022-03-16T20:17:42.240Z",
+            "created_at": "2022-03-16T20:17:37.850Z",
+            "updated_at": "2022-03-16T20:17:42.260Z"
+        },
+        "doctor": {
+            "id": 1,
+            "is_user": 3,
+            "published_at": "2022-03-16T20:18:26.805Z",
+            "created_at": "2022-03-16T20:17:27.804Z",
+            "updated_at": "2022-03-16T20:18:26.841Z"
+        },
+        "date": "2022-03-24",
+        "published_at": "2022-03-16T20:18:42.492Z",
+        "created_at": "2022-03-16T20:18:39.700Z",
+        "updated_at": "2022-03-16T20:18:42.513Z"
+    }
+]
+
+getUserById(1):
+{
+    "id": 1,
+    "username": "patient1",
+    "email": "p@e.com",
+    "provider": "local",
+    "confirmed": false,
+    "blocked": false,
+    "role": {
+        "id": 1,
+        "name": "Authenticated",
+        "description": "Default role given to authenticated user.",
+        "type": "authenticated"
+    },
+    "first_name": "Patient",
+    "last_name": "1",
+    "account_type": "Patient",
+    "address": "a",
+    "phone": "123",
+    "created_at": "2022-03-16T20:15:51.864Z",
+    "updated_at": "2022-03-16T20:15:51.871Z"
+}
+
+getUserByUsername(patient1): //identical format to getUserById()
+[
+    {
+        "id": 1,
+        "username": "patient1",
+        "email": "p@e.com",
+        "provider": "local",
+        "confirmed": false,
+        "blocked": false,
+        "role": {
+            "id": 1,
+            "name": "Authenticated",
+            "description": "Default role given to authenticated user.",
+            "type": "authenticated"
+        },
+        "first_name": "Patient",
+        "last_name": "1",
+        "account_type": "Patient",
+        "address": "a",
+        "phone": "123",
+        "created_at": "2022-03-16T20:15:51.864Z",
+        "updated_at": "2022-03-16T20:15:51.871Z"
+    }
+]
