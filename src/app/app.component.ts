@@ -1,4 +1,3 @@
-import { ShowHidePasswordComponent } from './pages/signin-page/show-hide-password.component';
 import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';

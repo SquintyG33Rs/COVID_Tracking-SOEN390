@@ -1,6 +1,7 @@
 // This class has the task of keeping track of which page we are currently on using the router event listener
 import { EventEmitter } from "@angular/core";
 import { Event, NavigationEnd, NavigationError, NavigationStart, Router } from "@angular/router";
+import { User } from "../entities/User";
 
 export class MyServiceEvent 
 {

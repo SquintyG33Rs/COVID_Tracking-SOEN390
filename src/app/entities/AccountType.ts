@@ -1,4 +1,5 @@
-export enum AccountType {
+export enum AccountType
+{
   ADMIN = "ADMIN",
   PATIENT = "PATIENT",
   MEDICALDOCTOR = "MEDICALDOCTOR",
