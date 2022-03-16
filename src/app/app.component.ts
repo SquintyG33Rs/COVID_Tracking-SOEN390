@@ -5,6 +5,8 @@ import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
 import { User } from "./entities/User";
 import { Router } from "@angular/router";
 import { DatabaseService } from "./database-services/database.service";
+import { HttpClient} from "@angular/common/http"
+import { Endpoints } from './app-endpoints';
 
 @Component({
   selector: 'app-root',
@@ -15,9 +17,10 @@ import { DatabaseService } from "./database-services/database.service";
 export class AppComponent 
 {
   navigate: any;
-
-  constructor( private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar, private router: Router, private databaseService: DatabaseService) 
+  public test = [];
+  constructor( private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar, private router: Router, private databaseService: DatabaseService, private endpoints: Endpoints) 
   {
+    // Check if active user exists.
     if (localStorage.getItem('activeUser') === 'undefined')
     {
       console.log("Could not find active user.")
@@ -36,7 +39,14 @@ export class AppComponent
     }
     this.sideMenu();
     this.initializeApp();
-  
+    
+    
+    this.endpoints.getTest().subscribe((data) => {
+      this.test = data;
+      console.log(this.test)
+    })
+    //console.log(this.test)
+    
   }
 
    initializeApp() 
