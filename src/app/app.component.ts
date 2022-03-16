@@ -7,6 +7,8 @@ import { Router } from "@angular/router";
 import { DatabaseService } from "./database-services/database.service";
 import { HttpClient} from "@angular/common/http"
 import { Endpoints } from './app-endpoints';
+import { Patient } from './entities/Patient';
+import { AccountType } from './entities/AccountType';
 
 @Component({
   selector: 'app-root',
@@ -39,19 +41,21 @@ export class AppComponent
     }
     this.sideMenu();
     this.initializeApp();
-    
-    
-    this.endpoints.getUsers().subscribe((data) => {
-      this.test = data;
-      console.log(this.test)
-    })
 
-    this.endpoints.getDoctors().subscribe((data) => {
+    this.endpoints.getAppointmentByPatientUserId(1).subscribe((data) => {
       this.test = data;
       console.log(this.test)
     })
     //console.log(this.test)
     
+    //let temp = new User("Patient4", "123456", "Patient", "4", AccountType.PATIENT, "12345678", "abc@abc.com", "")
+    //this.endpoints.createAccount(temp).subscribe((data) => {
+    //  console.log(data)
+    //})
+    this.endpoints.login("patient3", "123456").subscribe((data) => {
+      this.test = data;
+      console.log(this.test)
+    })
   }
 
    initializeApp() 
