@@ -1,0 +1,9 @@
+http://localhost, http://127.0.0.1 {
+    reverse_proxy web:4200
+}
+
+http://api.localhost {
+    reverse_proxy strapi:1337 {
+        header_down Access-Control-Allow-Origin *
+    }
+}

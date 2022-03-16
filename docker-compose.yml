@@ -1,12 +1,49 @@
 version: '3.9'
 services:
+  caddy:
+    container_name: caddy
+    image: caddy
+    ports:
+      - "8080:80"
+    volumes:
+      - $PWD/Caddyfile:/etc/caddy/Caddyfile
+    depends_on:
+      - web
+      - strapi
+
   web:
     container_name: covid-app
     build: .
-    ports:
-      - 4200:4200
     volumes:
       - '.:/app'
       - '/app/node_modules'
     environment:
       - CHOKIDAR_USEPOLLING=true
+
+  strapi:
+    image: strapi/strapi
+    hostname: strapi
+    environment:
+      DATABASE_CLIENT: postgres
+      DATABASE_NAME: strapi
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_USERNAME: strapi
+      DATABASE_PASSWORD: strapi
+    volumes:
+      - ./dockerData/strapi:/srv/app
+    depends_on:
+      - postgres
+
+  
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: strapi
+      POSTGRES_USER: strapi
+      POSTGRES_PASSWORD: strapi
+    volumes:
+      - ./dockerData/strapiDb:/var/lib/postgresql/data
+
+networks:
+  caddy:
