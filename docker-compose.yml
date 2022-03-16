@@ -9,7 +9,6 @@ services:
       - ./Caddyfile:/etc/caddy/Caddyfile
     depends_on:
       - web
-      - strapi
 
   web:
     container_name: covid-app
@@ -19,12 +18,6 @@ services:
       - '/app/node_modules'
     environment:
       - CHOKIDAR_USEPOLLING=true
-
-  strapi:
-    image: strapi/strapi
-    hostname: strapi
-    volumes:
-      - ./strapi:/srv/app
 
 networks:
   caddy:
