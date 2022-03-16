@@ -249,3 +249,29 @@ getUserByUsername(patient1): //identical format to getUserById()
         "updated_at": "2022-03-16T20:15:51.871Z"
     }
 ]
+
+getAppointmentByPatientId(3):
+[
+    {
+        "id": 2,
+        "patient": {
+            "id": 3,
+            "is_user": 4,
+            "current_doctor": 2,
+            "published_at": "2022-03-16T23:12:24.536Z",
+            "created_at": "2022-03-16T23:11:45.431Z",
+            "updated_at": "2022-03-16T23:43:54.411Z"
+        },
+        "doctor": {
+            "id": 2,
+            "is_user": 6,
+            "published_at": "2022-03-16T22:13:05.829Z",
+            "created_at": "2022-03-16T22:13:05.835Z",
+            "updated_at": "2022-03-16T22:13:05.850Z"
+        },
+        "date": "2022-03-16T23:38:00.844Z",
+        "published_at": "2022-03-16T23:38:02.459Z",
+        "created_at": "2022-03-16T23:38:02.466Z",
+        "updated_at": "2022-03-16T23:38:02.475Z"
+    }
+]

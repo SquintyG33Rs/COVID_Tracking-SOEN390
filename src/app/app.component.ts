@@ -52,6 +52,7 @@ export class AppComponent
     //this.endpoints.createAccount(temp).subscribe((data) => {
     //  console.log(data)
     //})
+    /*
     this.endpoints.login("Patient4", "123456").subscribe((data) => {
       console.log(data);
       this.endpoints.addDoctorToPatient(2, 3).subscribe((data) => {
@@ -62,7 +63,7 @@ export class AppComponent
     console.log(dateString)
     this.endpoints.createAppointment(2,3,dateString).subscribe((data) => {
       console.log(data);
-    })
+    })*/
   }
 
    initializeApp() 

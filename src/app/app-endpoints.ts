@@ -1,6 +1,6 @@
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// IMPORTANT: docid != userid, patientid != userid. They are unique keys in their own table. use any getDoctorby..() or getPatientBy..() to get docid and patientid  //
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// IMPORTANT: id == userid, docid != userid, patientid != userid. They are unique keys in their own table. use any getDoctorby..() or getPatientBy..() to get docid and patientid  //
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 import { Injectable } from  '@angular/core';
 import { HttpClient, HttpParams } from  '@angular/common/http';
@@ -72,25 +72,37 @@ export  class  Endpoints {
         return this.http.get<any>(this.url + 'patients/', {params: qparams});
     }
 
-    public getDoctorByDoctorId(id): Observable<any>{
+    public getDoctorByDoctorId(doctorid): Observable<any>{//uses doctorid, doctorid != userid
 
-        return this.http.get<any>(this.url + 'doctors/' + id);
+        return this.http.get<any>(this.url + 'doctors/' + doctorid);
     }
 
-    public getPatientByPatientId(id): Observable<any>{
+    public getPatientByPatientId(patientid): Observable<any>{//uses patientid, patientid != userid
 
-        return this.http.get<any>(this.url + 'patients/' + id);
+        return this.http.get<any>(this.url + 'patients/' + patientid);
     }
 
-    public getAppointmentByPatientUserId(id): Observable<any>{
+    public getAppointmentByPatientUserId(id): Observable<any>{ 
         let qparams = new HttpParams();
         qparams = qparams.append("patient.id", id)
         return this.http.get<any>(this.url + 'appointments/', {params: qparams});
     }
 
-    public getAppointmentByDoctorUserId(id): Observable<any>{
+    public getAppointmentByDoctorUserId(id): Observable<any>{ 
         let qparams = new HttpParams();
         qparams = qparams.append("doctor.id", id)
+        return this.http.get<any>(this.url + 'appointments/', {params: qparams});
+    }
+
+    public getAppointmentByPatientId(patientid): Observable<any>{ //uses patientid, patientid != userid
+        let qparams = new HttpParams();
+        qparams = qparams.append("patient", patientid)
+        return this.http.get<any>(this.url + 'appointments/', {params: qparams});
+    }
+
+    public getAppointmentByDoctorId(doctorid): Observable<any>{ //uses doctorid, doctorid != userid
+        let qparams = new HttpParams();
+        qparams = qparams.append("doctor", doctorid)
         return this.http.get<any>(this.url + 'appointments/', {params: qparams});
     }
 
