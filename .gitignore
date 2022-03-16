@@ -31,6 +31,3 @@ npm-debug.log*
 /plugins
 /www
 /android
-strapi/*
-!strapi/.tmp
-!strapi/config
