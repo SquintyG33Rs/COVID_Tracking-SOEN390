@@ -1,20 +1,39 @@
 import { Injectable } from  '@angular/core';
 import { HttpClient } from  '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Test } from './Test'
+import { UserI } from './entities/UserI'
 
 
 @Injectable()
 export  class  Endpoints {
 
-    private url:string = 'http://127.0.0.1:5000/';
+    private url:string = 'http://api.localhost:8080/';
 
     constructor(private  http : HttpClient) { }
 
     // Sending a GET request to /products
 
-    public getTest(): Observable<Test[]>{
-        return this.http.get<Test[]>(this.url);
+    public getUsers(): Observable<UserI[]>{
+        return this.http.get<UserI[]>(this.url + 'users');
     }
 
+    public getDoctors(): Observable<UserI[]>{
+        return this.http.get<UserI[]>(this.url + 'doctors');
+    }
+    
+    public getPatients(): Observable<UserI[]>{
+        return this.http.get<UserI[]>(this.url + 'patients');
+    }
+
+    public getAppointments(): Observable<UserI[]>{
+        return this.http.get<UserI[]>(this.url + 'appointments');
+    }
+    
+    public getUserById(id): Observable<UserI[]>{
+        return this.http.get<UserI[]>(this.url + '/users/' + id);
+    }
+
+    public getUserByUsername(username): Observable<UserI[]>{
+        return this.http.get<UserI[]>(this.url + '/users/?username=' + username);
+    }
 }
