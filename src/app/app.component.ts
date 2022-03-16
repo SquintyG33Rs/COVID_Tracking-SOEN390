@@ -41,7 +41,12 @@ export class AppComponent
     this.initializeApp();
     
     
-    this.endpoints.getTest().subscribe((data) => {
+    this.endpoints.getUsers().subscribe((data) => {
+      this.test = data;
+      console.log(this.test)
+    })
+
+    this.endpoints.getDoctors().subscribe((data) => {
       this.test = data;
       console.log(this.test)
     })
