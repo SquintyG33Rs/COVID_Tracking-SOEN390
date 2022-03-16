@@ -7,8 +7,6 @@ import { AppComponent } from './app.component';
 import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
 import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
-import { Endpoints } from './app-endpoints';
 
 @NgModule({
   declarations: [
@@ -20,11 +18,9 @@ import { Endpoints } from './app-endpoints';
   BrowserModule,
   IonicModule.forRoot(),
   AppRoutingModule,
-  SigninPageModule,
-  HttpClientModule
+  SigninPageModule
   ],
   providers: [
-    Endpoints,
     StatusBar,
     SplashScreen,
     {
