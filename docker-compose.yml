@@ -6,7 +6,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - $PWD/Caddyfile:/etc/caddy/Caddyfile
+      - ./Caddyfile:/etc/caddy/Caddyfile
     depends_on:
       - web
       - strapi
@@ -23,27 +23,8 @@ services:
   strapi:
     image: strapi/strapi
     hostname: strapi
-    environment:
-      DATABASE_CLIENT: postgres
-      DATABASE_NAME: strapi
-      DATABASE_HOST: postgres
-      DATABASE_PORT: 5432
-      DATABASE_USERNAME: strapi
-      DATABASE_PASSWORD: strapi
     volumes:
-      - ./dockerData/strapi:/srv/app
-    depends_on:
-      - postgres
-
-  
-  postgres:
-    image: postgres
-    environment:
-      POSTGRES_DB: strapi
-      POSTGRES_USER: strapi
-      POSTGRES_PASSWORD: strapi
-    volumes:
-      - ./dockerData/strapiDb:/var/lib/postgresql/data
+      - ./strapi:/srv/app
 
 networks:
   caddy:
