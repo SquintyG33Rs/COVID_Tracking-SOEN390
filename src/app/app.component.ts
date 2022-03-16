@@ -57,7 +57,9 @@ export class AppComponent
         { title: 'back to welcome', url:'/welcome-page', icon: 'planet-outline' }, //these three are only for demonstration purposes
         {title:'Appointment',url:'/appointment',icon:'calendar-outline'},
         { title: 'to sign-in', url:'/signin-page', icon: 'person-outline' },
-        { title: 'to sign-up', url:'/signup-page', icon: 'hand-right-outline' }
+        { title: 'to sign-up', url:'/signup-page', icon: 'hand-right-outline' },
+        { title: 'Manage Profiles', url:'/manage-profiles', icon: 'people-outline' }
+
      ];
     }
 }

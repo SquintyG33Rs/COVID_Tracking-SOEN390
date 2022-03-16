@@ -1,0 +1,56 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar>
+        <ion-button slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-button>
+        <ion-title>Manage Profiles</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-searchbar (ionInput)="search($event.target.value)"></ion-searchbar>
+    <ion-list>
+        <ion-item button (click)="buttonClick(user, i)" *ngFor="let user of displayedUsers; let i = index;">{{ user.username }}</ion-item>
+    </ion-list>
+
+    <br>
+
+    <ion-list *ngIf="clicked" lines="full" class="ion-no-margin">
+        <ion-list-header>
+            <ion-label>User Details</ion-label>
+        </ion-list-header>
+
+        <ion-item>
+            <ion-label>First Name</ion-label>
+            <ion-input [(ngModel)]="editedUser.firstName" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Last Name</ion-label>
+            <ion-input [(ngModel)]="editedUser.lastName" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Account Type</ion-label>
+            <ion-input [(ngModel)]="editedUser.accountType" readonly type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Telephone</ion-label>
+            <ion-input [(ngModel)]="editedUser.telephone" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Email</ion-label>
+            <ion-input [(ngModel)]="editedUser.email" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Address</ion-label>
+            <ion-input [(ngModel)]="editedUser.address" type="text"></ion-input>
+        </ion-item>
+
+        <ion-button type="submit" (click)="submit()">Submit</ion-button>
+    </ion-list>
+
+</ion-content>
