@@ -7,6 +7,7 @@ import { User } from './entities/User'
 
 @Injectable()
 export  class  Endpoints {
+    activeUser;
 
     private url:string = 'https://api.team23soen390.xyz/';
 
