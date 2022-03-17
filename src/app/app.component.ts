@@ -42,20 +42,28 @@ export class AppComponent
     this.sideMenu();
     this.initializeApp();
 
-    this.endpoints.getAppointmentByPatientUserId(1).subscribe((data) => {
-      this.test = data;
-      console.log(this.test)
-    })
+    //this.endpoints.getAppointmentByPatientUserId(1).subscribe((data) => {
+    //  this.test = data[0]['doctor'];
+    //  console.log(this.test)
+    //})
     //console.log(this.test)
     
     //let temp = new User("Patient4", "123456", "Patient", "4", AccountType.PATIENT, "12345678", "abc@abc.com", "")
     //this.endpoints.createAccount(temp).subscribe((data) => {
     //  console.log(data)
     //})
-    this.endpoints.login("patient3", "123456").subscribe((data) => {
-      this.test = data;
-      console.log(this.test)
+    /*
+    this.endpoints.login("Patient4", "123456").subscribe((data) => {
+      console.log(data);
+      this.endpoints.addDoctorToPatient(2, 3).subscribe((data) => {
+        console.log(data);})
     })
+    var m = new Date();
+    var dateString = m.getTime()
+    console.log(dateString)
+    this.endpoints.createAppointment(2,3,dateString).subscribe((data) => {
+      console.log(data);
+    })*/
   }
 
    initializeApp() 
@@ -76,7 +84,9 @@ export class AppComponent
         { title: 'back to welcome', url:'/welcome-page', icon: 'planet-outline' }, //these three are only for demonstration purposes
         {title:'Appointment',url:'/appointment',icon:'calendar-outline'},
         { title: 'to sign-in', url:'/signin-page', icon: 'person-outline' },
-        { title: 'to sign-up', url:'/signup-page', icon: 'hand-right-outline' }
+        { title: 'to sign-up', url:'/signup-page', icon: 'hand-right-outline' },
+        { title: 'Manage Profiles', url:'/manage-profiles', icon: 'people-outline' }
+
      ];
     }
 }
