@@ -39,32 +39,42 @@ export class SignupPage implements OnInit
     
     this.user = null;
     const signupUser: User = new User(this.username, this.password, this.firstName, this.lastName, this.accountType, this.telephone, this.email, this.address);
-    console.log((signupUser.accountType == AccountType.PATIENT))
     this.endpoints.createUser(signupUser).subscribe((data) => {
       this.user = data;
       localStorage.setItem('user', JSON.stringify(data['user']))
       localStorage.setItem('jwt', JSON.stringify(data['jwt']))
-      console.log(data)
 
       
       if (signupUser.accountType == AccountType.PATIENT) {
         let userid = data.user.id
-        this.endpoints.createPatient(userid).subscribe((data) => {
-          console.log(data);
+        this.endpoints.createStatus().subscribe((data) => {
+          console.log(data)
+          let statusid = data['id']
+          this.endpoints.createPatient(userid, statusid).subscribe((data) => {
+            console.log(data);
+            console.log("Sign-in User:");
+            console.log(JSON.parse(localStorage.getItem('user')));
+            //this.endpoints.activeUser = JSON.parse(localStorage.getItem('user'));
+            this.router.navigate(['home-page']).then(() => console.log("Route Forward To Home Page."));
+          });
         }, error => {console.log(error.error.message[0].messages[0].id)});
       }
       else if (signupUser.accountType == AccountType.MEDICALDOCTOR) {
         let userid = data.user.id
         this.endpoints.createDoctor(userid).subscribe((data) => {
           console.log(data);
+          console.log("Sign-in User:");
+          console.log(JSON.parse(localStorage.getItem('user')));
+          //this.endpoints.activeUser = JSON.parse(localStorage.getItem('user'));
+          this.router.navigate(['home-page']).then(() => console.log("Route Forward To Home Page."));
         }, error => {console.log(error.error.message[0].messages[0].id)});
       }
-
-
-      console.log("Sign-in User:");
-      console.log(JSON.parse(localStorage.getItem('user')));
-      //this.endpoints.activeUser = JSON.parse(localStorage.getItem('user'));
-      this.router.navigate(['home-page']).then(() => console.log("Route Forward To Home Page."));
+      else {
+        console.log("Sign-in User:");
+        console.log(JSON.parse(localStorage.getItem('user')));
+        //this.endpoints.activeUser = JSON.parse(localStorage.getItem('user'));
+        this.router.navigate(['home-page']).then(() => console.log("Route Forward To Home Page."));
+      }
     }, error => {console.log(error.error.message[0].messages[0].id)});
 
     

@@ -58,14 +58,14 @@ export  class  Endpoints {
         return this.http.get<any>(this.url + 'patients/', {params: qparams});
     }
 
-    public getDoctorById(userid): Observable<any>{
+    public getDoctorByUserId(userid): Observable<any>{
 
         let qparams = new HttpParams();
         qparams = qparams.append("is_user.id", userid)
         return this.http.get<any>(this.url + 'doctors/', {params: qparams});
     }
 
-    public getPatientById(userid): Observable<any>{
+    public getPatientByUserId(userid): Observable<any>{
 
         let qparams = new HttpParams();
         qparams = qparams.append("is_user.id", userid)
@@ -106,6 +106,17 @@ export  class  Endpoints {
         return this.http.get<any>(this.url + 'appointments/', {params: qparams});
     }
 
+    public getAppointmentByPatientUsername(username): Observable<any>{ 
+        let qparams = new HttpParams();
+        qparams = qparams.append("patient.username", username)
+        return this.http.get<any>(this.url + 'appointments/', {params: qparams});
+    }
+
+    public getAppointmentByDoctorUsername(username): Observable<any>{ 
+        let qparams = new HttpParams();
+        qparams = qparams.append("doctor.username", username)
+        return this.http.get<any>(this.url + 'appointments/', {params: qparams});
+    }
 
     //POST requests
     //pass user object
@@ -131,10 +142,11 @@ export  class  Endpoints {
         return this.http.post<any>(this.url + 'doctors/', body);
     }
 
-    public createPatient(userid): Observable<any>{ //add an entry for Doctor, call this after successfully creating a user with accountType = PATIENT
+    public createPatient(userid, statusid): Observable<any>{ //add an entry for Doctor, call this after successfully creating a user with accountType = PATIENT
         const body = {
             is_user: userid,
-            flagged: false
+            flagged: false,
+            status: statusid
         }
         return this.http.post<any>(this.url + 'patients/', body);
     }
@@ -157,12 +169,43 @@ export  class  Endpoints {
         return this.http.post<any>(this.url + 'appointments/', body);
     }
 
+    public createStatus(): Observable<any> {
+        let date = new Date()
+        let dateString = date.getTime()
+        const body= {
+            date: dateString,
+            temperature: 0,
+            weight: 0,
+            cough: false,
+            headache: false,
+            sore_throat: false,
+            fever: false,
+            loss_of_taste_or_smell: false,
+            tiredness: false
+        }
+        return this.http.post<any>(this.url + 'statuses/', body);
+    }
+    
+    public createStatusWithParams(dateString, temperature, weight, cough, headache, sore_throat, fever, loss_of_taste_or_smell, tiredness): Observable<any> { //call 
+        const body = {
+            date: dateString,
+            temperature: temperature,
+            weight: weight,
+            cough: cough,
+            headache: headache,
+            sore_throat: sore_throat,
+            fever: fever,
+            loss_of_taste_or_smell: loss_of_taste_or_smell,
+            tiredness: tiredness
+        }
+        return this.http.post<any>(this.url + 'statuses/', body);
+    }
 
     //PUT requests
     //docid and patientid are not the same as their userid, call getDoctorby..() to get their doctor id
-    public addPatientToDoctor(docid, patientid): Observable<any>{
+    public addPatientToDoctor(docid, patientids): Observable<any>{ //patientid can be an array of patientid
         const body = {
-            patients: patientid
+            patients: patientids
         }
         return this.http.put<any>(this.url + 'doctors/' + docid, body);
     }
@@ -171,6 +214,20 @@ export  class  Endpoints {
     public addDoctorToPatient(docid, patientid): Observable<any>{
         const body = {
             current_doctor: docid
+        }
+        return this.http.put<any>(this.url + 'patients/' + patientid, body);
+    }
+
+    public modifyPatientStatus(patientid, statusid): Observable<any> {
+        const body = {
+            status: statusid
+        }
+        return this.http.put<any>(this.url + 'patients/' + patientid, body);
+    }
+
+    public modifyPatientStatusHistory(patientid, statusids): Observable<any> { //statusids can be an array
+        const body = {
+            status_history: statusids
         }
         return this.http.put<any>(this.url + 'patients/' + patientid, body);
     }
