@@ -1,6 +1,6 @@
 import { AccountType } from './../../entities/AccountType';
 import { Component, OnInit } from '@angular/core';
-import { DatabaseService } from "../../database-services/database.service";
+import { Endpoints } from "../../app-endpoints";
 import { User } from "../../entities/User";
 import { Router } from "@angular/router";
 import { ShowHidePasswordComponent } from './show-hide-password.component';
@@ -12,27 +12,33 @@ import { ShowHidePasswordComponent } from './show-hide-password.component';
   styleUrls: ['./signin.page.scss'],
 })
 export class SigninPage implements OnInit {
-  private databaseService;
+  private endpoint;
   private router: Router;
+  private user;
 
   username: string;
   password: string;
   accountType: AccountType;
 
-  constructor(databaseService: DatabaseService, router: Router)
+  constructor(router: Router, endpoints: Endpoints)
   {
-    this.databaseService = databaseService;
+    this.endpoint = endpoints;
     this.router = router;
   }
 
   ngOnInit() { }
 
-  onSignin() 
+  async onSignin() 
   {
-    const signInUser: User = this.databaseService.findUser(this.username, this.password, this.accountType)
-    if(signInUser) {
+    this.user = null;
+    this.endpoint.login(this.username, this.password).subscribe((data) => {
+      this.user = data;
+      console.log(data)
+    })
+    await new Promise(resolve => setTimeout(resolve, 500));
+    if(this.user !== null) {
       console.log("Sign-in User:");
-      console.log(signInUser);
+      this.endpoint.activeUser = this.user;
       this.router.navigate(['home-page']).then(() => console.log("Route Forward To Home Page."));
     }
   }

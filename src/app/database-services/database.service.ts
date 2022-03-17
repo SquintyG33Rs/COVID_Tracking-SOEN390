@@ -1,6 +1,6 @@
 import { AccountType } from './../entities/AccountType';
-import {Injectable} from "@angular/core";
-import {User} from "../entities/User";
+import { Injectable } from "@angular/core";
+import { User } from "../entities/User";
 import { Appointment } from '../entities/Appointment';
 import { Admin } from '../entities/Admin';
 import { Doctor } from '../entities/Doctor';

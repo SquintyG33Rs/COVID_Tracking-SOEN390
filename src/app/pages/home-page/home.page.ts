@@ -1,6 +1,6 @@
 import { MyServiceEvent, RouteChangeDetection } from './../../scripts/RouteChangeListener';
 import { Component, OnInit } from '@angular/core';
-import { DatabaseService } from "../../database-services/database.service";
+import { Endpoints } from "../../app-endpoints";
 import { User } from "../../entities/User";
 import { Router } from "@angular/router";
 import { AccountType } from 'src/app/entities/AccountType';
@@ -13,15 +13,16 @@ import { Subscription } from 'rxjs';
 })
 export class HomePage implements OnInit 
 {
+  private endpoint;
   private serviceSubscription: Subscription;
-  private activeUser: User;
+  private activeUser;
   currentRouteURL: String;
   urlDetector: RouteChangeDetection = new RouteChangeDetection(this.router);
   
 
-  constructor(private databaseService: DatabaseService, private router: Router)
+  constructor(private endpoints: Endpoints, private router: Router)
   {
-    this.databaseService = databaseService;
+    this.endpoint = endpoints;
 
     this.serviceSubscription = this.urlDetector.onChange.subscribe({
       next: (event: MyServiceEvent) => {
@@ -32,18 +33,18 @@ export class HomePage implements OnInit
 
   onChangeRouteDetection(message:string)
   {
-    this.activeUser = this.databaseService.activeUser;
+    this.activeUser = this.endpoint.activeUser;
     if (message === '/home-page')
     {
-      switch (this.activeUser.accountType)
+      /*switch (this.activeUser.accountType)
       {    
         case AccountType.ADMIN:
         break;
         case AccountType.MEDICALDOCTOR:
           console.log("Hello Doctor!");
-          /*
-            Doctor code goes here
-          */ 
+          
+            //Doctor code goes here 
+        
         break;
         case AccountType.HEALTHOFFICIAL: 
         break;
@@ -51,22 +52,25 @@ export class HomePage implements OnInit
         break;
         case AccountType.PATIENT:
           console.log("Hello Patient!");
-          /*
-            Patient code goes here etc.
-          */ 
+          
+            //Patient code goes here etc.
+           
         break;
       }
+      */
     }
   }
 
   ngOnInit() 
   {
-    this.activeUser = this.databaseService.activeUser;
+    this.activeUser = this.endpoint.activeUser;
+    console.log("log user:");
+    console.log(this.activeUser.user.last_name);
   }
 
   logOut() 
   {
-    this.databaseService.activeUser = null;
+    this.endpoint.activeUser = null;
     this.activeUser = null;
     localStorage.clear();
     this.router.navigateByUrl("/welcome-page");

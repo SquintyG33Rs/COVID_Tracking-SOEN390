@@ -1,4 +1,5 @@
 import { AccountType } from "./AccountType";
+import { Observable } from 'rxjs';
 
 export class InformationEvent 
 {
