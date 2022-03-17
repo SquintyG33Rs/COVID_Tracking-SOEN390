@@ -1,9 +1,8 @@
 import { AccountType } from './../../entities/AccountType';
 import { Component, OnInit } from '@angular/core';
-import { DatabaseService } from "../../database-services/database.service";
 import { User } from "../../entities/User";
 import { Router } from "@angular/router";
-
+import { Endpoints } from '../../app-endpoints'
 
 
 @Component({
@@ -13,9 +12,10 @@ import { Router } from "@angular/router";
 })
 export class SignupPage implements OnInit 
 {
-  private databaseService;
   private router: Router;
   successfulSignup: boolean = false;
+  endpoints: Endpoints;
+  private user;
 
   username: string;
   password: string;
@@ -26,21 +26,47 @@ export class SignupPage implements OnInit
   email: string;
   address: string;
 
-  constructor(databaseService: DatabaseService, router: Router) 
+  constructor(endpoints: Endpoints, router: Router) 
   {
-    this.databaseService = databaseService;
+    this.endpoints = endpoints;
     this.router = router;
   }
 
   ngOnInit() {}
 
-  onSignup() 
+  async onSignup() 
   {
+    
+    this.user = null;
     const signupUser: User = new User(this.username, this.password, this.firstName, this.lastName, this.accountType, this.telephone, this.email, this.address);
-    this.databaseService.users.push(signupUser);
-    this.successfulSignup = true;
-    console.log("Sign-up User:");
-    console.log(signupUser);
-    setTimeout(() => { this.router.navigate(['welcome-page']).then(() => console.log("Route Back To Welcome Page.")); }, 3000);
+    console.log((signupUser.accountType == AccountType.PATIENT))
+    this.endpoints.createUser(signupUser).subscribe((data) => {
+      this.user = data;
+      localStorage.setItem('user', JSON.stringify(data['user']))
+      localStorage.setItem('jwt', JSON.stringify(data['jwt']))
+      console.log(data)
+
+      
+      if (signupUser.accountType == AccountType.PATIENT) {
+        let userid = data.user.id
+        this.endpoints.createPatient(userid).subscribe((data) => {
+          console.log(data);
+        }, error => {console.log(error.error.message[0].messages[0].id)});
+      }
+      else if (signupUser.accountType == AccountType.MEDICALDOCTOR) {
+        let userid = data.user.id
+        this.endpoints.createDoctor(userid).subscribe((data) => {
+          console.log(data);
+        }, error => {console.log(error.error.message[0].messages[0].id)});
+      }
+
+
+      console.log("Sign-in User:");
+      console.log(JSON.parse(localStorage.getItem('user')));
+      //this.endpoints.activeUser = JSON.parse(localStorage.getItem('user'));
+      this.router.navigate(['home-page']).then(() => console.log("Route Forward To Home Page."));
+    }, error => {console.log(error.error.message[0].messages[0].id)});
+
+    
   }
 }

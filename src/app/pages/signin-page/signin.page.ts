@@ -32,16 +32,16 @@ export class SigninPage implements OnInit {
   {
     this.user = null;
     this.endpoint.login(this.username, this.password).subscribe((data) => {
+      console.log(data)
       this.user = data;
       localStorage.setItem('user', JSON.stringify(data['user']))
       localStorage.setItem('jwt', JSON.stringify(data['jwt']))
-      console.log(data)
-    })
-    await new Promise(resolve => setTimeout(resolve, 500));
-    if(this.user !== null) {
       console.log("Sign-in User:");
-      this.endpoint.activeUser = JSON.parse(localStorage.getItem('user'));
+      console.log(JSON.parse(localStorage.getItem('user')));
+      //this.endpoints.activeUser = JSON.parse(localStorage.getItem('user'));
       this.router.navigate(['home-page']).then(() => console.log("Route Forward To Home Page."));
-    }
+    }, error => {
+      console.log(error.error.message[0].messages[0].id)
+    });
   }
 }

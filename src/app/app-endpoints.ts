@@ -11,7 +11,6 @@ import { User } from './entities/User'
 
 @Injectable()
 export  class  Endpoints {
-    activeUser;
 
     private url:string = 'https://api.team23soen390.xyz/';
     constructor(private  http : HttpClient) { }
@@ -59,17 +58,17 @@ export  class  Endpoints {
         return this.http.get<any>(this.url + 'patients/', {params: qparams});
     }
 
-    public getDoctorById(id): Observable<any>{
+    public getDoctorById(userid): Observable<any>{
 
         let qparams = new HttpParams();
-        qparams = qparams.append("is_user.id", id)
+        qparams = qparams.append("is_user.id", userid)
         return this.http.get<any>(this.url + 'doctors/', {params: qparams});
     }
 
-    public getPatientById(id): Observable<any>{
+    public getPatientById(userid): Observable<any>{
 
         let qparams = new HttpParams();
-        qparams = qparams.append("is_user.id", id)
+        qparams = qparams.append("is_user.id", userid)
         return this.http.get<any>(this.url + 'patients/', {params: qparams});
     }
 
@@ -83,15 +82,15 @@ export  class  Endpoints {
         return this.http.get<any>(this.url + 'patients/' + patientid);
     }
 
-    public getAppointmentByPatientUserId(id): Observable<any>{ 
+    public getAppointmentByPatientUserId(userid): Observable<any>{ 
         let qparams = new HttpParams();
-        qparams = qparams.append("patient.id", id)
+        qparams = qparams.append("patient.id", userid)
         return this.http.get<any>(this.url + 'appointments/', {params: qparams});
     }
 
-    public getAppointmentByDoctorUserId(id): Observable<any>{ 
+    public getAppointmentByDoctorUserId(userid): Observable<any>{ 
         let qparams = new HttpParams();
-        qparams = qparams.append("doctor.id", id)
+        qparams = qparams.append("doctor.id", userid)
         return this.http.get<any>(this.url + 'appointments/', {params: qparams});
     }
 
@@ -110,17 +109,18 @@ export  class  Endpoints {
 
     //POST requests
     //pass user object
-    public createAccount(user): Observable<any>{
+    public createUser(user): Observable<any>{
         const body = {
             username: user.username,
-            first_name: user.firstname,
-            last_name: user.lastname,
+            first_name: user.firstName,
+            last_name: user.lastName,
             address: user.address,
             phone: user.telephone,
             account_type: user.accountType,
             email: user.email,
             password: user.password
         }
+        console.log(body)
         return this.http.post<any>(this.url + 'auth/local/register', body);
     }
 
@@ -135,7 +135,7 @@ export  class  Endpoints {
         const body = {
             is_user: userid
         }
-        return this.http.post<any>(this.url + 'doctors/', body);
+        return this.http.post<any>(this.url + 'patients/', body);
     }
 
     //identifier can be either username or email, will return JWT on success.
