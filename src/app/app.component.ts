@@ -16,11 +16,11 @@ import { AccountType } from './entities/AccountType';
   styleUrls: ['app.component.scss']
 })
 
-export class AppComponent 
+export class AppComponent
 {
   navigate: any;
   public test = [];
-  constructor( private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar, private router: Router, private databaseService: DatabaseService, private endpoints: Endpoints) 
+  constructor( private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar, private router: Router, private databaseService: DatabaseService, private endpoints: Endpoints)
   {
     // Check if active user exists.
     if (localStorage.getItem('activeUser') === 'undefined')
@@ -33,7 +33,7 @@ export class AppComponent
       let activeUser: User = JSON.parse(localStorage.getItem('activeUser'));
       console.log(activeUser);
 
-      if(activeUser != null) 
+      if(activeUser != null)
       {
         this.databaseService.activeUser = activeUser;
         this.router.navigateByUrl("/home-page");
@@ -47,7 +47,7 @@ export class AppComponent
     //  console.log(this.test)
     //})
     //console.log(this.test)
-    
+
     //let temp = new User("Patient4", "123456", "Patient", "4", AccountType.PATIENT, "12345678", "abc@abc.com", "")
     //this.endpoints.createAccount(temp).subscribe((data) => {
     //  console.log(data)
@@ -66,16 +66,16 @@ export class AppComponent
     })*/
   }
 
-   initializeApp() 
+   initializeApp()
    {
-      this.platform.ready().then(() => 
+      this.platform.ready().then(() =>
       {
        this.statusBar.styleDefault();
        this.splashScreen.hide();
       });
    }
 
-   sideMenu() 
+   sideMenu()
    {
      this.navigate =
      [
@@ -85,8 +85,9 @@ export class AppComponent
         {title:'Appointment',url:'/appointment',icon:'calendar-outline'},
         { title: 'to sign-in', url:'/signin-page', icon: 'person-outline' },
         { title: 'to sign-up', url:'/signup-page', icon: 'hand-right-outline' },
-        { title: 'Manage Profiles', url:'/manage-profiles', icon: 'people-outline' }
-
+        { title: 'Manage Profiles', url:'/manage-profiles', icon: 'people-outline' },
+        { title: 'Monitor Patients', url:'/monitoring-status',icon: 'people-outline'},
+        { title: 'Assignment', url:'/assignment',icon: 'people-outline'}
      ];
     }
 }
