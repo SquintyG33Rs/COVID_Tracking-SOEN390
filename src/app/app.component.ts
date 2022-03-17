@@ -23,19 +23,19 @@ export class AppComponent
   constructor( private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar, private router: Router, private databaseService: DatabaseService, private endpoints: Endpoints)
   {
     // Check if active user exists.
-    if (localStorage.getItem('activeUser') === 'undefined')
+    if (localStorage.getItem('user') === 'undefined')
     {
       console.log("Could not find active user.")
     }
     else
     {
       // Read Active-User from Disk:
-      let activeUser: User = JSON.parse(localStorage.getItem('activeUser'));
+      let activeUser = JSON.parse(localStorage.getItem('user'));
       console.log(activeUser);
 
       if(activeUser != null)
       {
-        this.databaseService.activeUser = activeUser;
+        //this.databaseService.activeUser = activeUser;
         this.router.navigateByUrl("/home-page");
       }
     }

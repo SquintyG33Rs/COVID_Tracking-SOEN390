@@ -133,7 +133,8 @@ export  class  Endpoints {
 
     public createPatient(userid): Observable<any>{ //add an entry for Doctor, call this after successfully creating a user with accountType = PATIENT
         const body = {
-            is_user: userid
+            is_user: userid,
+            flagged: false
         }
         return this.http.post<any>(this.url + 'patients/', body);
     }
