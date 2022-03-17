@@ -33,7 +33,8 @@ export class HomePage implements OnInit
 
   onChangeRouteDetection(message:string)
   {
-    this.activeUser = this.endpoint.activeUser;
+    this.activeUser = JSON.parse(localStorage.getItem('user'));
+    console.log(JSON.parse(localStorage.getItem('user')))
     if (message === '/home-page')
     {
       /*switch (this.activeUser.accountType)
@@ -63,9 +64,9 @@ export class HomePage implements OnInit
 
   ngOnInit() 
   {
-    this.activeUser = this.endpoint.activeUser;
+    this.activeUser = JSON.parse(localStorage.getItem('user'));
     console.log("log user:");
-    console.log(this.activeUser.user.last_name);
+    console.log(this.activeUser.last_name);
   }
 
   logOut() 
