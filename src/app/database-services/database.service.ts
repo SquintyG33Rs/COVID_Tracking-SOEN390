@@ -7,6 +7,7 @@ import { Doctor } from '../entities/Doctor';
 import { HealthOfficial } from '../entities/HealthOfficial';
 import { ImmigrationOfficer } from '../entities/ImmigrationOfficer';
 import { Patient } from '../entities/Patient';
+import { MedicalCommunication } from '../entities/MedicalCommunication';
 
 
 @Injectable({
@@ -25,6 +26,7 @@ export class DatabaseService
     new Patient('patient.username', 'patient.password', 'patient.firstName', 'patient.lastName', '5145555555', 'patient@domain.com', 'PatientCity'),
   ];
   appointments:Appointment[]=[];
+  messages:MedicalCommunication[]=[];
 
 
   findUser(username: string, password: string, accountType: AccountType): User 

@@ -87,7 +87,8 @@ export class AppComponent
         { title: 'to sign-up', url:'/signup-page', icon: 'hand-right-outline' },
         { title: 'Manage Profiles', url:'/manage-profiles', icon: 'people-outline' },
         { title: 'Monitor Patients', url:'/monitoring-status',icon: 'people-outline'},
-        { title: 'Assignment', url:'/assignment',icon: 'people-outline'}
+        { title: 'Assignment', url:'/assignment',icon: 'people-outline'},
+        {title:'Contact',url:'/contact', icon:'mail-outline'},
      ];
     }
 }

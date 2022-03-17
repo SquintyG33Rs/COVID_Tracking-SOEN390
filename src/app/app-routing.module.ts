@@ -39,9 +39,15 @@ const routes: Routes = [
   {
     path: 'monitoring-status',
     loadChildren: () => import('./pages/monitoring-status/monitoring-status.module').then( m => m.MonitoringStatusPageModule)
-  },  {
+  },
+  {
     path: 'assignment',
     loadChildren: () => import('./pages/assignment/assignment.module').then( m => m.AssignmentPageModule)
+  },
+  {
+    path: 'contact',
+    loadChildren: () => import('./pages/contact/contact.module').then( m => m.ContactPageModule)
+
   },
 
 
