@@ -1,8 +1,8 @@
-import { AccountType } from './../../entities/AccountType';
+import { AccountType } from '../../entities/AccountType';
 import { Component, OnInit } from '@angular/core';
-import { User } from "../../entities/User";
-import { Router } from "@angular/router";
-import { Endpoints } from '../../app-endpoints'
+import { User } from '../../entities/User';
+import { Router } from '@angular/router';
+import { Endpoints } from '../../app-endpoints';
 
 
 @Component({
@@ -10,11 +10,11 @@ import { Endpoints } from '../../app-endpoints'
   templateUrl: './signup.page.html',
   styleUrls: ['./signup.page.scss'],
 })
-export class SignupPage implements OnInit 
+export class SignupPage implements OnInit
 {
   private router: Router;
-  successfulSignup: boolean = false;
-  endpoints: Endpoints;
+  successfulSignup = false;
+  private endpoints: Endpoints;
   private user;
 
   username: string;
@@ -26,7 +26,7 @@ export class SignupPage implements OnInit
   email: string;
   address: string;
 
-  constructor(endpoints: Endpoints, router: Router) 
+  constructor(endpoints: Endpoints, router: Router)
   {
     this.endpoints = endpoints;
     this.router = router;
@@ -34,49 +34,49 @@ export class SignupPage implements OnInit
 
   ngOnInit() {}
 
-  async onSignup() 
+  async onSignup()
   {
-    
+
     this.user = null;
     const signupUser: User = new User(this.username, this.password, this.firstName, this.lastName, this.accountType, this.telephone, this.email, this.address);
     this.endpoints.createUser(signupUser).subscribe((data) => {
       this.user = data;
-      localStorage.setItem('user', JSON.stringify(data['user']))
-      localStorage.setItem('jwt', JSON.stringify(data['jwt']))
+      localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem('jwt', JSON.stringify(data.jwt));
 
-      
-      if (signupUser.accountType == AccountType.PATIENT) {
-        let userid = data.user.id
+
+      if (signupUser.accountType === AccountType.PATIENT) {
+        const userid = data.user.id;
         this.endpoints.createStatus().subscribe((data) => {
-          console.log(data)
-          let statusid = data['id']
+          console.log(data);
+          const statusid = data.id;
           this.endpoints.createPatient(userid, statusid).subscribe((data) => {
             console.log(data);
-            console.log("Sign-in User:");
+            console.log('Sign-in User:');
             console.log(JSON.parse(localStorage.getItem('user')));
             //this.endpoints.activeUser = JSON.parse(localStorage.getItem('user'));
-            this.router.navigate(['home-page']).then(() => console.log("Route Forward To Home Page."));
+            this.router.navigate(['home-page']).then(() => console.log('Route Forward To Home Page.'));
           });
-        }, error => {console.log(error.error.message[0].messages[0].id)});
+        }, error => {console.log(error.error.message[0].messages[0].id);});
       }
       else if (signupUser.accountType == AccountType.MEDICALDOCTOR) {
-        let userid = data.user.id
+        const userid = data.user.id;
         this.endpoints.createDoctor(userid).subscribe((data) => {
           console.log(data);
-          console.log("Sign-in User:");
+          console.log('Sign-in User:');
           console.log(JSON.parse(localStorage.getItem('user')));
           //this.endpoints.activeUser = JSON.parse(localStorage.getItem('user'));
-          this.router.navigate(['home-page']).then(() => console.log("Route Forward To Home Page."));
-        }, error => {console.log(error.error.message[0].messages[0].id)});
+          this.router.navigate(['home-page']).then(() => console.log('Route Forward To Home Page.'));
+        }, error => {console.log(error.error.message[0].messages[0].id);});
       }
       else {
-        console.log("Sign-in User:");
+        console.log('Sign-in User:');
         console.log(JSON.parse(localStorage.getItem('user')));
         //this.endpoints.activeUser = JSON.parse(localStorage.getItem('user'));
-        this.router.navigate(['home-page']).then(() => console.log("Route Forward To Home Page."));
+        this.router.navigate(['home-page']).then(() => console.log('Route Forward To Home Page.'));
       }
-    }, error => {console.log(error.error.message[0].messages[0].id)});
+    }, error => {console.log(error.error.message[0].messages[0].id);});
 
-    
+
   }
 }
