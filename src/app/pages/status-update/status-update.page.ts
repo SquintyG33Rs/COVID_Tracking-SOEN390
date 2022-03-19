@@ -28,9 +28,9 @@ export class StatusUpdatePage implements OnInit{
   taste: boolean;
   tired: boolean;
 
-
-
   updates: any = [];
+  activeUser: any;
+  sortBy = require('sortby');
 
 
 
@@ -88,11 +88,15 @@ export class StatusUpdatePage implements OnInit{
 	tired : new FormControl()
   });
   */
+    //get the authenticated user
+    this.activeUser = JSON.parse(localStorage.getItem('user'));
+    console.log(JSON.parse(localStorage.getItem('user')));
 this.endpoints.getUpdates().subscribe(
   res => {
-    this.updates = res;
-    console.log(res);
+    //sort updates by
+    this.updates = res.sort(this.sortBy({temperature: 1}));
     console.log(this.updates);
+
     },
   err => console.log(err)
 );

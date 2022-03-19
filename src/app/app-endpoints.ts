@@ -34,7 +34,7 @@ export  class  Endpoints {
     }
 
     public getUpdates(): Observable<any[]>{
-      return this.http.get<any[]>(this.url + 'statuses');
+      return this.http.get<any[]>(this.url + 'statuses' );
     }
 
     public getUserById(id): Observable<any>{
