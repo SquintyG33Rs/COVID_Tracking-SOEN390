@@ -1,4 +1,4 @@
-import { AccountType } from './../../entities/AccountType';
+import { AccountType } from '../../entities/AccountType';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup} from '@angular/forms';
 import { Update } from '../../entities/Update';
@@ -30,7 +30,7 @@ export class StatusUpdatePage implements OnInit{
 
 
 
-
+  updates: any = [];
 
 
 
@@ -45,15 +45,18 @@ export class StatusUpdatePage implements OnInit{
 
   async ngOnUpdate(){
     this.update = null;
+        //create a new status update
         const statusUpdate: Update = new Update(this.date, this.temp, this.weight, this.cough, this.head, this.throat, this.fever, this.taste, this.tired);
-
+    //store status update in database
     this.endpoints.createStatusWithParams(statusUpdate.date, statusUpdate.temp, statusUpdate.weight, statusUpdate.cough, statusUpdate.head, statusUpdate.throat, statusUpdate.fever, statusUpdate.taste, statusUpdate.tired).subscribe(
       (data) => {
         this.update = data;
         console.log(this.update);
         console.log(data);
         localStorage.setItem('update', JSON.stringify(data.update));
-        console.log('Status Updated!');
+        //console.log('Status Updated!');
+        this.router.navigate(['/status-update']).then(() => console.log('Status Updated!'));
+        //window.location.reload();
 
 
       }
@@ -85,6 +88,14 @@ export class StatusUpdatePage implements OnInit{
 	tired : new FormControl()
   });
   */
+this.endpoints.getUpdates().subscribe(
+  res => {
+    this.updates = res;
+    console.log(res);
+    console.log(this.updates);
+    },
+  err => console.log(err)
+);
   }
 
 }

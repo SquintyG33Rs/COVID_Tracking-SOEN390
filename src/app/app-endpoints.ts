@@ -14,7 +14,7 @@ export  class  Endpoints {
 
     private url:string = 'https://api.team23soen390.xyz/';
     constructor(private  http : HttpClient) { }
-    
+
 
     //GET requests
     public getUsers(): Observable<any[]>{
@@ -24,7 +24,7 @@ export  class  Endpoints {
     public getDoctors(): Observable<any[]>{
         return this.http.get<any[]>(this.url + 'doctors');
     }
-    
+
     public getPatients(): Observable<any[]>{
         return this.http.get<any[]>(this.url + 'patients');
     }
@@ -32,7 +32,11 @@ export  class  Endpoints {
     public getAppointments(): Observable<any[]>{
         return this.http.get<any[]>(this.url + 'appointments');
     }
-    
+
+    public getUpdates(): Observable<any[]>{
+      return this.http.get<any[]>(this.url + 'statuses');
+    }
+
     public getUserById(id): Observable<any>{
         return this.http.get<any>(this.url + '/users/' + id);
     }
@@ -82,13 +86,13 @@ export  class  Endpoints {
         return this.http.get<any>(this.url + 'patients/' + patientid);
     }
 
-    public getAppointmentByPatientUserId(userid): Observable<any>{ 
+    public getAppointmentByPatientUserId(userid): Observable<any>{
         let qparams = new HttpParams();
         qparams = qparams.append("patient.id", userid)
         return this.http.get<any>(this.url + 'appointments/', {params: qparams});
     }
 
-    public getAppointmentByDoctorUserId(userid): Observable<any>{ 
+    public getAppointmentByDoctorUserId(userid): Observable<any>{
         let qparams = new HttpParams();
         qparams = qparams.append("doctor.id", userid)
         return this.http.get<any>(this.url + 'appointments/', {params: qparams});
@@ -106,13 +110,13 @@ export  class  Endpoints {
         return this.http.get<any>(this.url + 'appointments/', {params: qparams});
     }
 
-    public getAppointmentByPatientUsername(username): Observable<any>{ 
+    public getAppointmentByPatientUsername(username): Observable<any>{
         let qparams = new HttpParams();
         qparams = qparams.append("patient.username", username)
         return this.http.get<any>(this.url + 'appointments/', {params: qparams});
     }
 
-    public getAppointmentByDoctorUsername(username): Observable<any>{ 
+    public getAppointmentByDoctorUsername(username): Observable<any>{
         let qparams = new HttpParams();
         qparams = qparams.append("doctor.username", username)
         return this.http.get<any>(this.url + 'appointments/', {params: qparams});
@@ -185,8 +189,8 @@ export  class  Endpoints {
         }
         return this.http.post<any>(this.url + 'statuses/', body);
     }
-    
-    public createStatusWithParams(dateString, temperature, weight, cough, headache, sore_throat, fever, loss_of_taste_or_smell, tiredness): Observable<any> { //call 
+
+    public createStatusWithParams(dateString, temperature, weight, cough, headache, sore_throat, fever, loss_of_taste_or_smell, tiredness): Observable<any> { //call
         const body = {
             date: dateString,
             temperature: temperature,
