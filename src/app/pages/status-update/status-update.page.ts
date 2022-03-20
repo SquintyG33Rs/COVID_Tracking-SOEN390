@@ -29,7 +29,7 @@ export class StatusUpdatePage implements OnInit{
   tired: boolean;
 
   updates: any = [];
-  activeUser: any;
+  private activeUser: any;
   sortBy = require('sortby');
 
 
@@ -94,7 +94,7 @@ export class StatusUpdatePage implements OnInit{
 this.endpoints.getUpdates().subscribe(
   res => {
     //sort updates by
-    this.updates = res.sort(this.sortBy({temperature: 1}));
+    this.updates = res.sort(this.sortBy({created_at: -1}));
     console.log(this.updates);
 
     },
