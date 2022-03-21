@@ -132,7 +132,7 @@ export class StatusUpdatePage implements OnInit{
               this.activePatient = data[0];
               console.log(this.activePatient);
 
-              this.patientUpdates = this.activePatient.status_history;
+              this.patientUpdates = this.activePatient.status_history.sort(this.sortBy({created_at: -1}));
               console.log(this.activePatient.status_history);
 
             }
