@@ -53,7 +53,8 @@ export class StatusUpdatePage implements OnInit{
     this.endpoints.getPatientByUserId(this.activeUser.id).subscribe(
       data => {
         this.activePatient = data[0];
-        console.log(this.activePatient.id);
+
+        console.log(this.activePatient);
 
         this.update = null;
         //create a new status update

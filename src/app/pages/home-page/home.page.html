@@ -1,24 +1,300 @@
 <ion-header class="ion-no-border">
-  <ion-toolbar>
-      <ion-buttons >
-        <ion-menu-button></ion-menu-button>
-        <ion-title>HOME PAGE</ion-title>
-        <ion-button slot="right" (click)="logOut()">
-          <ion-icon name="log-out-outline" slot="icon-only"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-
+  <ion-toolbar color="primary">
+    <ion-menu-button slot="start"></ion-menu-button>
+    <ion-title class="ion-text-center">{{activeUser.account_type}} HOME DASHBOARD</ion-title>
   </ion-toolbar>
+
+  <div style="margin: 5px; display: inline-flex;">
+    <ion-img *ngIf="activeUser.account_type === 'PATIENT'" slot="end" src="/assets/images/PatientAvatar.jpg" style="width: 35%; height: 35%; overflow: hidden;"></ion-img>
+    <div class="ion-float-right" style="clear: left;">
+      <ion-item lines="none">
+        <ion-text slot="start" style="font-size: 12px; font-weight: bold;" class="ion-text-capitalize, ion-no-padding">WELCOME {{activeUser.account_type}}:</ion-text>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-text slot="start" style="font-size: 24px; font-weight: bold;" class="ion-text-capitalize, ion-no-padding">{{activeUser.first_name}} {{activeUser.last_name}}</ion-text>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon class="icon" name="volume-medium"></ion-icon>
+        <ion-icon class="icon" name="settings-outline"></ion-icon>
+        <ion-icon class="icon" (click)="logOut()" name="log-out-outline"></ion-icon>
+      </ion-item>
+    </div>
+  </div>
+  <div style="height: 2px; background-color: #912338; margin-top: 10px;"></div>
 </ion-header>
 
-<ion-content padding>
-  <ion-card>
-    <ion-label>ACTIVE USER</ion-label>
-    <p class="ion-text-center">User First Name: {{activeUser.first_name}}</p>
-    <p class="ion-text-center">User Last Name: {{activeUser.last_name}}</p>
-    <p class="ion-text-center">User Account-Type: {{activeUser.account_type}}</p>
-    <p class="ion-text-center">User Address: {{activeUser.address}}</p>
-    <p class="ion-text-center">User Telephone: {{activeUser.phone}}</p>
-    <p class="ion-text-center">User Email: {{activeUser.email}}</p>
-  </ion-card>
+<ion-content class="ion-text-center & ion-padding">
+  <!-- PATIENT DASHBOARD -->
+  <ion-grid *ngIf="activeUser.account_type === 'PATIENT'">
+    <ion-row>
+      <ion-col size-sm="8" offset-sm="2">
+        <ion-card>
+          <ion-card-header color="primary" class="ion-text-center">
+            <ion-card-title style="font-size: 15px">PERSONAL INFORMATION</ion-card-title>
+          </ion-card-header>
+          <ion-row>
+            <ion-col size="6">
+              <ion-card class="ion-no-padding, ion-no-margin">
+                <ion-card-content>
+                  <ion-icon name="person" style="font-size: 90px; color: #912338;"></ion-icon>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col size="6">
+              <ion-card-content>
+                <ion-item-group class="ion-text-left">
+                  <ion-label style="color: black;">First Name: {{activeUser.first_name}}</ion-label>
+                  <ion-label style="color: black;">Last Name: {{activeUser.last_name}}</ion-label>
+                  <ion-label style="color: black;">Email: {{activeUser.email}}</ion-label>
+                  <ion-label style="color: black;">Phone: {{activeUser.telephone}}</ion-label>
+                  <ion-label style="color: black;">Address: {{activeUser.address}}</ion-label>
+                </ion-item-group>
+              </ion-card-content>
+            </ion-col>
+          </ion-row>
+          <ion-button shape="round" expand="full" fill="outline" color="primary" (click)="modifyPersonalInformation(activeUser.username)">MODIFY</ion-button>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="8" offset-sm="2">
+        <ion-card>
+          <ion-card-header color="primary" class="ion-text-center">
+            <ion-card-title style="font-size: 15px">TEMPERATURE</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-icon name="thermometer-outline" style="font-size: 60px; color: #912338; padding: 5px;"></ion-icon>
+            <p style="font-size: 20px; color: black;">40 &#176; Degrees</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size-sm="8" offset-sm="2">
+        <ion-card>
+          <ion-card-header color="primary" class="ion-text-center">
+            <ion-card-title style="font-size: 15px">WEIGHT</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-icon name="scale-sharp" style="font-size: 60px; color: #912338; padding: 5px;"></ion-icon>
+            <p style="font-size: 20px; color: black;">85 KG</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="8" offset-sm="2">
+        <ion-card>
+          <ion-card-header color="primary" class="ion-text-center">
+            <ion-card-title style="font-size: 15px">QUARANTINE</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-icon name="hand-right" style="font-size: 60px; color: #912338; padding: 5px;"></ion-icon>
+            <p style="font-size: 20px; color: black;">False</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size-sm="8" offset-sm="2">
+        <ion-card>
+          <ion-card-header color="primary" class="ion-text-center">
+            <ion-card-title style="font-size: 15px">FLAG STATUS</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-icon name="flag" style="font-size: 60px; color: #912338; padding: 5px;"></ion-icon>
+            <p style="font-size: 20px; color: black;">False</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="8" offset-sm="2">
+        <ion-card>
+          <ion-card-header color="primary" class="ion-text-center">
+            <ion-card-title style="font-size: 15px">COVID HEALTH STATUS</ion-card-title>
+          </ion-card-header>
+          <ion-row>
+            <ion-col size="6">
+              <ion-card>
+                <ion-card-content>
+                  <ion-icon name="pulse" style="font-size: 90px; color: #912338;"></ion-icon>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col size="6">
+              <ion-card-content>
+                <ion-item-group class="ion-text-left">
+                  <ion-label style="color: black;">COVID STATUS: Negative</ion-label>
+                  <ion-label style="color: black;">COVID SYMPTOMS: {{activeUser}}</ion-label>
+                  <ion-label style="color: black;">LAST HEALTH UPDATE: {{activeUser}}</ion-label>
+                </ion-item-group>
+              </ion-card-content>
+            </ion-col>
+          </ion-row>
+          <ion-button shape="round" expand="full" fill="outline" color="primary" (click)="updateHealthStatus(activeUser.username)">UPDATE HEALTH STATUS</ion-button>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="8" offset-sm="2">
+        <ion-card>
+          <ion-card-header color="primary" class="ion-text-center">
+            <ion-card-title style="font-size: 15px">MEDICAL DOCTOR</ion-card-title>
+          </ion-card-header>
+          <ion-row>
+            <ion-col size="6">
+              <ion-card>
+                <ion-card-content>
+                  <ion-icon name="medkit" style="font-size: 90px; color: #912338;"></ion-icon>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col size="6">
+              <ion-card-content>
+                <ion-item-group class="ion-text-left">
+                  <ion-label style="color: black;">DOCTOR NAME: {{getDoctorName()}}</ion-label>
+                  <ion-label style="color: black;">DOCTOR PHONE: {{getDoctorPhone()}}</ion-label>
+                  <ion-label style="color: black;">DOCTOR EMAIL: {{getDoctorEmail()}}</ion-label>
+                </ion-item-group>
+              </ion-card-content>
+            </ion-col>
+          </ion-row>
+          <ion-button shape="round" expand="full" fill="outline" color="primary" (click)="contactDoctor(activeUser.username)">CONTACT DOCTOR</ion-button>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="8" offset-sm="2">
+        <ion-card>
+          <ion-card-header color="primary" class="ion-text-center">
+            <ion-card-title style="font-size: 15px">CONTACT TRACING</ion-card-title>
+          </ion-card-header>
+          <ion-row>
+            <ion-col size="6">
+              <ion-card>
+                <ion-card-content>
+                  <ion-icon name="locate" style="font-size: 90px; color: #912338;"></ion-icon>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col size="6">
+              <ion-card-content>
+                <ion-item-group class="ion-text-left">
+                  <ion-label style="color: black;">LAST LOCATION CHECKIN: Date</ion-label>
+                  <ion-label style="color: black;">GPS LOCATION LATITUDE: LAT</ion-label>
+                  <ion-label style="color: black;">GPS LOCATION LONGITUDE: LON</ion-label>
+                  <ion-label style="color: black;">COVID EXPOSURE: False</ion-label>
+                </ion-item-group>
+              </ion-card-content>
+            </ion-col>
+          </ion-row>
+          <ion-button shape="round" expand="full" fill="outline" color="primary" (click)="locationCheckin(activeUser.username)">CHECKIN LOCATION</ion-button>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="8" offset-sm="2">
+        <ion-card>
+          <ion-card-header color="primary" class="ion-text-center">
+            <ion-card-title style="font-size: 15px">QR CODE INFORMATION</ion-card-title>
+          </ion-card-header>
+          <ion-row>
+            <ion-col size="6">
+              <ion-card>
+                <ion-card-content>
+                  <ion-icon name="qr-code-outline" style="font-size: 90px; color: #912338;"></ion-icon>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <!--            <ion-col size="6">-->
+            <!--              <ion-card-content>-->
+            <!--                <ion-button shape="round" expand="full" fill="outline" color="primary" (click)="locationCheckin(activeUser.username)" style="padding: 0px">-->
+            <!--                  GENERATE QR CODE-->
+            <!--                </ion-button>-->
+            <!--              </ion-card-content>-->
+            <!--            </ion-col>-->
+          </ion-row>
+          <ion-button shape="round" expand="full" fill="outline" color="primary" (click)="generateQRCode(activeUser.username)">GENERATE QR CODE</ion-button>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="8" offset-sm="2">
+        <ion-card>
+          <ion-card-header color="primary" class="ion-text-center">
+            <ion-card-title style="font-size: 15px">NOTIFICATIONS</ion-card-title>
+          </ion-card-header>
+          <ion-row>
+            <ion-col size="6">
+              <ion-card>
+                <ion-card-content>
+                  <ion-icon name="notifications-sharp" style="font-size: 90px; color: #912338;"></ion-icon>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col size="6">
+              <ion-card-content>
+                <ion-item-group class="ion-text-left">
+                  <ion-label style="color: black;">NOTIFICATION: Date</ion-label>
+                </ion-item-group>
+              </ion-card-content>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="8" offset-sm="2">
+        <ion-card>
+          <ion-card-header color="primary" class="ion-text-center">
+            <ion-card-title style="font-size: 15px">APPOINTMENTS</ion-card-title>
+          </ion-card-header>
+          <ion-row>
+            <ion-col size="6">
+              <ion-card>
+                <ion-card-content>
+                  <ion-icon name="alarm" style="font-size: 90px; color: #912338;"></ion-icon>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col size="6">
+              <ion-card-content>
+                <ion-item-group class="ion-text-left">
+                  <ion-label style="color: black;">APPOINTMENT: Date</ion-label>
+                </ion-item-group>
+              </ion-card-content>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
+
+
+
+
+
+
+
+
+
+  <!--  <ion-card>-->
+  <!--    <ion-label>ACTIVE USER</ion-label>-->
+  <!--    <p class="ion-text-center">User First Name: {{activeUser.first_name}}</p>-->
+  <!--    <p class="ion-text-center">User Last Name: {{activeUser.last_name}}</p>-->
+  <!--    <p class="ion-text-center">User Account-Type: {{activeUser.account_type}}</p>-->
+  <!--    <p class="ion-text-center">User Address: {{activeUser.address}}</p>-->
+  <!--    <p class="ion-text-center">User Telephone: {{activeUser.phone}}</p>-->
+  <!--    <p class="ion-text-center">User Email: {{activeUser.email}}</p>-->
+  <!--  </ion-card>-->
+
+
 </ion-content>
