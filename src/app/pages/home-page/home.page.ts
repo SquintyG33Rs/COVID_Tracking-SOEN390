@@ -5,6 +5,9 @@ import { User } from "../../entities/User";
 import { Router } from "@angular/router";
 import { AccountType } from 'src/app/entities/AccountType';
 import { Subscription } from 'rxjs';
+import {QRCodeComponent} from "angular2-qrcode";
+
+
 
 @Component({
   selector: 'app-home-page',
@@ -108,9 +111,18 @@ export class HomePage implements OnInit
     console.log("CAN BE USED FOR IMPLEMENTING CONTACT TRACING...");
   }
 
-  generateQRCode(username: string) {
-    console.log("WILL BE USED FOR USE-CASE: GENERATING A QR CODE FOR: " + username);
-    console.log("RAWAD ALARYAN will be implementing QR Code of a Patient.");
+  generateQRCodeFromInfo() {
+    let qrInfo = [{
+      'firstName': this.activeUser.first_name,
+      'lastName': this.activeUser.last_name,
+      'covidStatus': "NEGATIVE",  // Must be filled from the Patient's Health Status.
+    }]
+    return JSON.stringify(qrInfo);
+  }
+
+  updateQRCode(QRCODE: QRCodeComponent) {
+    QRCODE.value = this.generateQRCodeFromInfo();
+    console.log("QR-Code is updated and generated.");
   }
 
 
