@@ -6,8 +6,6 @@ import { HomePageRoutingModule } from './home-page-routing.module';
 import { HomePage } from './home.page';
 import {QRCodeModule} from "angular2-qrcode";
 
-
-
 @NgModule({
   imports: [
     CommonModule,
