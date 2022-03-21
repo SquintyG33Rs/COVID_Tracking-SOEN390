@@ -1,7 +1,7 @@
 <ion-header class="ion-no-border">
   <ion-toolbar color="primary">
-    <ion-menu-button slot="start"></ion-menu-button>
-    <ion-title class="ion-text-center">{{activeUser.account_type}} HOME DASHBOARD</ion-title>
+    <ion-menu-button style="color: #fff;" slot="start"></ion-menu-button>
+    <ion-title class="ion-text-center">{{activeUser.first_name}}'s DASHBOARD</ion-title>
   </ion-toolbar>
 
   <div style="margin: 5px; display: inline-flex;">
@@ -20,7 +20,7 @@
       </ion-item>
     </div>
   </div>
-  <div style="height: 2px; background-color: #912338; margin-top: 10px;"></div>
+  <div style="height: 2px; background-color: primary; margin-top: 10px;"></div>
 </ion-header>
 
 <ion-content class="ion-text-center & ion-padding">
@@ -43,11 +43,11 @@
             <ion-col size="6">
               <ion-card-content>
                 <ion-item-group class="ion-text-left">
-                  <ion-label style="color: black;">First Name: {{activeUser.first_name}}</ion-label>
-                  <ion-label style="color: black;">Last Name: {{activeUser.last_name}}</ion-label>
-                  <ion-label style="color: black;">Email: {{activeUser.email}}</ion-label>
-                  <ion-label style="color: black;">Phone: {{activeUser.telephone}}</ion-label>
-                  <ion-label style="color: black;">Address: {{activeUser.address}}</ion-label>
+                  <ion-label style="">First Name: {{activeUser.first_name}}</ion-label>
+                  <ion-label style="">Last Name: {{activeUser.last_name}}</ion-label>
+                  <ion-label style="">Email: {{activeUser.email}}</ion-label>
+                  <ion-label style="">Phone: {{activeUser.telephone}}</ion-label>
+                  <ion-label style="">Address: {{activeUser.address}}</ion-label>
                 </ion-item-group>
               </ion-card-content>
             </ion-col>
@@ -65,7 +65,7 @@
           </ion-card-header>
           <ion-card-content>
             <ion-icon name="thermometer-outline" style="font-size: 60px; color: #912338; padding: 5px;"></ion-icon>
-            <p style="font-size: 20px; color: black;">{{update.temperature}} &#176;C</p>
+            <p style="font-size: 20px; ">{{update.temperature}} &#176;C</p>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -76,7 +76,7 @@
           </ion-card-header>
           <ion-card-content>
             <ion-icon name="scale-sharp" style="font-size: 60px; color: #912338; padding: 5px;"></ion-icon>
-            <p style="font-size: 20px; color: black;">{{update.weight}} lbs</p>
+            <p style="font-size: 20px; ">{{update.weight}} lbs</p>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -90,7 +90,7 @@
           </ion-card-header>
           <ion-card-content>
             <ion-icon name="hand-right" style="font-size: 60px; color: #912338; padding: 5px;"></ion-icon>
-            <p style="font-size: 20px; color: black;">False</p>
+            <p style="font-size: 20px; ">False</p>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -101,7 +101,7 @@
           </ion-card-header>
           <ion-card-content>
             <ion-icon name="flag" style="font-size: 60px; color: #912338; padding: 5px;"></ion-icon>
-            <p style="font-size: 20px; color: black;">False</p>
+            <p style="font-size: 20px; ">False</p>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -124,9 +124,9 @@
             <ion-col size="6">
               <!--<ion-card-content>
                 <ion-item-group class="ion-text-left">
-                  <ion-label style="color: black;">COVID STATUS: Negative</ion-label>
-                  <ion-label style="color: black;">COVID SYMPTOMS: {{activeUser.id}}</ion-label>
-                  <ion-label style="color: black;">LAST HEALTH UPDATE: {{activeUser.id}}</ion-label>
+                  <ion-label style="">COVID STATUS: Negative</ion-label>
+                  <ion-label style="">COVID SYMPTOMS: {{activeUser.id}}</ion-label>
+                  <ion-label style="">LAST HEALTH UPDATE: {{activeUser.id}}</ion-label>
                 </ion-item-group>
               </ion-card-content> -->
                   <ion-card *ngFor="let update of patientUpdates">
@@ -198,9 +198,9 @@
             <ion-col size="6">
               <ion-card-content>
                 <ion-item-group class="ion-text-left">
-                  <ion-label style="color: black;">DOCTOR NAME: {{getDoctorName()}}</ion-label>
-                  <ion-label style="color: black;">DOCTOR PHONE: {{getDoctorPhone()}}</ion-label>
-                  <ion-label style="color: black;">DOCTOR EMAIL: {{getDoctorEmail()}}</ion-label>
+                  <ion-label style="">DOCTOR NAME: {{getDoctorName()}}</ion-label>
+                  <ion-label style="">DOCTOR PHONE: {{getDoctorPhone()}}</ion-label>
+                  <ion-label style="">DOCTOR EMAIL: {{getDoctorEmail()}}</ion-label>
                 </ion-item-group>
               </ion-card-content>
             </ion-col>
@@ -227,10 +227,10 @@
             <ion-col size="6">
               <ion-card-content>
                 <ion-item-group class="ion-text-left">
-                  <ion-label style="color: black;">LAST LOCATION CHECKIN: Date</ion-label>
-                  <ion-label style="color: black;">GPS LOCATION LATITUDE: LAT</ion-label>
-                  <ion-label style="color: black;">GPS LOCATION LONGITUDE: LON</ion-label>
-                  <ion-label style="color: black;">COVID EXPOSURE: False</ion-label>
+                  <ion-label style="">LAST LOCATION CHECKIN: Date</ion-label>
+                  <ion-label style="">GPS LOCATION LATITUDE: LAT</ion-label>
+                  <ion-label style="">GPS LOCATION LONGITUDE: LON</ion-label>
+                  <ion-label style="">COVID EXPOSURE: False</ion-label>
                 </ion-item-group>
               </ion-card-content>
             </ion-col>
@@ -293,7 +293,7 @@
             <ion-col size="6">
               <ion-card-content>
                 <ion-item-group class="ion-text-left">
-                  <ion-label style="color: black;">NOTIFICATION: Date</ion-label>
+                  <ion-label style="">NOTIFICATION: Date</ion-label>
                 </ion-item-group>
               </ion-card-content>
             </ion-col>
@@ -319,7 +319,7 @@
             <ion-col size="6">
               <ion-card-content>
                 <ion-item-group class="ion-text-left">
-                  <ion-label style="color: black;">APPOINTMENT: Date</ion-label>
+                  <ion-label style="">APPOINTMENT: Date</ion-label>
                 </ion-item-group>
               </ion-card-content>
             </ion-col>
@@ -340,15 +340,7 @@
 
 
 
-  <!--  <ion-card>-->
-  <!--    <ion-label>ACTIVE USER</ion-label>-->
-  <!--    <p class="ion-text-center">User First Name: {{activeUser.first_name}}</p>-->
-  <!--    <p class="ion-text-center">User Last Name: {{activeUser.last_name}}</p>-->
-  <!--    <p class="ion-text-center">User Account-Type: {{activeUser.account_type}}</p>-->
-  <!--    <p class="ion-text-center">User Address: {{activeUser.address}}</p>-->
-  <!--    <p class="ion-text-center">User Telephone: {{activeUser.phone}}</p>-->
-  <!--    <p class="ion-text-center">User Email: {{activeUser.email}}</p>-->
-  <!--  </ion-card>-->
+
 
 
 </ion-content>

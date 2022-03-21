@@ -26,19 +26,6 @@
               <ion-input style = "color:black" type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
           </app-show-hide-password>
         </ion-item>
-
-        <ion-item>
-          <ion-icon name="person-circle-outline"></ion-icon>
-          <ion-label style = "color:black">Account Type</ion-label>
-          <ion-select style = "color:black" value="accountType" okText="OK" cancelText="CANCEL" [(ngModel)]="accountType">
-            <ion-select-option style = "color:black" value="ADMIN">Administrator</ion-select-option>
-            <ion-select-option style = "color:black" value="PATIENT">Patient</ion-select-option>
-            <ion-select-option style = "color:black" value="MEDICALDOCTOR">Medical Doctor</ion-select-option>
-            <ion-select-option style = "color:black" value="HEALTHOFFICIAL">Health Official</ion-select-option>
-            <ion-select-option style = "color:black" value="IMMIGRATIONOFFICER">Immigration Officer</ion-select-option>
-          </ion-select>
-        </ion-item>
-
         <ion-button (click)="onSignin()" shape="round" expand="block">SIGN-IN</ion-button>
       </ion-card-content>
     </ion-card>
