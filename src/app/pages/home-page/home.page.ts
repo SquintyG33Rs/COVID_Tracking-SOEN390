@@ -182,6 +182,7 @@ export class HomePage implements OnInit
       'lastName': this.activeUser.last_name,
       'covidStatus': "NEGATIVE",  // Must be filled from the Patient's Health Status.
     }]
+    console.log(/*JSON.stringify*/(qrInfo));
     return JSON.stringify(qrInfo);
   }
 
