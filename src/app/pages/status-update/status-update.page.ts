@@ -83,9 +83,8 @@ export class StatusUpdatePage implements OnInit{
                 )
               }
             )
-            this.router.navigate(['/status-update']).then(() => console.log('Status Updated!'));
-            //window.location.reload();
-
+            //this.router.navigate(['/home-page']).then(() => console.log('Status Updated!'));
+            window.location.reload();
 
           }
 
