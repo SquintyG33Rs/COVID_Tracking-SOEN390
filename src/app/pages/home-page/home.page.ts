@@ -18,8 +18,11 @@ export class HomePage implements OnInit
   private activeUser;
   private activePatient;
   private activeDoctor;
+  private patientUpdates: any = [];
+  updates: any = [];
   currentRouteURL: String;
   urlDetector: RouteChangeDetection = new RouteChangeDetection(this.router);
+  sortBy = require('sortby');
 
 
   constructor(private endpoints: Endpoints, private router: Router)
@@ -37,15 +40,25 @@ export class HomePage implements OnInit
   {
     this.activeUser = JSON.parse(localStorage.getItem('user'));
     console.log(this.activeUser);
+
+
+
+    //if user is logged in
     if (this.activeUser !== null) {
-      if (this.activeUser.account_type === 'PATIENT') {
+      //if user is a patient
+      if (this.activeUser.account_type === 'PATIENT')
+      {
+        //get patient info by their ID
         this.endpoints.getPatientByUserId(this.activeUser.id).subscribe(
           data => {
             this.activePatient = data[0];
             console.log(this.activePatient);
+            //get patient status
+            this.patientUpdates = this.activePatient.status_history.sort(this.sortBy({created_at: -1}));
+            console.log(this.activePatient.status_history);
+
           }
         )
-
       }
 
       if (this.activeUser.account_type === 'MEDICALDOCTOR') {
@@ -55,6 +68,19 @@ export class HomePage implements OnInit
             console.log(this.activeDoctor);
           }
         )
+      }
+
+      else
+      {
+        this.endpoints.getUpdates().subscribe(
+          res => {
+            //sort updates by
+            this.updates = res.sort(this.sortBy({created_at: -1}));
+            console.log(this.updates);
+
+          },
+          err => console.log(err)
+        );
       }
     }
     if (message === '/home-page')
