@@ -95,10 +95,10 @@
 <ion-content>
 
 
-  <ion-list *ngFor="let update of updates; first as isFirst " inset="true">
+  <ion-list *ngFor="let update of patientUpdates; first as isFirst " inset="true">
     <ion-card>
       <ion-card-title *ngIf="isFirst"><ion-list-header>MOST RECENT UPDATE</ion-list-header></ion-card-title>
-      <ion-card-title><ion-list-header>Patient Name</ion-list-header></ion-card-title>
+      <ion-card-title><ion-list-header>Patient Name: {{activePatient.is_user.first_name}} {{activePatient.is_user.last_name}}</ion-list-header></ion-card-title>
       <ion-card-subtitle><ion-list-header>updated on {{update.created_at}}</ion-list-header></ion-card-subtitle>
 
       <ion-card-content>

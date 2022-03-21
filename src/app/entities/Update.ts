@@ -12,6 +12,8 @@ export class Update {
   fever: boolean;
   taste: boolean;
   tired: boolean;
+  patient_id: number;
+
 
   constructor(date: Date,
   temp: number,
@@ -21,7 +23,8 @@ export class Update {
   throat: boolean,
   fever: boolean,
   taste: boolean,
-  tired: boolean)
+  tired: boolean,
+  /* patient_id: number */)
   {
     this.date = date;
     this.temp = temp;
@@ -44,5 +47,6 @@ export class Update {
     if (tired !== true)
   {tired  = false;}
     this.tired = tired;
+    /* this.patient_id = patient_id; */
   }
 }

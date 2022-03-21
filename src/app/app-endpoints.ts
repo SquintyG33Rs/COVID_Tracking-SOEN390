@@ -14,6 +14,9 @@ export  class  Endpoints {
 
     private url:string = 'https://api.team23soen390.xyz/';
     constructor(private  http : HttpClient) { }
+    private activeUser = JSON.parse(localStorage.getItem('user'));
+
+
 
 
     //GET requests
@@ -36,6 +39,8 @@ export  class  Endpoints {
     public getUpdates(): Observable<any[]>{
       return this.http.get<any[]>(this.url + 'statuses' );
     }
+
+
 
     public getUserById(id): Observable<any>{
         return this.http.get<any>(this.url + '/users/' + id);
@@ -176,7 +181,7 @@ export  class  Endpoints {
     public createStatus(): Observable<any> {
         let date = new Date()
         let dateString = date.getTime()
-        const body= {
+            const body= {
             date: dateString,
             temperature: 0,
             weight: 0,
@@ -191,7 +196,9 @@ export  class  Endpoints {
     }
 
     public createStatusWithParams(dateString, temperature, weight, cough, headache, sore_throat, fever, loss_of_taste_or_smell, tiredness): Observable<any> { //call
-        const body = {
+
+       const body = {
+
             date: dateString,
             temperature: temperature,
             weight: weight,
@@ -200,8 +207,11 @@ export  class  Endpoints {
             sore_throat: sore_throat,
             fever: fever,
             loss_of_taste_or_smell: loss_of_taste_or_smell,
-            tiredness: tiredness
+            tiredness: tiredness,
+
+
         }
+        console.log(this.activeUser.id + " updated their status");
         return this.http.post<any>(this.url + 'statuses/', body);
     }
 
