@@ -129,11 +129,7 @@
                   <ion-label style="color: black;">LAST HEALTH UPDATE: {{activeUser.id}}</ion-label>
                 </ion-item-group>
               </ion-card-content> -->
-              <ion-content>
-
-
-                <ion-list *ngFor="let update of patientUpdates " inset="true">
-                  <ion-card>
+                  <ion-card *ngFor="let update of patientUpdates">
                     <ion-card-subtitle><ion-list-header>last updated on {{update.created_at}}</ion-list-header></ion-card-subtitle>
 
                     <ion-card-content>
@@ -177,8 +173,7 @@
                       </ng-template>
                     </ion-card-content>
                   </ion-card>
-                </ion-list>
-              </ion-content>
+
             </ion-col>
           </ion-row>
           <ion-button shape="round" expand="full" fill="outline" color="primary" (click)="updateHealthStatus(activeUser.username)">UPDATE HEALTH STATUS</ion-button>
