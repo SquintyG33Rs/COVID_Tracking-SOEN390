@@ -11,14 +11,14 @@ import { Subscription } from 'rxjs';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements OnInit 
+export class HomePage implements OnInit
 {
   private endpoint;
   private serviceSubscription: Subscription;
   private activeUser;
   currentRouteURL: String;
   urlDetector: RouteChangeDetection = new RouteChangeDetection(this.router);
-  
+
 
   constructor(private endpoints: Endpoints, private router: Router)
   {
@@ -38,38 +38,38 @@ export class HomePage implements OnInit
     if (message === '/home-page')
     {
       /*switch (this.activeUser.accountType)
-      {    
+      {
         case AccountType.ADMIN:
         break;
         case AccountType.MEDICALDOCTOR:
           console.log("Hello Doctor!");
-          
-            //Doctor code goes here 
-        
+
+            //Doctor code goes here
+
         break;
-        case AccountType.HEALTHOFFICIAL: 
+        case AccountType.HEALTHOFFICIAL:
         break;
         case AccountType.IMMIGRATIONOFFICER:
         break;
         case AccountType.PATIENT:
           console.log("Hello Patient!");
-          
+
             //Patient code goes here etc.
-           
+
         break;
       }
       */
     }
   }
 
-  ngOnInit() 
+  ngOnInit()
   {
     this.activeUser = JSON.parse(localStorage.getItem('user'));
     console.log("log user:");
     console.log(this.activeUser.last_name);
   }
 
-  logOut() 
+  logOut()
   {
     this.endpoint.activeUser = null;
     this.activeUser = null;
@@ -78,4 +78,52 @@ export class HomePage implements OnInit
     console.log("Active User:");
     console.log(this.activeUser);
   }
+
+
+
+
+
+
+
+
+
+  // METHODS FOR PATIENT DASHBOARD:
+  modifyPersonalInformation(username: string) {
+    console.log("Modify Personal Information for: " + username);
+    console.log("SHOULD BE LINKED TO PAGE - MANAGE PROFILE - AFTER IT STARTS WORKING...");
+  }
+
+  updateHealthStatus(username: string) {
+    console.log("Update Health Status for: " + username);
+    this.router.navigateByUrl("/status-update");
+  }
+
+  contactDoctor(username: string) {
+    console.log("Contact Doctor for: " + username);
+    console.log("SHOULD BE LINKED TO PAGE - CONTACTING A DOCTOR - AFTER IT STARTS WORKING...");
+  }
+
+  locationCheckin(username: string) {
+    console.log("Location Checkin for: " + username);
+    console.log("CAN BE USED FOR IMPLEMENTING CONTACT TRACING...");
+  }
+
+  generateQRCode(username: string) {
+    console.log("WILL BE USED FOR USE-CASE: GENERATING A QR CODE FOR: " + username);
+    console.log("RAWAD ALARYAN will be implementing QR Code of a Patient.");
+  }
+
+
+  getDoctorName() {
+    return "Doctor Full-Name";
+  }
+
+  getDoctorPhone() {
+    return "Doctor Phone Number";
+  }
+
+  getDoctorEmail() {
+    return "Doctor Email";
+  }
+
 }
