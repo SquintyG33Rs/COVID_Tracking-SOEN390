@@ -16,6 +16,8 @@ export class HomePage implements OnInit
   private endpoint;
   private serviceSubscription: Subscription;
   private activeUser;
+  private activePatient;
+  private activeDoctor;
   currentRouteURL: String;
   urlDetector: RouteChangeDetection = new RouteChangeDetection(this.router);
 
@@ -34,7 +36,27 @@ export class HomePage implements OnInit
   onChangeRouteDetection(message: string)
   {
     this.activeUser = JSON.parse(localStorage.getItem('user'));
-    console.log(JSON.parse(localStorage.getItem('user')));
+    console.log(this.activeUser);
+    if (this.activeUser !== null) {
+      if (this.activeUser.account_type === 'PATIENT') {
+        this.endpoints.getPatientByUserId(this.activeUser.id).subscribe(
+          data => {
+            this.activePatient = data[0];
+            console.log(this.activePatient);
+          }
+        )
+
+      }
+
+      if (this.activeUser.account_type === 'MEDICALDOCTOR') {
+        this.endpoints.getDoctorByUserId(this.activeUser.id).subscribe(
+          data => {
+            this.activeDoctor = data[0];
+            console.log(this.activeDoctor);
+          }
+        )
+      }
+    }
     if (message === '/home-page')
     {
       /*switch (this.activeUser.accountType)
@@ -66,7 +88,34 @@ export class HomePage implements OnInit
   {
     this.activeUser = JSON.parse(localStorage.getItem('user'));
     console.log('log user:');
-    console.log(this.activeUser.last_name);
+    console.log(this.activeUser.first_name + " " + this.activeUser.last_name);
+
+/*
+    if (this.activeUser.account_type === 'PATIENT')
+    {
+      this.endpoints.getPatientByUserId(this.activeUser.id).subscribe(
+        data => {
+          this.activePatient = data[0];
+          console.log(this.activePatient);
+        }
+      )
+    }
+
+    if (this.activeUser.account_type === 'MEDICALDOCTOR')
+    {
+      this.endpoints.getDoctorByUserId(this.activeUser.id).subscribe(
+        data => {
+          this.activeDoctor = data[0];
+          console.log(this.activeDoctor);
+        }
+      )
+    }
+*/
+
+
+
+
+
   }
 
   logOut()
@@ -75,7 +124,7 @@ export class HomePage implements OnInit
     this.activeUser = null;
     localStorage.clear();
     this.router.navigateByUrl('/welcome-page');
-    console.log('Active User:');
+    console.log('Logged out!');
     console.log(this.activeUser);
   }
 }
