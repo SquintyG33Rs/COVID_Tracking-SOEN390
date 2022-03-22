@@ -56,9 +56,10 @@ export class HomePage implements OnInit
           data => {
             this.activePatient = data[0];
             console.log(this.activePatient);
-            
-            //get patient status
+
+            //get patient status history
             this.patientUpdates = this.activePatient.status_history.sort(this.sortBy({created_at: -1}));
+            //get recent patient status
             this.recentUpdate= this.activePatient.status;
             console.log(this.activePatient.status_history);
 

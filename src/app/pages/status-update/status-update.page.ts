@@ -72,6 +72,7 @@ export class StatusUpdatePage implements OnInit{
             this.endpoints.modifyPatientStatus(this.activePatient.id, this.update.id).subscribe(
 
               () => {
+                //push status in active patient's status history
                 this.activePatient.status_history.push(this.update);
 
                 console.log(this.activePatient.status_history);
@@ -135,7 +136,7 @@ export class StatusUpdatePage implements OnInit{
               this.activePatient = data[0];
               console.log(this.activePatient);
 
-
+              //active patient's status history
               this.patientUpdates = this.activePatient.status_history.sort(this.sortBy({created_at: -1}));
               console.log(this.activePatient.status_history);
 
