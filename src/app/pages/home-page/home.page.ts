@@ -21,10 +21,12 @@ export class HomePage implements OnInit
   private activeDoctor;
   private patientUpdates: any = [];
   private recentUpdate: any;
+  private currentDoctor: any;
   updates: any = [];
   currentRouteURL: String;
   urlDetector: RouteChangeDetection = new RouteChangeDetection(this.router);
   sortBy = require('sortby');
+
 
 
 
@@ -55,15 +57,31 @@ export class HomePage implements OnInit
         this.endpoints.getPatientByUserId(this.activeUser.id).subscribe(
           data => {
             this.activePatient = data[0];
-            console.log(this.activePatient);
+            console.log("Active Patient")
+            console.log( this.activePatient);
 
             //get patient status history
             this.patientUpdates = this.activePatient.status_history.sort(this.sortBy({created_at: -1}));
             //get recent patient status
             this.recentUpdate= this.activePatient.status;
+
+            console.log("Active Patient Status history");
             console.log(this.activePatient.status_history);
 
-          }
+            if(this.activePatient.current_doctor != null){
+              console.log(this.activePatient.current_doctor.is_user);
+              //get current doctor from their ID. activePatient.current_doctor.is_user was just returning the ID
+              this.endpoints.getDoctorByUserId(this.activePatient.current_doctor.is_user).subscribe(
+                data => {
+
+                  console.log(data);
+                  //reassign current doctor rather than just it's ID
+                  this.currentDoctor = this.activePatient.current_doctor.is_user = data[0];
+                  console.log(this.currentDoctor);
+                })
+
+            }
+            },err => console.log(err)
         )
       }
 
@@ -72,7 +90,12 @@ export class HomePage implements OnInit
           data => {
             this.activeDoctor = data[0];
             console.log(this.activeDoctor);
-          }
+
+
+
+
+
+          },err => console.log(err)
         )
       }
 

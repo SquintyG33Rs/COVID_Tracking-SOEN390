@@ -196,16 +196,21 @@
               </ion-card>
             </ion-col>
             <ion-col size="6">
-              <ion-card-content>
-                <ion-item-group class="ion-text-left">
-                  <ion-label style="">DOCTOR NAME: {{getDoctorName()}}</ion-label>
-                  <ion-label style="">DOCTOR PHONE: {{getDoctorPhone()}}</ion-label>
-                  <ion-label style="">DOCTOR EMAIL: {{getDoctorEmail()}}</ion-label>
-                </ion-item-group>
-              </ion-card-content>
+              <ion-card>
+                <ion-card-content>
+                  <ion-item-group  class="ion-text-left">
+                      <ion-label *ngIf="currentDoctor != null" style="">DOCTOR NAME: {{currentDoctor.is_user.first_name}} {{currentDoctor.is_user.last_name}}</ion-label>
+                      <ion-label *ngIf="currentDoctor != null" style="" >DOCTOR PHONE: {{currentDoctor.is_user.phone}}</ion-label>
+                      <ion-label *ngIf="currentDoctor != null" style="">DOCTOR EMAIL: {{currentDoctor.is_user.email}}</ion-label>
+                      <ion-label *ngIf="currentDoctor == null" style="">You do not have a doctor currently.</ion-label>
+                  </ion-item-group>
+
+                </ion-card-content>
+              </ion-card>
             </ion-col>
           </ion-row>
-          <ion-button shape="round" expand="full" fill="outline" color="primary" (click)="contactDoctor(activeUser.username)">CONTACT DOCTOR</ion-button>
+          <ion-button *ngIf="currentDoctor != null; else noDoctor" shape="round" expand="full" fill="outline" color="primary" (click)="contactDoctor(activeUser.username)">CONTACT DOCTOR</ion-button>
+          <ng-template #noDoctor></ng-template>
         </ion-card>
       </ion-col>
     </ion-row>
