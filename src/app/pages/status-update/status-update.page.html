@@ -1,15 +1,15 @@
 <ion-header class="ion-no-border">
-  <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-    <ion-title>STATUS UPDATE</ion-title>
+  <ion-toolbar color="primary">
+    <ion-menu-button style="color: #fff;" slot="start"></ion-menu-button>
+    <ion-title class="ion-text-center">STATUS UPDATE</ion-title>
   </ion-toolbar>
 </ion-header>
 
 
 <ion-content *ngIf="activeUser.account_type === 'PATIENT'"  padding>
-
+  <ion-col>
+  <ion-row>
+  <ion-card>
      <ion-list lines="full" class="ion-no-margin">
         <ion-item>
           <ion-label position="floating">Date</ion-label>
@@ -51,6 +51,8 @@
           Submit
         </ion-button>
       </ion-list>
+    </ion-card>
+  </ion-row>
 <!--
   <ion-card *ngFor="let update of updates">
     <ion-card-header>
@@ -91,10 +93,9 @@
 -->
 
 
-</ion-content>
-<ion-content>
 
 
+  <!--<ion-row > -->
   <ion-list *ngFor="let update of patientUpdates; first as isFirst " inset="true">
     <ion-card>
       <ion-card-title *ngIf="isFirst"><ion-list-header>MOST RECENT UPDATE</ion-list-header></ion-card-title>
@@ -146,4 +147,6 @@
       </ion-card-content>
     </ion-card>
   </ion-list>
+  <!--</ion-row>-->
+  </ion-col>
 </ion-content>

@@ -29,7 +29,7 @@ export class StatusUpdatePage implements OnInit{
   taste: boolean;
   tired: boolean;
 
-  updates: any = [];
+  private updates: any = [];
   private patientUpdates: any = [];
   private activeUser: any;
   private activePatient: any;
@@ -83,21 +83,21 @@ export class StatusUpdatePage implements OnInit{
 
                   (data) =>{
                     console.log(JSON.stringify(data));
-                  }
+                  },err => console.log(err)
                 )
-              }
+              },err => console.log(err)
             )
             //this.router.navigate(['/home-page']).then(() => console.log('Status Updated!'));
             window.location.reload();
 
-          }
+          },err => console.log(err)
 
 
         );
 
 
 
-      }
+      },err => console.log(err)
     )
 
 
@@ -140,7 +140,7 @@ export class StatusUpdatePage implements OnInit{
               this.patientUpdates = this.activePatient.status_history.sort(this.sortBy({created_at: -1}));
               console.log(this.activePatient.status_history);
 
-            }
+            },err => console.log(err)
           )
         }
 
