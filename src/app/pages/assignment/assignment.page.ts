@@ -17,15 +17,26 @@ export class AssignmentPage implements OnInit {
   private activeUser;
   private doctors: any = [];
   private patients: any = [];
-  doctorAssigned: Doctor;
-  patientAssigned: Patient;
+  private doctorAssigned: any;
+  private patientAssigned: any;
+  private doctor: any;
+  private patient: any;
   sortBy = require('sortby');
+
+
 
   constructor(endpoints: Endpoints, router: Router) {
     this.endpoints = endpoints;
     this.router = router;
   }
+/*
+  comparePatients(p1: Patient, p2: Patient){
+    return p1 && p2 ? p1.username === p2.username : p1 === p2;
+  }
 
+  compareDoctors(d1: Doctor, d2: Doctor){
+    return d1 && d2 ? d1.username === d2.username : d1 === d2;
+  }*/
 
   ngOnInit() {
     this.activeUser = JSON.parse(localStorage.getItem('user'));
@@ -58,6 +69,49 @@ export class AssignmentPage implements OnInit {
   }
 
   async ngOnAssign(){
+    console.log(this.doctorAssigned);
+    console.log(this.patientAssigned);
+
+    //get doctor assigned from their ID
+    this.endpoints.getDoctorByDoctorId(this.doctorAssigned).subscribe(
+      data => {
+        this.doctor = data;
+        console.log("Doctor assigned");
+        console.log(this.doctor);
+
+        //get patient assigned from their ID
+        this.endpoints.getPatientByPatientId(this.patientAssigned).subscribe(
+
+          data => {
+            this.patient = data;
+            console.log("Patient assigned");
+            console.log(this.patient);
+
+            //assign the doctor to the patient
+            this.endpoints.addDoctorToPatient(this.doctorAssigned, this.patientAssigned).subscribe(
+              () => {
+
+                //push patient in doctor's list of patients
+                this.doctor.patients.push(this.patient);
+
+                console.log(this.doctor.patients);
+
+                //modify doctor's list of patients
+                this.endpoints.addPatientToDoctor(this.doctorAssigned, this.doctor.patients).subscribe(
+                  (data) =>{
+                    console.log(JSON.stringify(data));
+                    console.log("Patient "+ this.patient.is_user.first_name + " " + this.patient.is_user.last_name + " was assigned to Doctor " + this.doctor.is_user.first_name + " " + this.doctor.is_user.last_name)
+                  },err => console.log(err)
+                )
+              },err => console.log(err)
+            )
+          },err => console.log(err)
+
+        )
+      },err => console.log(err)
+
+    )
+
 
   }
 
