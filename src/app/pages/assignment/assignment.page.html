@@ -22,10 +22,13 @@
               <ion-card-content>
                 <ion-item>
                   <ion-label color="primary">Select Doctor</ion-label>
-                <ion-select  interface="popover" value="doctor" okText="OK" cancelText="CANCEL" [(ngModel)]="doctorAssigned">
+                <ion-select  interface="popover"  [(ngModel)]="doctorAssigned">
                   <!-- list of doctors sorted by their number of patients in ascending order -->
-                  <div *ngFor="let doctor of doctors">
-                  <ion-select-option value="{{doctor}}">({{doctor.patients.length}} patients) {{doctor.is_user.first_name}}  {{doctor.is_user.last_name}} </ion-select-option>
+                    <div *ngFor="let doctor of doctors">
+                        <ion-select-option  *ngIf="doctor.patients.length === 1; else notOnePatient" value="{{doctor.id}}">({{doctor.patients.length}} patient) {{doctor.is_user.first_name}}  {{doctor.is_user.last_name}} </ion-select-option>
+                      <ng-template #notOnePatient>
+                        <ion-select-option value="{{doctor.id}}">({{doctor.patients.length}} patients) {{doctor.is_user.first_name}}  {{doctor.is_user.last_name}} </ion-select-option>
+                      </ng-template>
                   </div>
                 </ion-select>
                 </ion-item>
@@ -44,10 +47,10 @@
               <ion-card-content>
                 <ion-item>
                   <ion-label color="primary">Select Patient</ion-label>
-                  <ion-select interface="popover" value="patient" okText="OK" cancelText="CANCEL" [(ngModel)]="patientAssigned">
+                  <ion-select interface="popover"  [(ngModel)]="patientAssigned">
                     <!-- list of patients with no doctors -->
                     <div *ngFor="let patient of patients">
-                      <ion-select-option value="{{patient}}" *ngIf="patient.current_doctor === null">{{patient.is_user.first_name}}  {{patient.is_user.last_name}}</ion-select-option>
+                      <ion-select-option value="{{patient.id}}" *ngIf="patient.current_doctor === null">{{patient.is_user.first_name}}  {{patient.is_user.last_name}}</ion-select-option>
                     </div>
                   </ion-select>
                 </ion-item>

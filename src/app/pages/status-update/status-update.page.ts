@@ -78,7 +78,7 @@ export class StatusUpdatePage implements OnInit{
                 console.log(this.activePatient.status_history);
 
 
-                //add status to history
+                //modify patient status history
                 this.endpoints.modifyPatientStatusHistory(this.activePatient.id, this.activePatient.status_history).subscribe(
 
                   (data) =>{
