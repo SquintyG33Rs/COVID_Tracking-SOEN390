@@ -108,7 +108,8 @@ export class AssignmentPage implements OnInit {
 
             //assign the doctor to the patient
             this.endpoints.addDoctorToPatient(this.doctorAssigned, this.patientAssigned).subscribe(
-              () => {
+              (data) => {
+                console.log(data);
 
                 //push patient in doctor's list of patients
                 this.doctor.patients.push(this.patient);
@@ -118,7 +119,7 @@ export class AssignmentPage implements OnInit {
                 //modify doctor's list of patients
                 this.endpoints.addPatientToDoctor(this.doctorAssigned, this.doctor.patients).subscribe(
                   (data) =>{
-                    console.log(JSON.stringify(data));
+                    console.log(data);
                     console.log("Patient "+ this.patient.is_user.first_name + " " + this.patient.is_user.last_name + " was assigned to Doctor " + this.doctor.is_user.first_name + " " + this.doctor.is_user.last_name)
                     //show the alert
                     this.showAlert();
@@ -136,7 +137,15 @@ export class AssignmentPage implements OnInit {
       },err => console.log(err)
 
     )
-
+/*
+    this.endpoints.assignPatientToDoctor(this.patientAssigned, this.doctorAssigned);
+    this.endpoints.addDoctorToPatient(this.doctorAssigned, this.patientAssigned).subscribe(
+      data =>
+      {
+        console.log(data);
+      }
+    )
+*/
 
   }
 
