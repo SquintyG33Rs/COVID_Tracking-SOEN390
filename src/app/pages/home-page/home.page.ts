@@ -82,6 +82,7 @@ export class HomePage implements OnInit
           res => {
             //sort updates by
             this.updates = res.sort(this.sortBy({created_at: -1}));
+            console.log("All the status updates");
             console.log(this.updates);
 
           },
