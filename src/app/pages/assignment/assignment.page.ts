@@ -42,7 +42,7 @@ export class AssignmentPage implements OnInit {
   compareDoctors(d1: Doctor, d2: Doctor){
     return d1 && d2 ? d1.username === d2.username : d1 === d2;
   }*/
-
+  //alert
   async showAlert() {
     const alert = await this.alertController.create({
       header: 'Nice!',
