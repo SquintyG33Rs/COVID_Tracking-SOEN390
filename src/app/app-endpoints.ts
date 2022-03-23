@@ -217,7 +217,7 @@ export  class  Endpoints {
 
     //PUT requests
     //docid and patientid are not the same as their userid, call getDoctorby..() to get their doctor id
-    public modifyPatientsOfDoctor(docid, patientids): Observable<any>{ //patientid can be an array of patientid
+    public addPatientToDoctor(docid, patientids): Observable<any>{ //patientid can be an array of patientid
         const body = {
             patients: patientids
         }
@@ -246,64 +246,66 @@ export  class  Endpoints {
         return this.http.put<any>(this.url + 'patients/' + patientid, body);
     }
 
-    public addStatusToPatientHistory(patientid, statusid) { //statusids can be an array
-        this.getPatientByPatientId(patientid).subscribe((data) => {
-            let statusids = data['status_history'];
-            console.log(statusids);
-            statusids.push(statusid);
-            const body = {
-                status_history: statusids
-            };
-            this.http.put<any>(this.url + 'patients/' + patientid, body).subscribe((data) => {
-                console.log(data);
-            });
-        });
-    }
+  public addStatusToPatientHistory(patientid, statusid) { //statusids can be an array
+    this.getPatientByPatientId(patientid).subscribe((data) => {
+      let statusids = data['status_history'];
+      console.log(statusids);
+      statusids.push(statusid);
+      const body = {
+        status_history: statusids
+      };
+      this.http.put<any>(this.url + 'patients/' + patientid, body).subscribe((data) => {
+        console.log(data);
+      });
+    });
+  }
 
-    public removeStatusToPatientHistory(patientid, statusid) { //statusids can be an array
-        this.getPatientByPatientId(patientid).subscribe((data) => {
-            let statusids = data['status_history'];
-            console.log(statusids);
-            const index = statusids.indexOf(statusid);
-            if (index > -1) {
-                statusids.splice(index,1);
-            }
-            const body = {
-                status_history: statusids
-            };
-            this.http.put<any>(this.url + 'patients/' + patientid, body).subscribe((data) => {
-                console.log(data);
-            });
-        });
-    }
+  public removeStatusToPatientHistory(patientid, statusid) { //statusids can be an array
+    this.getPatientByPatientId(patientid).subscribe((data) => {
+      let statusids = data['status_history'];
+      console.log(statusids);
+      const index = statusids.indexOf(statusid);
+      if (index > -1) {
+        statusids.splice(index,1);
+      }
+      const body = {
+        status_history: statusids
+      };
+      this.http.put<any>(this.url + 'patients/' + patientid, body).subscribe((data) => {
+        console.log(data);
+      });
+    });
+  }
 
-    public addPatientToDoctor(patientid, doctorid) { //statusids can be an array
-        this.getDoctorByDoctorId(doctorid).subscribe((data) => {
-            let patients = data['patients'];
-            patients.push(patientid);
-            const body = {
-                patients: patients
-            };
-            this.http.put<any>(this.url + 'doctors/' + doctorid, body).subscribe((data) => {
-                console.log(data);
-            });
-        });
-    }
+  public assignPatientToDoctor(patientid, doctorid) { //statusids can be an array
+    this.getDoctorByDoctorId(doctorid).subscribe((data) => {
+      let patients = data['patients'];
+      patients.push(patientid);
+      const body = {
+        patients: patients
+      };
+      this.http.put<any>(this.url + 'doctors/' + doctorid, body).subscribe((data) => {
+        console.log(data);
+      });
+    });
+  }
 
-    public removePatientFromDoctor(patientid, doctorid) { //statusids can be an array
-        this.getDoctorByDoctorId(doctorid).subscribe((data) => {
-            let patients = data['patients'];
-            const index = patients.indexOf([patientid]);
-            if (index > -1) {
-                patients.splice(index,1);
-            }
-            const body = {
-                patients: patients
-            };
-            this.http.put<any>(this.url + 'doctors/' + doctorid, body).subscribe((data) => {
-                console.log(data);
-            });
-        });
-    }
+  public unassignPatientFromDoctor(patientid, doctorid) { //statusids can be an array
+    this.getDoctorByDoctorId(doctorid).subscribe((data) => {
+      let patients = data['patients'];
+      const index = patients.indexOf([patientid]);
+      if (index > -1) {
+        patients.splice(index,1);
+      }
+      const body = {
+        patients: patients
+      };
+      this.http.put<any>(this.url + 'doctors/' + doctorid, body).subscribe((data) => {
+        console.log(data);
+      });
+    });
+  }
+
+
 
 }
