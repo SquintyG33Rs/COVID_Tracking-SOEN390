@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 import {Endpoints} from "../../app-endpoints";
 import {Patient} from "../../entities/Patient";
 import {Doctor} from "../../entities/Doctor";
+import {AlertController, NavController} from "@ionic/angular";
 
 @Component({
   selector: 'app-assignment',
@@ -22,12 +23,16 @@ export class AssignmentPage implements OnInit {
   private doctor: any;
   private patient: any;
   sortBy = require('sortby');
+  private alertController: AlertController;
+  private nav: NavController;
 
 
 
-  constructor(endpoints: Endpoints, router: Router) {
+  constructor(endpoints: Endpoints, router: Router, alertController: AlertController, navCtrl: NavController) {
     this.endpoints = endpoints;
     this.router = router;
+    this.alertController = alertController;
+    this.nav = navCtrl;
   }
 /*
   comparePatients(p1: Patient, p2: Patient){
@@ -37,6 +42,20 @@ export class AssignmentPage implements OnInit {
   compareDoctors(d1: Doctor, d2: Doctor){
     return d1 && d2 ? d1.username === d2.username : d1 === d2;
   }*/
+
+  async showAlert() {
+    const alert = await this.alertController.create({
+      header: 'Nice!',
+      cssClass:'my-custom-class',
+      subHeader: 'Doctor/Patient assigned!',
+      message: "Patient "+ this.patient.is_user.first_name + " " + this.patient.is_user.last_name + " was assigned to Doctor " + this.doctor.is_user.first_name + " " + this.doctor.is_user.last_name,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+
 
   ngOnInit() {
     this.activeUser = JSON.parse(localStorage.getItem('user'));
@@ -101,6 +120,12 @@ export class AssignmentPage implements OnInit {
                   (data) =>{
                     console.log(JSON.stringify(data));
                     console.log("Patient "+ this.patient.is_user.first_name + " " + this.patient.is_user.last_name + " was assigned to Doctor " + this.doctor.is_user.first_name + " " + this.doctor.is_user.last_name)
+                    //show the alert
+                    this.showAlert();
+                    //refresh the page
+                    this.nav.navigateBack('/home-page').then(() => this.nav.navigateForward('/assignment'));
+
+
                   },err => console.log(err)
                 )
               },err => console.log(err)
