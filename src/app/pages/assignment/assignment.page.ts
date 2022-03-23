@@ -57,31 +57,6 @@ export class AssignmentPage implements OnInit {
 
 
 
-  async showAlert() {
-    const alert = await this.alertController.create({
-      header: 'Nice!',
-      cssClass:'my-custom-class',
-      subHeader: 'Doctor/Patient assigned!',
-      message: "Patient "+ this.patient.is_user.first_name + " " + this.patient.is_user.last_name + " was assigned to Doctor " + this.doctor.is_user.first_name + " " + this.doctor.is_user.last_name,
-      buttons: ['OK']
-    });
-
-    await alert.present();
-  }
-
-
-
-  async showAlert() {
-    const alert = await this.alertController.create({
-      header: 'Nice!',
-      cssClass:'my-custom-class',
-      subHeader: 'Doctor/Patient assigned!',
-      message: "Patient "+ this.patient.is_user.first_name + " " + this.patient.is_user.last_name + " was assigned to Doctor " + this.doctor.is_user.first_name + " " + this.doctor.is_user.last_name,
-      buttons: ['OK']
-    });
-
-    await alert.present();
-  }
 
 
 
