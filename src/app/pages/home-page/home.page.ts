@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AccountType } from 'src/app/entities/AccountType';
 import { Subscription } from 'rxjs';
 import {QRCodeComponent} from "angular2-qrcode";
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-home-page',
@@ -64,6 +65,7 @@ export class HomePage implements OnInit
             this.patientUpdates = this.activePatient.status_history.sort(this.sortBy({created_at: -1}));
             //get recent patient status
             this.recentUpdate= this.activePatient.status;
+            this.recentUpdate.created_at = formatDate(this.recentUpdate.created_at, "MMMM dd YYY  HH:mm ZZZ", 'en-CA');
 
             console.log("Active Patient Status history");
             console.log(this.activePatient.status_history);
