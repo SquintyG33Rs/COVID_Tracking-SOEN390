@@ -1,16 +1,18 @@
 import {User} from "./User";
+import {Doctor} from "./Doctor";
+import {Patient} from "./Patient";
 
 export class Appointment
 {
-    doctor: User;
-    patient: User;
-    date: string;
+    doctor: Doctor;
+    patient: Patient;
+    date: Date;
 
-    constructor(u1:User,u2:User, x:string)
+    constructor(doctor: Doctor ,patient: Patient, date: Date)
     {
-        this.doctor=u1;
-        this.patient=u2;
-        this.date=x;
+        this.doctor = doctor;
+        this.patient = patient;
+        this.date = date;
     }
 
 }

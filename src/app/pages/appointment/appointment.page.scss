@@ -1,0 +1,44 @@
+* {
+  --ion-font-family: 'DM Serif Text', serif !important;
+}
+
+.my-custom-class {
+  --backdrop-opacity: 0.2;
+  --background: linear-gradient(90deg, rgba(165, 255, 192, 1) 1%, rgba(0, 212, 255, 1) 100%);
+}
+
+ion-title {
+  font-size: 20px;
+}
+
+.icon {
+  font-size: 35px;
+  padding-right: 10px;
+}
+
+
+ion-card {
+  margin: 4px;
+  box-shadow: black;
+  border-radius: 20px;
+  border: 3px solid #912338;
+  padding: 5px;
+
+  ion-card-header {
+    border-radius: 20px;
+    padding: 8px;
+  }
+
+  ion-card-content {
+    #icon {
+      font-size: 90px;
+      color: primary;
+    }
+  }
+
+  ion-button {
+    font-size: 15px;
+    border-radius: 25px;
+    padding: 0px;
+  }
+}
