@@ -65,7 +65,7 @@ export class HomePage implements OnInit
             this.patientUpdates = this.activePatient.status_history.sort(this.sortBy({created_at: -1}));
             //get recent patient status
             this.recentUpdate= this.activePatient.status;
-            this.recentUpdate.created_at = formatDate(this.recentUpdate.created_at, "MMMM dd YYY  HH:mm ZZZ", 'en-CA');
+
 
             console.log("Active Patient Status history");
             console.log(this.activePatient.status_history);

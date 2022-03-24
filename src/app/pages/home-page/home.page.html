@@ -130,7 +130,7 @@
                 </ion-item-group>
               </ion-card-content> -->
                   <ion-card *ngIf="recentUpdate">
-                    <ion-card-subtitle>last updated on {{recentUpdate.created_at}}</ion-card-subtitle>
+                    <ion-card-subtitle>last updated on {{recentUpdate.created_at | date: 'MMMM dd, YYY HH:mm (O)'}}</ion-card-subtitle>
 
                     <ion-card-content>
                       <ion-accordion-group>
