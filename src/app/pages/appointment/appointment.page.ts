@@ -32,8 +32,17 @@ export class AppointmentPage implements OnInit{
     this.endpoints = endpoints;
     this.router = router;
   }
-    ngOnAppointment(){
-
+    ngOnAppointment(date, patientid){
+      console.log(patientid)
+      const unixTime = Date.parse(date)
+      console.log(unixTime)
+      if (date != undefined && date != null && patientid != undefined && patientid != null)
+      {
+        this.endpoints.createAppointment(this.doctor.id, patientid, unixTime).subscribe((data) => {
+          console.log(data);
+        })
+      }
+      
     }
 
     ngOnInit()
@@ -46,25 +55,21 @@ export class AppointmentPage implements OnInit{
         data => {
           //get the active doctor
           this.doctor = data[0];
-          console.log("Active doctor")
-          console.log(this.doctor.is_user.first_name);
+          console.log("Active doctor");
+          console.log(this.doctor);
 
-          console.log("Active doctor's patients")
+          console.log("Active doctor's patients");
           console.log(this.doctor.patients);
 
-
-          this.endpoints.getPatientByUserId(this.patient.is_user).subscribe(
-            data => {console.log(data);
-          //reassign current patient rather than just it's ID
-          this.patient.is_user = data[0];
-          console.log(this.patient.is_user);
+          for (let i = 0; i < this.doctor.patients.length; i++) {
+            this.endpoints.getPatientByPatientId(this.doctor.patients[i].id).subscribe((data) =>
+            {
+              console.log(data)
+              this.patients.push(data);
+              //console.log(this.patients)
+            });
+          }
         })
-
-
-
-
-        }
-      )
     }
 }
 
