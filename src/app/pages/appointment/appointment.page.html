@@ -26,19 +26,19 @@
                       <ion-select *ngIf="doctor" interface="popover"  [(ngModel)]="patient">
                         <!-- list of doctors sorted by their number of patients in ascending order -->
 
-                        <ion-select-option *ngFor="let patient of patients" value="{{patient.id}}"> ({{patient.is_user.email}}) {{patient.is_user.first_name}} {{patient.is_user.last_name}} </ion-select-option>
+                          <ion-select-option *ngFor="let patient of doctor.patients" value="{{patient.id}}"> {{patient.is_user}}  {{patient.id}} </ion-select-option>
 
                       </ion-select>
                     </ion-item>
                   </ion-row>
                   <ion-row>
-                    <ion-datetime [(ngModel)]="date" minute-values="0,15,30,45"></ion-datetime>
+                    <ion-datetime [(ngModel)]="date" minute-values="0,30"></ion-datetime>
                   </ion-row>
                 </ion-card-content>
               </ion-card>
             </ion-col>
           </ion-row>
-          <ion-button shape="round" expand="full" fill="outline" color="primary" (click)="ngOnAppointment(date, patient)">Schedule appointment</ion-button>
+          <ion-button shape="round" expand="full" fill="outline" color="primary" (click)="ngOnAppointment()">Schedule appointment</ion-button>
         </ion-card>
       </ion-col>
     </ion-row>
