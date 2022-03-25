@@ -9,7 +9,6 @@ import { Appointment } from 'src/app/entities/Appointment';
 import {Endpoints} from "../../app-endpoints";
 import {Doctor} from "../../entities/Doctor";
 import {Patient} from "../../entities/Patient";
-import {AlertController, NavController} from "@ionic/angular";
 
 @Component({
     selector: 'app-appointment',
@@ -17,10 +16,10 @@ import {AlertController, NavController} from "@ionic/angular";
     styleUrls: ['./appointment.page.scss'],
 })
 export class AppointmentPage implements OnInit{
-  private endpoints: Endpoints;
-  private router: Router;
-  private appointments: any = [];
-  private alertController: AlertController;
+    private endpoints: Endpoints;
+    private router: Router;
+    private appointment;
+
   private doctor: any;
   private patient: any;
   date: Date;
@@ -29,92 +28,54 @@ export class AppointmentPage implements OnInit{
 
 
 
-  constructor(endpoints: Endpoints, router: Router, alertController: AlertController) {
+  constructor(endpoints: Endpoints, router: Router) {
     this.endpoints = endpoints;
     this.router = router;
-    this.alertController = alertController;
   }
+    ngOnAppointment(){
 
-  //alert
-  async showSuccessAlert() {
-    const alert = await this.alertController.create({
-      header: 'Appointment Creation',
-      cssClass:'my-custom-class',
-      subHeader: 'Success',
-      message: "Appointment succesfully created.",
-      buttons: ['OK']
-    });
+    }
 
-    await alert.present();
-  }
-
-  async showFailedAlert() {
-    const alert = await this.alertController.create({
-      header: 'Appointment Creation',
-      cssClass:'my-custom-class',
-      subHeader: 'Fail',
-      message: "Error in appointment creation.",
-      buttons: ['OK']
-    });
-
-    await alert.present();
-  }
-
-  ngOnAppointment(date, patientid){
-    console.log(patientid)
-    const unixTime = Date.parse(date)
-    console.log(unixTime)
-    if (date != undefined && date != null && patientid != undefined && patientid != null)
+    ngOnInit()
     {
-      this.endpoints.createAppointment(this.doctor.id, patientid, unixTime).subscribe((data) => {
-        console.log(data);
-      })
-      this.showSuccessAlert();
-    }
-    else {
-      this.showFailedAlert();
-    }
-    
-  }
+      //get the authenticated user
+      this.activeUser = JSON.parse(localStorage.getItem('user'));
+      console.log(JSON.parse(localStorage.getItem('user')));
 
-  ngOnInit()
-  {
-    //get the authenticated user
-    this.activeUser = JSON.parse(localStorage.getItem('user'));
-    //console.log(JSON.parse(localStorage.getItem('user')));
+      this.endpoints.getDoctorByUserId(this.activeUser.id).subscribe(
+        data => {
+          //get the active doctor
+          this.doctor = data[0];
+          console.log("Active doctor")
+          console.log(this.doctor);
 
-    this.endpoints.getDoctorByUserId(this.activeUser.id).subscribe(
-      data => {
-        //get the active doctor
-        this.doctor = data[0];
-        console.log("Active doctor");
-        console.log(this.doctor);
+          console.log("Active doctor's patients")
+          console.log(this.doctor.patients);
 
-        console.log("Active doctor's patients");
-        console.log(this.doctor.patients);
+          //for each patient
+          this.doctor.patients.forEach(
+            patient => {
+              console.log(patient.is_user);
+              //get their user ID
+              this.endpoints.getUserById(patient.is_user).subscribe(
+                data => {
+                  console.log(data);
+                  //reassign patient their user details rather than just their user ID
+                  patient.is_user = data
+                  console.log(this.doctor);
 
-        for (let i = 0; i < this.doctor.patients.length; i++) {
-          this.endpoints.getPatientByPatientId(this.doctor.patients[i].id).subscribe((data) =>
-          {
-            //console.log(data)
-            this.patients.push(data);
-            //console.log(this.patients)
-          });
+                  this.patients = this.doctor.patients;
+                })
+            }
+          )
+
+
+
+
+
         }
-      });
-    if (this.activeUser.account_type == "MEDICALDOCTOR") {
-      this.endpoints.getAppointmentsByDoctorUserId(this.activeUser.id).subscribe((data) => {
-        this.appointments = data;
-        console.log(this.appointments);
-      });
+      )
     }
-    else if (this.activeUser.account_type == "PATIENT") {
-      this.endpoints.getAppointmentsByPatientUserId(this.activeUser.id).subscribe((data) => {
-        this.appointments = data;
-        console.log(this.appointments);
-      });
-    }
-  }
 }
 
 
