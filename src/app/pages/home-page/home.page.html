@@ -200,8 +200,8 @@
                 <ion-card-content>
                   <ion-item-group  class="ion-text-left">
                       <ion-label *ngIf="currentDoctor != null" style="">DOCTOR NAME: {{currentDoctor.is_user.first_name}} {{currentDoctor.is_user.last_name}}</ion-label>
-                      <ion-label *ngIf="currentDoctor != null" style="" >DOCTOR PHONE: {{currentDoctor.is_user.phone}}</ion-label>
-                      <ion-label *ngIf="currentDoctor != null" style="">DOCTOR EMAIL: {{currentDoctor.is_user.email}}</ion-label>
+                      <ion-label *ngIf="currentDoctor != null" style="" >DOCTOR PHONE: <a href="tel:{{currentDoctor.is_user.phone}}">{{currentDoctor.is_user.phone}}</a></ion-label>
+                      <ion-label *ngIf="currentDoctor != null" style="">DOCTOR EMAIL: <a href="mailto:{{currentDoctor.is_user.email}}">{{currentDoctor.is_user.email}}</a></ion-label>
                       <ion-label *ngIf="currentDoctor == null" style="">You do not have a doctor currently.</ion-label>
                   </ion-item-group>
 
