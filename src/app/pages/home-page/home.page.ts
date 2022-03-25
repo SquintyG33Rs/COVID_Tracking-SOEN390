@@ -78,7 +78,7 @@ export class HomePage implements OnInit
 
                   console.log(data);
                   //reassign current doctor rather than just it's ID
-                  this.currentDoctor = this.activePatient.current_doctor.is_user = data[0];
+                  this.currentDoctor = this.activePatient.current_doctor = data[0];
                   console.log(this.currentDoctor);
                 })
 
