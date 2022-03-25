@@ -33,11 +33,14 @@ export class AppComponent
       let activeUser = JSON.parse(localStorage.getItem('user'));
       console.log(activeUser);
 
+/* refresh to home page
       if(activeUser != null)
       {
         //this.databaseService.activeUser = activeUser;
         this.router.navigateByUrl("/home-page");
       }
+*/
+
     }
     this.sideMenu();
     this.initializeApp();
