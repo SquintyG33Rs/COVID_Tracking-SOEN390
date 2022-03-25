@@ -127,7 +127,7 @@ export class AssignmentPage implements OnInit {
                     //show the alert
                     this.showAlert();
                     //refresh the page
-                    this.nav.navigateBack('/home-page').then(() => this.nav.navigateForward('/assignment'));
+                    setTimeout (()=> window.location.assign('/assignment'),3000);
 
 
                   },err => console.log(err)
