@@ -20,7 +20,7 @@ export class AppComponent
 {
   navigate: any;
   public test = [];
-  constructor( private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar, private router: Router, private databaseService: DatabaseService, private endpoints: Endpoints)
+  constructor( private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar, private router: Router, private endpoints: Endpoints)
   {
     // Check if active user exists.
     if (localStorage.getItem('user') === 'undefined')

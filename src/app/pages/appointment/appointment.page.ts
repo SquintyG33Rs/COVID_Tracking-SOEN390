@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import {AlertController, IonicModule} from '@ionic/angular';
 import { User } from "../../entities/User";
 import { DatabaseService } from "../../database-services/database.service";
 import { AccountType } from 'src/app/entities/AccountType';
@@ -18,7 +18,8 @@ import {Patient} from "../../entities/Patient";
 export class AppointmentPage implements OnInit{
     private endpoints: Endpoints;
     private router: Router;
-    private appointment;
+    private appointments: any = [];
+    private alertController: AlertController;
 
   private doctor: any;
   private patient: any;
@@ -28,13 +29,55 @@ export class AppointmentPage implements OnInit{
 
 
 
-  constructor(endpoints: Endpoints, router: Router) {
+  constructor(endpoints: Endpoints, router: Router, alertController: AlertController) {
     this.endpoints = endpoints;
     this.router = router;
+    this.alertController = alertController;
   }
-    ngOnAppointment(){
 
+  //alert
+  async showSuccessAlert() {
+    const alert = await this.alertController.create({
+      header: 'Appointment Creation',
+      cssClass:'my-custom-class',
+      subHeader: 'Success',
+      message: "Appointment with " + this.patient.is_user.first_name + " " + this.patient.is_user.last_name + " on " + this.date + " successfully created.",
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  async showFailedAlert() {
+    const alert = await this.alertController.create({
+      header: 'Appointment Creation',
+      cssClass:'my-custom-class',
+      subHeader: 'Fail',
+      message: "Error in appointment creation.",
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+
+
+  ngOnAppointment(date, patientid){
+    console.log(patientid)
+    const unixTime = Date.parse(date)
+    console.log(unixTime)
+    if (date != undefined && patientid != undefined)
+    {
+      this.endpoints.createAppointment(this.doctor.id, patientid, unixTime).subscribe((data) => {
+        console.log(data);
+      })
+      this.showSuccessAlert();
     }
+    else {
+      this.showFailedAlert();
+    }
+
+  }
 
     ngOnInit()
     {
@@ -52,30 +95,33 @@ export class AppointmentPage implements OnInit{
           console.log("Active doctor's patients")
           console.log(this.doctor.patients);
 
-          //for each patient
-          this.doctor.patients.forEach(
-            patient => {
-              console.log(patient.is_user);
-              //get their user ID
-              this.endpoints.getUserById(patient.is_user).subscribe(
-                data => {
-                  console.log(data);
-                  //reassign patient their user details rather than just their user ID
-                  patient.is_user = data
-                  console.log(this.doctor);
 
-                  this.patients = this.doctor.patients;
-                })
-            }
-          )
-
-
-
-
-
-        }
-      )
+          //for each patient of the active doctor
+          for (let i = 0; i < this.doctor.patients.length; i++) {
+            //get them by their patient ID
+            this.endpoints.getPatientByPatientId(this.doctor.patients[i].id).subscribe((data) =>
+            {
+              console.log(data)
+              //push them onto a patients array
+              this.patients.push(data);
+              //console.log(this.patients)
+            });
+          }
+        });
+      if (this.activeUser.account_type == "MEDICALDOCTOR") {
+        this.endpoints.getAppointmentsByDoctorUserId(this.activeUser.id).subscribe((data) => {
+          this.appointments = data;
+          console.log(this.appointments);
+        });
+      }
+      else if (this.activeUser.account_type == "PATIENT") {
+        this.endpoints.getAppointmentsByPatientUserId(this.activeUser.id).subscribe((data) => {
+          this.appointments = data;
+          console.log(this.appointments);
+        });
+      }
     }
+
 }
 
 
