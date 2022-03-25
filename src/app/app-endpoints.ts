@@ -91,37 +91,37 @@ export  class  Endpoints {
         return this.http.get<any>(this.url + 'patients/' + patientid);
     }
 
-    public getAppointmentByPatientUserId(userid): Observable<any>{
+    public getAppointmentsByPatientUserId(userid): Observable<any>{
         let qparams = new HttpParams();
-        qparams = qparams.append("patient.id", userid)
+        qparams = qparams.append("patient.is_user", userid)
         return this.http.get<any>(this.url + 'appointments/', {params: qparams});
     }
 
-    public getAppointmentByDoctorUserId(userid): Observable<any>{
+    public getAppointmentsByDoctorUserId(userid): Observable<any>{
         let qparams = new HttpParams();
-        qparams = qparams.append("doctor.id", userid)
+        qparams = qparams.append("doctor.is_user", userid)
         return this.http.get<any>(this.url + 'appointments/', {params: qparams});
     }
 
-    public getAppointmentByPatientId(patientid): Observable<any>{ //uses patientid, patientid != userid
+    public getAppointmentsByPatientId(patientid): Observable<any>{ //uses patientid, patientid != userid
         let qparams = new HttpParams();
         qparams = qparams.append("patient", patientid)
         return this.http.get<any>(this.url + 'appointments/', {params: qparams});
     }
 
-    public getAppointmentByDoctorId(doctorid): Observable<any>{ //uses doctorid, doctorid != userid
+    public getAppointmentsByDoctorId(doctorid): Observable<any>{ //uses doctorid, doctorid != userid
         let qparams = new HttpParams();
         qparams = qparams.append("doctor", doctorid)
         return this.http.get<any>(this.url + 'appointments/', {params: qparams});
     }
 
-    public getAppointmentByPatientUsername(username): Observable<any>{
+    public getAppointmentsByPatientUsername(username): Observable<any>{
         let qparams = new HttpParams();
         qparams = qparams.append("patient.username", username)
         return this.http.get<any>(this.url + 'appointments/', {params: qparams});
     }
 
-    public getAppointmentByDoctorUsername(username): Observable<any>{
+    public getAppointmentsByDoctorUsername(username): Observable<any>{
         let qparams = new HttpParams();
         qparams = qparams.append("doctor.username", username)
         return this.http.get<any>(this.url + 'appointments/', {params: qparams});
