@@ -23,10 +23,12 @@ export class HomePage implements OnInit
   private patientUpdates: any = [];
   private recentUpdate: any;
   private currentDoctor: any;
+  private flagged: boolean;
   updates: any = [];
   currentRouteURL: String;
   urlDetector: RouteChangeDetection = new RouteChangeDetection(this.router);
   sortBy = require('sortby');
+
 
 
 
@@ -65,6 +67,8 @@ export class HomePage implements OnInit
             this.patientUpdates = this.activePatient.status_history.sort(this.sortBy({created_at: -1}));
             //get recent patient status
             this.recentUpdate= this.activePatient.status;
+            //get flagged
+            this.flagged = this.activePatient.flagged;
 
 
             console.log("Active Patient Status history");

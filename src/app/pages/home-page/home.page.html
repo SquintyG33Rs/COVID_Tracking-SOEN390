@@ -46,7 +46,7 @@
                   <ion-label style="">First Name: {{activeUser.first_name}}</ion-label>
                   <ion-label style="">Last Name: {{activeUser.last_name}}</ion-label>
                   <ion-label style="">Email: {{activeUser.email}}</ion-label>
-                  <ion-label style="">Phone: {{activeUser.telephone}}</ion-label>
+                  <ion-label style="">Phone: {{activeUser.phone}}</ion-label>
                   <ion-label style="">Address: {{activeUser.address}}</ion-label>
                 </ion-item-group>
               </ion-card-content>
@@ -101,7 +101,7 @@
           </ion-card-header>
           <ion-card-content>
             <ion-icon name="flag" style="font-size: 60px; color: #912338; padding: 5px;"></ion-icon>
-            <p style="font-size: 20px; ">False</p>
+            <p style="font-size: 20px; ">{{flagged}}</p>
           </ion-card-content>
         </ion-card>
       </ion-col>
