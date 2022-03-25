@@ -46,6 +46,12 @@ export class HomePage implements OnInit
 
   onChangeRouteDetection(message: string)
   {
+
+
+  }
+
+  ngOnInit()
+  {
     this.activeUser = JSON.parse(localStorage.getItem('user'));
     console.log(this.activeUser);
 
@@ -87,7 +93,7 @@ export class HomePage implements OnInit
                 })
 
             }
-            },err => console.log(err)
+          },err => console.log(err)
         )
       }
 
@@ -119,63 +125,6 @@ export class HomePage implements OnInit
         );
       }
     }
-    if (message === '/home-page')
-    {
-      /*switch (this.activeUser.accountType)
-      {
-        case AccountType.ADMIN:
-        break;
-        case AccountType.MEDICALDOCTOR:
-          console.log("Hello Doctor!");
-
-            //Doctor code goes here
-
-        break;
-        case AccountType.HEALTHOFFICIAL:
-        break;
-        case AccountType.IMMIGRATIONOFFICER:
-        break;
-        case AccountType.PATIENT:
-          console.log("Hello Patient!");
-
-            //Patient code goes here etc.
-
-        break;
-      }
-      */
-    }
-  }
-
-  ngOnInit()
-  {
-    this.activeUser = JSON.parse(localStorage.getItem('user'));
-    console.log('log user:');
-    console.log(this.activeUser.first_name + " " + this.activeUser.last_name);
-
-/*
-    if (this.activeUser.account_type === 'PATIENT')
-    {
-      this.endpoints.getPatientByUserId(this.activeUser.id).subscribe(
-        data => {
-          this.activePatient = data[0];
-          console.log(this.activePatient);
-        }
-      )
-    }
-
-    if (this.activeUser.account_type === 'MEDICALDOCTOR')
-    {
-      this.endpoints.getDoctorByUserId(this.activeUser.id).subscribe(
-        data => {
-          this.activeDoctor = data[0];
-          console.log(this.activeDoctor);
-        }
-      )
-    }
-*/
-
-
-
 
 
   }
