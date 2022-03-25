@@ -79,6 +79,7 @@ export class AppointmentPage implements OnInit{
             //reassign doctor user details instead of just their user ID
             this.patient.is_user = pat;
             this.showSuccessAlert();
+            setTimeout (()=> window.location.assign('/appointment'),3000);
           }
         )
       })

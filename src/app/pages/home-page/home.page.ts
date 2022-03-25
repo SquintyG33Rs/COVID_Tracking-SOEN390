@@ -134,7 +134,7 @@ export class HomePage implements OnInit
     this.endpoint.activeUser = null;
     this.activeUser = null;
     localStorage.clear();
-    this.router.navigateByUrl('/welcome-page');
+    window.location.assign('/welcome-page');
     console.log('Logged out!');
     console.log(this.activeUser);
   }
@@ -147,7 +147,7 @@ export class HomePage implements OnInit
 
   updateHealthStatus(username: string) {
     console.log("Update Health Status for: " + username);
-    this.router.navigateByUrl("/status-update");
+    window.location.assign("/status-update");
   }
 
   contactDoctor(username: string) {

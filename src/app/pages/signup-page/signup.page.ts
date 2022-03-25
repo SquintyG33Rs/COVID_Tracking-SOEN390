@@ -55,7 +55,8 @@ export class SignupPage implements OnInit
             console.log('Sign-in User:');
             console.log(JSON.parse(localStorage.getItem('user')));
             //this.endpoints.activeUser = JSON.parse(localStorage.getItem('user'));
-            this.router.navigate(['home-page']).then(() => console.log('Route Forward To Home Page.'));
+            console.log('Route Forward To Sign-In Page.');
+            window.location.assign('/signin-page');
           });
         }, error => {console.log(error.error.message[0].messages[0].id);});
       }
@@ -66,14 +67,16 @@ export class SignupPage implements OnInit
           console.log('Sign-in User:');
           console.log(JSON.parse(localStorage.getItem('user')));
           //this.endpoints.activeUser = JSON.parse(localStorage.getItem('user'));
-          this.router.navigate(['home-page']).then(() => console.log('Route Forward To Home Page.'));
+          console.log('Route Forward To Sign-In Page.');
+          window.location.assign('/signin-page');
         }, error => {console.log(error.error.message[0].messages[0].id);});
       }
       else {
         console.log('Sign-in User:');
         console.log(JSON.parse(localStorage.getItem('user')));
         //this.endpoints.activeUser = JSON.parse(localStorage.getItem('user'));
-        this.router.navigate(['home-page']).then(() => console.log('Route Forward To Home Page.'));
+        console.log('Route Forward To Sign-In Page.');
+        window.location.assign('/signin-page');
       }
     }, error => {console.log(error.error.message[0].messages[0].id);});
 

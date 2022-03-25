@@ -28,7 +28,7 @@ export class SigninPage implements OnInit {
 
   ngOnInit() { }
 
-  async onSignin() 
+  async onSignin()
   {
     this.user = null;
     this.endpoint.login(this.username, this.password).subscribe((data) => {
@@ -39,7 +39,8 @@ export class SigninPage implements OnInit {
       console.log("Sign-in User:");
       console.log(JSON.parse(localStorage.getItem('user')));
       //this.endpoints.activeUser = JSON.parse(localStorage.getItem('user'));
-      this.router.navigate(['home-page']).then(() => console.log("Route Forward To Home Page."));
+      console.log('Route Forward To Home Page.');
+      window.location.assign('/home-page');
     }, error => {
       console.log(error.error.message[0].messages[0].id)
     });
