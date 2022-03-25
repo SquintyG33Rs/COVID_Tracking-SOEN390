@@ -47,18 +47,28 @@ export class AppointmentPage implements OnInit{
           //get the active doctor
           this.doctor = data[0];
           console.log("Active doctor")
-          console.log(this.doctor.is_user.first_name);
+          console.log(this.doctor);
 
           console.log("Active doctor's patients")
           console.log(this.doctor.patients);
 
+          //for each patient
+          this.doctor.patients.forEach(
+            patient => {
+              console.log(patient.is_user);
+              //get their user ID
+              this.endpoints.getUserById(patient.is_user).subscribe(
+                data => {
+                  console.log(data);
+                  //reassign patient their user details rather than just their user ID
+                  patient.is_user = data
+                  console.log(this.doctor);
 
-          this.endpoints.getPatientByUserId(this.patient.is_user).subscribe(
-            data => {console.log(data);
-          //reassign current patient rather than just it's ID
-          this.patient.is_user = data[0];
-          console.log(this.patient.is_user);
-        })
+                  this.patients = this.doctor.patients;
+                })
+            }
+          )
+
 
 
 

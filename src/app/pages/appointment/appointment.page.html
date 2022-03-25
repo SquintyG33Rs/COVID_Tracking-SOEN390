@@ -26,7 +26,7 @@
                       <ion-select *ngIf="doctor" interface="popover"  [(ngModel)]="patient">
                         <!-- list of doctors sorted by their number of patients in ascending order -->
 
-                          <ion-select-option *ngFor="let patient of doctor.patients" value="{{patient.id}}"> {{patient.is_user}}  {{patient.id}} </ion-select-option>
+                          <ion-select-option *ngFor="let patient of patients" value="{{patient.id}}"> {{patient.is_user.first_name}}  {{patient.is_user.last_name}} </ion-select-option>
 
                       </ion-select>
                     </ion-item>
