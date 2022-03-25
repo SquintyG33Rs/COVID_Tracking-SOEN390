@@ -9,6 +9,7 @@ import { Appointment } from 'src/app/entities/Appointment';
 import {Endpoints} from "../../app-endpoints";
 import {Doctor} from "../../entities/Doctor";
 import {Patient} from "../../entities/Patient";
+import {formatDate} from "@angular/common";
 
 @Component({
     selector: 'app-appointment',
@@ -41,7 +42,7 @@ export class AppointmentPage implements OnInit{
       header: 'Appointment Creation',
       cssClass:'my-custom-class',
       subHeader: 'Success',
-      message: "Appointment with " + this.patient.is_user.first_name + " " + this.patient.is_user.last_name + " on " + this.date + " successfully created.",
+      message: "Appointment with " + this.patient.is_user.first_name + " " + this.patient.is_user.last_name + " on " + formatDate(this.date, 'MMMM dd, YYY HH:mm (O)', 'en-CA','-4' ) + " successfully created.",
       buttons: ['OK']
     });
 
@@ -68,10 +69,20 @@ export class AppointmentPage implements OnInit{
     console.log(unixTime)
     if (date != undefined && patientid != undefined)
     {
-      this.endpoints.createAppointment(this.doctor.id, patientid, unixTime).subscribe((data) => {
-        console.log(data);
+      this.endpoints.createAppointment(this.doctor.id, patientid, unixTime).subscribe((app) => {
+        console.log(app);
+        this.patient = app.patient;
+        console.log(this.patient);
+        //get the doctor user details
+        this.endpoints.getUserById(this.patient.is_user).subscribe(
+          pat => {
+            //reassign doctor user details instead of just their user ID
+            this.patient.is_user = pat;
+            this.showSuccessAlert();
+          }
+        )
       })
-      this.showSuccessAlert();
+
     }
     else {
       this.showFailedAlert();
@@ -101,6 +112,7 @@ export class AppointmentPage implements OnInit{
             //get them by their patient ID
             this.endpoints.getPatientByPatientId(this.doctor.patients[i].id).subscribe((data) =>
             {
+              console.log("Patient " + (i+1));
               console.log(data)
               //push them onto a patients array
               this.patients.push(data);
