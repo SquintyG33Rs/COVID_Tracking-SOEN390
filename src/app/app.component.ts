@@ -107,7 +107,7 @@ export class AppComponent
   },{timeout:10000});
     while (true) {
       this.geolocation();
-      await this.delay(30000); //check every 5 minutes
+      await this.delay(300000); //check every 5 minutes
     }
    }
 
