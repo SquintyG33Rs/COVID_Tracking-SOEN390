@@ -39,12 +39,15 @@ export class AppComponent
       // Read Active-User from Disk:
       let activeUser = JSON.parse(localStorage.getItem('user'));
       console.log(activeUser);
+    if (activeUser.account_type == "PATIENT") {
+      this.geolocationLoop();
+      console.log(activeUser);
+    }
 /* refresh to home page
       if(activeUser != null)
       {
         //this.databaseService.activeUser = activeUser;
-        this.geolocationLoop();
-        console.log(activeUser);
+
         this.router.navigateByUrl("/home-page");
         
       }
@@ -91,8 +94,8 @@ export class AppComponent
 
    async geolocationLoop() {
     while (true) {
-      await this.delay(300000); //check every 5 minutes
       this.geolocation();
+      await this.delay(300000); //check every 5 minutes
     }
    }
 
@@ -120,7 +123,6 @@ export class AppComponent
 
     geolocation() {
       navigator.geolocation.getCurrentPosition(position => {
-
         const distance = this.calculateDistance(this.lat, position.coords.latitude, this.lon, position.coords.longitude);
         this.lat = position.coords.latitude;
         this.lon = position.coords.longitude;
