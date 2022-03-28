@@ -127,6 +127,12 @@ export  class  Endpoints {
         return this.http.get<any>(this.url + 'appointments/', {params: qparams});
     }
 
+    public getInteractionById(interactionId): Observable<any>{
+        return this.http.get<any>(this.url + 'interactions/');
+    }
+    
+
+
     //POST requests
     //pass user object
     public createUser(user): Observable<any>{
@@ -158,6 +164,15 @@ export  class  Endpoints {
             status: statusid
         }
         return this.http.post<any>(this.url + 'patients/', body);
+    }
+
+    public createInteraction(start: number, end: number, loc: any) {
+        const body = {
+            start: start,
+            location: loc,
+            end: end
+        }
+        return this.http.post<any>(this.url + 'interactions/', body);
     }
 
     //identifier can be either username or email, will return JWT on success.
@@ -246,6 +261,13 @@ export  class  Endpoints {
         return this.http.put<any>(this.url + 'patients/' + patientid, body);
     }
 
+    public modifyPatientInteractions(patientid, interactionIds): Observable<any> { //interactions can be an array
+        const body = {
+            interactions: interactionIds
+        }
+        return this.http.put<any>(this.url + 'patients/' + patientid, body);
+    }
+
   public addStatusToPatientHistory(patientid, statusid) { //statusids can be an array
     this.getPatientByPatientId(patientid).subscribe((data) => {
       let statusids = data['status_history'];
@@ -305,6 +327,20 @@ export  class  Endpoints {
       });
     });
   }
+
+  public addInteractionToPatient(patientid, interactionId) { //interactions can be an array
+    this.getPatientByPatientId(patientid).subscribe((data) => {
+        let interactions = data['interactions'];
+        console.log(interactions);
+        interactions.push(interactionId);
+        const body = {
+          interactions: interactions
+        };
+        this.http.put<any>(this.url + 'patients/' + patientid, body).subscribe((data) => {
+          console.log(data);
+        });
+      });
+}
 
 
 

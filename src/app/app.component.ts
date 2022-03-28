@@ -27,6 +27,8 @@ export class AppComponent
   public start: any;
   public end: any;
   public location: any;
+  public activeUser: any;
+  public patient: any;
   constructor( private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar, private router: Router, private endpoints: Endpoints)
   {
     // Check if active user exists.
@@ -37,11 +39,15 @@ export class AppComponent
     else
     {
       // Read Active-User from Disk:
-      let activeUser = JSON.parse(localStorage.getItem('user'));
-      console.log(activeUser);
-    if (activeUser.account_type == "PATIENT") {
+      this.activeUser = JSON.parse(localStorage.getItem('user'));
+      console.log(this.activeUser);
+    if (this.activeUser.account_type == "PATIENT") {
+      this.endpoints.getPatientByUserId(this.activeUser.id).subscribe(
+        data => {
+          this.patient = data[0];
+          
+        });
       this.geolocationLoop();
-      console.log(activeUser);
     }
 /* refresh to home page
       if(activeUser != null)
@@ -123,16 +129,21 @@ export class AppComponent
 
     geolocation() {
       navigator.geolocation.getCurrentPosition(position => {
+        //console.log(this.patient.interactions);
         const distance = this.calculateDistance(this.lat, position.coords.latitude, this.lon, position.coords.longitude);
-        this.lat = position.coords.latitude;
-        this.lon = position.coords.longitude;
         if (distance > 100) //100m threshold
         {
+          this.lat = position.coords.latitude; //chaning only after detected movement in case of slow movement
+          this.lon = position.coords.longitude;
           console.log("moving")
           if (this.record) { //started moving again after being stopped
             this.end = new Date().getTime();
             console.log("moving again, recording over.")
             console.log("Start: " + this.start + ", loc: {lat: " + this.location.lat + ", lon: " + this.location.lon + " }, End: " + this.end)
+            this.endpoints.createInteraction(this.start, this.end, this.location).subscribe((data) => {
+              let id = data.id;
+              this.endpoints.addInteractionToPatient(this.patient.id, id);
+            });
             this.record = false;
           }
           this.moving = true;
