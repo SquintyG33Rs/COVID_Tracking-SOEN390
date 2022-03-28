@@ -107,8 +107,13 @@ export class AppComponent
     console.log("User did not allow geolocation.");
   },{timeout:10000});
     while (true) {
-      this.geolocation();
-      await this.delay(300000); //check every 5 minutes
+      this.activeUser = JSON.parse(localStorage.getItem('user'));
+      console.log(this.activeUser)
+      if (this.activeUser.account_type == "PATIENT") {
+          this.geolocation();
+          await this.delay(300000); //check every 5 minutes
+      }
+      await this.delay(10000);
     }
    }
 
