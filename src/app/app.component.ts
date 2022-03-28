@@ -45,9 +45,9 @@ export class AppComponent
       this.endpoints.getPatientByUserId(this.activeUser.id).subscribe(
         data => {
           this.patient = data[0];
-          
+          this.geolocationLoop();
         });
-      this.geolocationLoop();
+      
     }
 /* refresh to home page
       if(activeUser != null)
@@ -107,7 +107,7 @@ export class AppComponent
   },{timeout:10000});
     while (true) {
       this.geolocation();
-      await this.delay(300000); //check every 5 minutes
+      await this.delay(30000); //check every 5 minutes
     }
    }
 
@@ -135,20 +135,22 @@ export class AppComponent
 
     geolocation() {
       navigator.geolocation.getCurrentPosition(position => {
-        //console.log(this.patient.interactions);
+        this.removeOldInteractions();
         const distance = this.calculateDistance(this.lat, position.coords.latitude, this.lon, position.coords.longitude);
         if (distance > 100) //100m threshold
         {
           this.lat = position.coords.latitude; //chaning only after detected movement in case of slow movement
           this.lon = position.coords.longitude;
-          console.log("moving")
+          //console.log("moving")
           if (this.record) { //started moving again after being stopped
             this.end = new Date().getTime();
-            console.log("moving again, recording over.")
-            console.log("Start: " + this.start + ", loc: {lat: " + this.location.lat + ", lon: " + this.location.lon + " }, End: " + this.end)
-            this.endpoints.createInteraction(this.start, this.end, this.location).subscribe((data) => {
+            //console.log("moving again, recording over.")
+            //console.log("Start: " + this.start + ", loc: {lat: " + this.location.lat + ", lon: " + this.location.lon + " }, End: " + this.end)
+            this.endpoints.createInteraction(this.start, this.end, this.location, this.patient.id).subscribe((data) => {
               let id = data.id;
               this.endpoints.addInteractionToPatient(this.patient.id, id);
+              this.removeOldInteractions();
+              this.checkForContacts();
             });
             this.record = false;
           }
@@ -157,8 +159,8 @@ export class AppComponent
         if (distance < 10) //10m threshold for gps inaccuracies
         {
           if (this.moving) {
-            console.log("stopped")
-            console.log("location being recorded.")
+            //console.log("stopped")
+            //console.log("location being recorded.")
             this.start = new Date().getTime();
             this.location = {lat: this.lat, lon: this.lon}
             this.record = true;
@@ -182,5 +184,26 @@ export class AppComponent
       const archaversine = 2 * Math.atan2(Math.sqrt(haversine), Math.sqrt(1-haversine));
       const distance = radius * archaversine; // in m
       return distance;
+    }
+
+    removeOldInteractions() {
+      this.patient.interactions.forEach(element => {
+        console.log(element)
+        const interactionTime = Date.parse(element.start)
+        const today = new Date().getTime();
+        if (today - interactionTime > 604800) { // 2 weeks
+          this.endpoints.removeInteractionFromPatientHistory(this.patient.id, element.id);
+        } 
+      });
+    }
+
+    checkForContacts() {
+      // refresh patient
+      this.endpoints.getPatientByUserId(this.activeUser.id).subscribe(
+        data => {
+          this.patient = data[0];
+        });
+      //TODO contact tracing. 
+
     }
 }

@@ -40,7 +40,9 @@ export  class  Endpoints {
       return this.http.get<any[]>(this.url + 'statuses' );
     }
 
-
+    public getInteractions(): Observable<any[]>{
+        return this.http.get<any[]>(this.url + 'interactions' );
+      }
 
     public getUserById(id): Observable<any>{
         return this.http.get<any>(this.url + 'users/' + id);
@@ -166,11 +168,12 @@ export  class  Endpoints {
         return this.http.post<any>(this.url + 'patients/', body);
     }
 
-    public createInteraction(start: number, end: number, loc: any) {
+    public createInteraction(start: number, end: number, loc: any, patientid: number) {
         const body = {
             start: start,
             location: loc,
-            end: end
+            end: end,
+            patient: patientid
         }
         return this.http.post<any>(this.url + 'interactions/', body);
     }
@@ -282,7 +285,7 @@ export  class  Endpoints {
     });
   }
 
-  public removeStatusToPatientHistory(patientid, statusid) { //statusids can be an array
+  public removeStatusFromPatientHistory(patientid, statusid) { //statusids can be an array
     this.getPatientByPatientId(patientid).subscribe((data) => {
       let statusids = data['status_history'];
       console.log(statusids);
@@ -340,8 +343,23 @@ export  class  Endpoints {
           console.log(data);
         });
       });
-}
-
+  }
+  public removeInteractionFromPatientHistory(patientid, interactionid) { //statusids can be an array
+    this.getPatientByPatientId(patientid).subscribe((data) => {
+      let interactionids = data['interactions'];
+      console.log(interactionids);
+      const index = interactionids.indexOf(interactionid);
+      if (index > -1) {
+        interactionids.splice(index,1);
+      }
+      const body = {
+        status_history: interactionids
+      };
+      this.http.put<any>(this.url + 'patients/' + patientid, body).subscribe((data) => {
+        console.log(data);
+      });
+    });
+  }
 
 
 }
