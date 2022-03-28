@@ -99,6 +99,12 @@ export class AppComponent
    }
 
    async geolocationLoop() {
+    navigator.geolocation.getCurrentPosition(position => {
+      this.lat = position.coords.latitude; //chaning only after detected movement in case of slow movement
+      this.lon = position.coords.longitude;
+  },function(){
+    console.log("User did not allow geolocation.");
+  },{timeout:10000});
     while (true) {
       this.geolocation();
       await this.delay(300000); //check every 5 minutes
