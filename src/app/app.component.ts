@@ -39,7 +39,7 @@ export class AppComponent
       // Read Active-User from Disk:
       let activeUser = JSON.parse(localStorage.getItem('user'));
       console.log(activeUser);
-
+/* refresh to home page
       if(activeUser != null)
       {
         //this.databaseService.activeUser = activeUser;
@@ -48,6 +48,8 @@ export class AppComponent
         this.router.navigateByUrl("/home-page");
         
       }
+
+ */
     }
     this.sideMenu();
     this.initializeApp();

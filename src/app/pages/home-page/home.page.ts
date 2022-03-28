@@ -23,10 +23,12 @@ export class HomePage implements OnInit
   private patientUpdates: any = [];
   private recentUpdate: any;
   private currentDoctor: any;
+  private flagged: boolean;
   updates: any = [];
   currentRouteURL: String;
   urlDetector: RouteChangeDetection = new RouteChangeDetection(this.router);
   sortBy = require('sortby');
+
 
 
 
@@ -43,6 +45,12 @@ export class HomePage implements OnInit
   }
 
   onChangeRouteDetection(message: string)
+  {
+
+
+  }
+
+  ngOnInit()
   {
     this.activeUser = JSON.parse(localStorage.getItem('user'));
     console.log(this.activeUser);
@@ -65,6 +73,8 @@ export class HomePage implements OnInit
             this.patientUpdates = this.activePatient.status_history.sort(this.sortBy({created_at: -1}));
             //get recent patient status
             this.recentUpdate= this.activePatient.status;
+            //get flagged
+            this.flagged = this.activePatient.flagged;
 
 
             console.log("Active Patient Status history");
@@ -78,12 +88,12 @@ export class HomePage implements OnInit
 
                   console.log(data);
                   //reassign current doctor rather than just it's ID
-                  this.currentDoctor = this.activePatient.current_doctor.is_user = data[0];
+                  this.currentDoctor = this.activePatient.current_doctor = data[0];
                   console.log(this.currentDoctor);
                 })
 
             }
-            },err => console.log(err)
+          },err => console.log(err)
         )
       }
 
@@ -115,63 +125,6 @@ export class HomePage implements OnInit
         );
       }
     }
-    if (message === '/home-page')
-    {
-      /*switch (this.activeUser.accountType)
-      {
-        case AccountType.ADMIN:
-        break;
-        case AccountType.MEDICALDOCTOR:
-          console.log("Hello Doctor!");
-
-            //Doctor code goes here
-
-        break;
-        case AccountType.HEALTHOFFICIAL:
-        break;
-        case AccountType.IMMIGRATIONOFFICER:
-        break;
-        case AccountType.PATIENT:
-          console.log("Hello Patient!");
-
-            //Patient code goes here etc.
-
-        break;
-      }
-      */
-    }
-  }
-
-  ngOnInit()
-  {
-    this.activeUser = JSON.parse(localStorage.getItem('user'));
-    console.log('log user:');
-    console.log(this.activeUser.first_name + " " + this.activeUser.last_name);
-
-/*
-    if (this.activeUser.account_type === 'PATIENT')
-    {
-      this.endpoints.getPatientByUserId(this.activeUser.id).subscribe(
-        data => {
-          this.activePatient = data[0];
-          console.log(this.activePatient);
-        }
-      )
-    }
-
-    if (this.activeUser.account_type === 'MEDICALDOCTOR')
-    {
-      this.endpoints.getDoctorByUserId(this.activeUser.id).subscribe(
-        data => {
-          this.activeDoctor = data[0];
-          console.log(this.activeDoctor);
-        }
-      )
-    }
-*/
-
-
-
 
 
   }
@@ -181,7 +134,7 @@ export class HomePage implements OnInit
     this.endpoint.activeUser = null;
     this.activeUser = null;
     localStorage.clear();
-    this.router.navigateByUrl('/welcome-page');
+    window.location.assign('/welcome-page');
     console.log('Logged out!');
     console.log(this.activeUser);
   }
@@ -194,7 +147,7 @@ export class HomePage implements OnInit
 
   updateHealthStatus(username: string) {
     console.log("Update Health Status for: " + username);
-    this.router.navigateByUrl("/status-update");
+    window.location.assign("/status-update");
   }
 
   contactDoctor(username: string) {

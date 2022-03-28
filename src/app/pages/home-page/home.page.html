@@ -46,7 +46,7 @@
                   <ion-label style="">First Name: {{activeUser.first_name}}</ion-label>
                   <ion-label style="">Last Name: {{activeUser.last_name}}</ion-label>
                   <ion-label style="">Email: {{activeUser.email}}</ion-label>
-                  <ion-label style="">Phone: {{activeUser.telephone}}</ion-label>
+                  <ion-label style="">Phone: {{activeUser.phone}}</ion-label>
                   <ion-label style="">Address: {{activeUser.address}}</ion-label>
                 </ion-item-group>
               </ion-card-content>
@@ -101,7 +101,7 @@
           </ion-card-header>
           <ion-card-content>
             <ion-icon name="flag" style="font-size: 60px; color: #912338; padding: 5px;"></ion-icon>
-            <p style="font-size: 20px; ">False</p>
+            <p style="font-size: 20px; ">{{flagged}}</p>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -130,7 +130,7 @@
                 </ion-item-group>
               </ion-card-content> -->
                   <ion-card *ngIf="recentUpdate">
-                    <ion-card-subtitle>last updated on {{recentUpdate.created_at | date: 'MMMM dd, YYY HH:mm (O)'}}</ion-card-subtitle>
+                    <ion-card-subtitle>last updated on {{recentUpdate.created_at | date: 'MMMM dd, YYY HH:mm'}}</ion-card-subtitle>
 
                     <ion-card-content>
                       <ion-accordion-group>
@@ -200,8 +200,8 @@
                 <ion-card-content>
                   <ion-item-group  class="ion-text-left">
                       <ion-label *ngIf="currentDoctor != null" style="">DOCTOR NAME: {{currentDoctor.is_user.first_name}} {{currentDoctor.is_user.last_name}}</ion-label>
-                      <ion-label *ngIf="currentDoctor != null" style="" >DOCTOR PHONE: {{currentDoctor.is_user.phone}}</ion-label>
-                      <ion-label *ngIf="currentDoctor != null" style="">DOCTOR EMAIL: {{currentDoctor.is_user.email}}</ion-label>
+                      <ion-label *ngIf="currentDoctor != null" style="" >DOCTOR PHONE: <a href="tel:{{currentDoctor.is_user.phone}}">{{currentDoctor.is_user.phone}}</a></ion-label>
+                      <ion-label *ngIf="currentDoctor != null" style="">DOCTOR EMAIL: <a href="mailto:{{currentDoctor.is_user.email}}">{{currentDoctor.is_user.email}}</a></ion-label>
                       <ion-label *ngIf="currentDoctor == null" style="">You do not have a doctor currently.</ion-label>
                   </ion-item-group>
 
@@ -320,14 +320,27 @@
                   <ion-icon name="alarm" style="font-size: 90px; color: #912338;"></ion-icon>
                 </ion-card-content>
               </ion-card>
-            </ion-col>
+              <ion-card>
+                <ion-card-header color="primary" class="ion-text-center">
+                  <ion-card-subtitle>Future Appointments</ion-card-subtitle>
+                </ion-card-header>
+                <ion-content>
+
+                </ion-content>
+              </ion-card>
+              </ion-col>
+
             <ion-col size="6">
+              <ion-card>
+              <ion-card-header color="primary" class="ion-text-center">
+                  <ion-card-subtitle>Next Appointment</ion-card-subtitle>
+              </ion-card-header>
               <ion-card-content>
-                <ion-item-group class="ion-text-left">
-                  <ion-label style="">APPOINTMENT: Date</ion-label>
-                </ion-item-group>
+                  <ion-card-content><ion-datetime readonly="true" value="2012-12-15T13:47:20.789"></ion-datetime></ion-card-content>
               </ion-card-content>
+              </ion-card>
             </ion-col>
+
           </ion-row>
         </ion-card>
       </ion-col>
