@@ -20,6 +20,13 @@ export class AppComponent
 {
   navigate: any;
   public test = [];
+  public lat: number;
+  public lon: number;
+  public moving: boolean;
+  public record: boolean;
+  public start: any;
+  public end: any;
+  public location: any;
   constructor( private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar, private router: Router, private endpoints: Endpoints)
   {
     // Check if active user exists.
@@ -36,7 +43,10 @@ export class AppComponent
       if(activeUser != null)
       {
         //this.databaseService.activeUser = activeUser;
+        this.geolocationLoop();
+        console.log(activeUser);
         this.router.navigateByUrl("/home-page");
+        
       }
     }
     this.sideMenu();
@@ -68,11 +78,20 @@ export class AppComponent
 
    initializeApp()
    {
-      this.platform.ready().then(() =>
+      this.platform.ready().then(async () =>
       {
        this.statusBar.styleDefault();
        this.splashScreen.hide();
+       
       });
+
+   }
+
+   async geolocationLoop() {
+    while (true) {
+      await this.delay(300000); //check every 5 minutes
+      this.geolocation();
+    }
    }
 
    sideMenu()
@@ -90,5 +109,57 @@ export class AppComponent
         { title: 'Assignment', url:'/assignment',icon: 'people-outline'},
         {title:'Contact',url:'/contact', icon:'mail-outline'},
      ];
+    }
+
+    async delay(ms: number) {
+      return new Promise( resolve => setTimeout(resolve, ms) );
+      
+  }
+
+    geolocation() {
+      navigator.geolocation.getCurrentPosition(position => {
+
+        const distance = this.calculateDistance(this.lat, position.coords.latitude, this.lon, position.coords.longitude);
+        this.lat = position.coords.latitude;
+        this.lon = position.coords.longitude;
+        if (distance > 100) //100m threshold
+        {
+          console.log("moving")
+          if (this.record) { //started moving again after being stopped
+            this.end = new Date().getTime();
+            console.log("moving again, recording over.")
+            console.log("Start: " + this.start + ", loc: {lat: " + this.location.lat + ", lon: " + this.location.lon + " }, End: " + this.end)
+            this.record = false;
+          }
+          this.moving = true;
+        }
+        if (distance < 10) //10m threshold for gps inaccuracies
+        {
+          if (this.moving) {
+            console.log("stopped")
+            console.log("location being recorded.")
+            this.start = new Date().getTime();
+            this.location = {lat: this.lat, lon: this.lon}
+            this.record = true;
+          }
+          this.moving = false;
+        }
+        console.log(this.lat + ", " + this.lon);
+
+      },function(){
+        console.log("User did not allow geolocation.");
+      },{timeout:10000})
+    }
+
+    calculateDistance(lat1: number, lat2: number, lon1: number, lon2: number): number { //haversine formula to calculate distances on a sphere from spherical coordinate points
+      const radius = 6371e3; 
+      const phi1 = lat1 * Math.PI/180; //in rad
+      const phi2 = lat2 * Math.PI/180;
+      const deltaphi = (lat2-lat1) * Math.PI/180;
+      const deltalambda = (lon2-lon1) * Math.PI/180;
+      const haversine = Math.sin(deltaphi/2) * Math.sin(deltaphi/2) + Math.cos(phi1) * Math.cos(phi2) * Math.sin(deltalambda/2) * Math.sin(deltalambda/2);
+      const archaversine = 2 * Math.atan2(Math.sqrt(haversine), Math.sqrt(1-haversine));
+      const distance = radius * archaversine; // in m
+      return distance;
     }
 }
