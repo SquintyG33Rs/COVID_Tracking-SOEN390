@@ -168,12 +168,13 @@ export  class  Endpoints {
         return this.http.post<any>(this.url + 'patients/', body);
     }
 
-    public createInteraction(start: number, end: number, loc: any, patientid: number) {
+    public createInteraction(start: number, end: number, loc: any, patientid: number, flagged: boolean) {
         const body = {
             start: start,
             location: loc,
             end: end,
-            patient: patientid
+            patient: patientid,
+            flagged: flagged
         }
         return this.http.post<any>(this.url + 'interactions/', body);
     }
@@ -274,7 +275,7 @@ export  class  Endpoints {
   public addStatusToPatientHistory(patientid, statusid) { //statusids can be an array
     this.getPatientByPatientId(patientid).subscribe((data) => {
       let statusids = data['status_history'];
-      console.log(statusids);
+      //console.log(statusids);
       statusids.push(statusid);
       const body = {
         status_history: statusids
@@ -288,7 +289,7 @@ export  class  Endpoints {
   public removeStatusFromPatientHistory(patientid, statusid) { //statusids can be an array
     this.getPatientByPatientId(patientid).subscribe((data) => {
       let statusids = data['status_history'];
-      console.log(statusids);
+      //console.log(statusids);
       const index = statusids.indexOf(statusid);
       if (index > -1) {
         statusids.splice(index,1);
@@ -334,7 +335,7 @@ export  class  Endpoints {
   public addInteractionToPatient(patientid, interactionId) { //interactions can be an array
     this.getPatientByPatientId(patientid).subscribe((data) => {
         let interactions = data['interactions'];
-        console.log(interactions);
+        //console.log(interactions);
         interactions.push(interactionId);
         const body = {
           interactions: interactions
@@ -347,7 +348,7 @@ export  class  Endpoints {
   public removeInteractionFromPatientHistory(patientid, interactionid) { //statusids can be an array
     this.getPatientByPatientId(patientid).subscribe((data) => {
       let interactionids = data['interactions'];
-      console.log(interactionids);
+      //console.log(interactionids);
       const index = interactionids.indexOf(interactionid);
       if (index > -1) {
         interactionids.splice(index,1);
@@ -361,5 +362,11 @@ export  class  Endpoints {
     });
   }
 
+  public flagInteraction(interactionId: number, flagged: boolean) {
+    const body = {
+        flagged: flagged
+    }
+    return this.http.put<any>(this.url + 'interactions/' + interactionId, body);
+  }
 
 }
