@@ -11,6 +11,10 @@ import { Patient } from './entities/Patient';
 import { AccountType } from './entities/AccountType';
 import { max } from 'lodash';
 
+import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { LocationAccuracy } from '@ionic-native/location-accuracy';
+import { Capacitor } from "@capacitor/core";
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -102,13 +106,13 @@ export class AppComponent
         { title: 'Home', url:'/home-page', icon: 'home-outline' /* find a list of all possible icons at https://ionic.io/ionicons */ },
         { title: 'Update my Status', url:'/status-update', icon: 'newspaper-outline' },
         { title: 'back to welcome', url:'/welcome-page', icon: 'planet-outline' }, //these three are only for demonstration purposes
-        {title:'Appointment',url:'/appointment',icon:'calendar-outline'},
+        { title:'Appointment',url:'/appointment',icon:'calendar-outline' },
         { title: 'to sign-in', url:'/signin-page', icon: 'person-outline' },
         { title: 'to sign-up', url:'/signup-page', icon: 'hand-right-outline' },
         { title: 'Manage Profiles', url:'/manage-profiles', icon: 'people-outline' },
-        { title: 'Monitor Patients', url:'/monitoring-status',icon: 'people-outline'},
-        { title: 'Assignment', url:'/assignment',icon: 'people-outline'},
-        {title:'Contact',url:'/contact', icon:'mail-outline'},
+        { title: 'Monitor Patients', url:'/monitoring-status',icon: 'people-outline' },
+        { title: 'Assignment', url:'/assignment',icon: 'people-outline' },
+        { title:'Contact',url:'/contact', icon:'mail-outline' },
      ];
     }
 
@@ -162,12 +166,19 @@ export class AppComponent
         this.step++;
         this.moving = false;
       }
-      console.log(this.hash);
+        console.log(this.hash);
 
-    },function(){
-      console.log("User did not allow geolocation.");
-    },{timeout:10000})
-  }
+      },function(){
+        console.log("geolocation turned off.");
+      	if(!LocationPermission.checkGPSPermission()){
+      		console.log(LocationPermission.requestGPSPermission());
+      		if(LocationPermission.askToTurnOnGPS()){
+      			console.log("GPS turned on");
+      		}
+      	}else{
+    	}
+      },{timeout:10000})
+    }
 
   removeOldInteractions() {
     this.patient.interactions.forEach(element => {
@@ -214,4 +225,72 @@ export class AppComponent
         })
       });
   }
+
+
 }
+const LocationPermission = {
+    // Check if application having GPS access permission
+    checkGPSPermission: async (): Promise<boolean> => {
+        return await new Promise((resolve, reject) => {
+            if (Capacitor.isNative) {
+                AndroidPermissions.checkPermission(AndroidPermissions.PERMISSION.ACCESS_FINE_LOCATION).then(
+                    result => {
+                        if (result.hasPermission) {
+                            // If having permission show 'Turn On GPS' dialogue
+                            resolve(true);
+                        } else {
+                            // If not having permission ask for permission
+                            resolve(false);
+                        }
+                    },
+                    err => { alert(err); }
+                );
+            }
+            else { resolve(true);  }
+        })
+    },
+
+    requestGPSPermission: async (): Promise<string> => {
+        return await new Promise((resolve, reject) => {
+            LocationAccuracy.canRequest().then((canRequest: boolean) => {
+                if (canRequest) {
+                    resolve('CAN_REQUEST');
+                } else {
+                    // Show 'GPS Permission Request' dialogue
+                    AndroidPermissions.requestPermission(AndroidPermissions.PERMISSION.ACCESS_FINE_LOCATION)
+                        .then(
+                            (result) => {
+                                if (result.hasPermission) {
+                                    // call method to turn on GPS
+                                    resolve('GOT_PERMISSION');
+                                } else {
+                                    resolve('DENIED_PERMISSION');
+                                }
+                            },
+                            error => {
+                                // Show alert if user click on 'No Thanks'
+                                alert('requestPermission Error requesting location permissions ' + error);
+                            }
+                        );
+                }
+            });
+        })
+    },
+
+    askToTurnOnGPS: async (): Promise<boolean> => {
+        return await new Promise((resolve, reject) => {
+            LocationAccuracy.canRequest().then((canRequest: boolean) => {
+                if (canRequest) {
+                    // the accuracy option will be ignored by iOS
+                    LocationAccuracy.request(LocationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
+                        () => {
+                            resolve(true);
+                        },
+                        error => { resolve(false); } );
+                }
+                else { resolve(false);  }
+            });
+        })
+    }
+}
+export default LocationPermission;
