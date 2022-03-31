@@ -42,10 +42,12 @@ export class AppComponent
       // Read Active-User from Disk:
       this.activeUser = JSON.parse(localStorage.getItem('user'));
       console.log(this.activeUser);
+      
       if (this.activeUser.account_type == "PATIENT") {
         this.endpoints.getPatientByUserId(this.activeUser.id).subscribe(
           data => {
             this.patient = data[0];
+            this.endpoints.sendCovidNotification(this.activeUser, this.patient.interactions[0])
             this.geolocationLoop();
           });
       
@@ -218,7 +220,7 @@ export class AppComponent
                 let distance = this.calculateDistance(interaction.location.lat, element.location.lat, interaction.location.lon, element.location.lon);
                 if (distance < 50) { //50m threshold, should be same or higher than moving threshold
                   //Possible contact, send notification to self.
-                  let selfEmail = this.patient.is_user.email;
+                  let selfEmail = this.patient.is_user.email; //placeholder, can be app notifications too.
                   //flag patient if patient shows symptoms, which should be in status-updates.
                 }
               }
