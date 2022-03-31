@@ -393,8 +393,11 @@ export  class  Endpoints {
         to: user.email,
         subject: "Possible contact with Covid-19",
         //Need to covert the start and location into something readable and useful for the user.
-        html: "Hello " + user.first_name + " " + user.last_name + ", <br>This email was sent to inform you that on " + interaction.start + ", near " + interaction.location.lat + ", " + interaction.location.lon + ", there was a possibly that you may have come into contact \
-        with someone who was recently identified to have shown covid-19 symptoms. We highly suggest you monitor your condition for symptoms and book an appointment with a doctor. <br> <br> Thank you<br>Team 23 of SOEN390 <br> <br>\
+        html: "Hello " + user.first_name + " " + user.last_name + ", <br> \
+        This email was sent to inform you that on " + interaction.start + " (UTC-0), near " + interaction.location.lat + ", " + interaction.location.lon + ", there was a possibly that you may have come into contact \
+        with someone who was recently identified to have shown covid-19 symptoms. We highly suggest you monitor your condition for symptoms and book an appointment with a doctor. <br> <br> \
+        Thank you,<br>\
+        Team 23 of SOEN390 <br> <br> \
         This message was sent automatically, do not reply to this email."
     }
     this.http.post<any>(this.url + 'email', body).subscribe();
