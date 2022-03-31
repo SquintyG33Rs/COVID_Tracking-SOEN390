@@ -208,18 +208,6 @@ export class AppComponent
       },{timeout:10000})
     }
 
-    calculateDistance(lat1: number, lat2: number, lon1: number, lon2: number): number { //haversine formula to calculate distances on a sphere from spherical coordinate points
-      const radius = 6371e3; 
-      const phi1 = lat1 * Math.PI/180; //in rad
-      const phi2 = lat2 * Math.PI/180;
-      const deltaphi = (lat2-lat1) * Math.PI/180;
-      const deltalambda = (lon2-lon1) * Math.PI/180;
-      const haversine = Math.sin(deltaphi/2) * Math.sin(deltaphi/2) + Math.cos(phi1) * Math.cos(phi2) * Math.sin(deltalambda/2) * Math.sin(deltalambda/2);
-      const archaversine = 2 * Math.atan2(Math.sqrt(haversine), Math.sqrt(1-haversine));
-      const distance = radius * archaversine; // in m
-      return distance;
-    }
-
     removeOldInteractions() {
       this.patient.interactions.forEach(element => {
         //console.log(element)
@@ -243,8 +231,7 @@ export class AppComponent
             //console.log(data)
             data.forEach(element => {
               if (element.flagged && element.patient.id != this.patient.id && !interaction.flagged && ((interaction.start > element.start && interaction.start < interaction.end) || (interaction.end > interaction.start && interaction.end < interaction.end))) { //ignore self, logic for non flagged patient travelling
-                let distance = this.calculateDistance(interaction.location.lat, element.location.lat, interaction.location.lon, element.location.lon);
-                if (distance < 50) { //50m threshold, should be same or higher than moving threshold
+                if (false /* add hash comparison here */) {
                   //Possible contact, send notification to self.
                   let selfEmail = this.patient.is_user.email; //placeholder, can be app notifications too.
                   //flag patient if patient shows symptoms, which should be in status-updates.
@@ -252,8 +239,7 @@ export class AppComponent
               }
 
               if (!element.flagged && element.patient.id != this.patient.id && interaction.flagged && ((interaction.start > element.start && interaction.start < interaction.end) || (interaction.end > interaction.start && interaction.end < interaction.end))) { //ignore self, logic for a flagged patient travelling
-                let distance = this.calculateDistance(interaction.location.lat, element.location.lat, interaction.location.lon, element.location.lon);
-                if (distance < 50) { //50m threshold, should be same or higher than moving threshold
+                if (false /* add hash comparison here */) {
                   //Possible contact, send notification to user.
                   this.endpoints.getPatientByPatientId(element.patient.id).subscribe((data) => {
                     let userEmail = data[0].is_user.email; //exposes another user's email, not the best.
@@ -279,8 +265,7 @@ export class AppComponent
               if (element.flagged && element.patient.id != this.patient.id) { //ignore self
                 data.forEach(interaction => {
                   if (interaction.id != element.id && interaction.patient.id != this.patient.id) {//ignore self and own interactions, element is flagged interaction
-                    let distance = this.calculateDistance(interaction.location.lat, element.location.lat, interaction.location.lon, element.location.lon);
-                    if (distance < 50) { //50m threshold, should be same or higher than moving threshold
+                    if (false /* add hash comparison here */) {
                       //Possible contact, send notification.
                     }
                   }
