@@ -27,6 +27,7 @@ export class AppComponent
   public start: any;
   public end: any;
   public location: any;
+  public hash: any;
   public activeUser: any;
   public patient: any;
   constructor( private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar, private router: Router, private endpoints: Endpoints)
@@ -153,6 +154,19 @@ export class AppComponent
             this.end = new Date().getTime();
             //console.log("moving again, recording over.")
             //console.log("Start: " + this.start + ", loc: {lat: " + this.location.lat + ", lon: " + this.location.lon + " }, End: " + this.end)
+
+/*hashing function*/
+            var posi =  String(this.lat).concat(String(this.lon));
+            var sha1 = require('sha-1');
+            this.hash = sha1(posi);
+            /*
+            example:
+              var posi =  String(40.774929).concat(String(-114.419416));
+              this.hash = sha1(posi); //bdf6c2db6183883ce84012e53b7ab75113062e0a
+            */
+            console.log(this.hash);
+/*change database post to use this value instead*/
+
             let flag = this.patient.flagged;
             this.endpoints.createInteraction(this.start, this.end, this.location, this.patient.id, flag).subscribe((data) => {
               let id = data.id;
