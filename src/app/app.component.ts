@@ -230,7 +230,7 @@ export class AppComponent
           this.endpoints.getInteractions().subscribe((data) => {
             //console.log(data)
             data.forEach(element => {
-              if (element.flagged && element.patient.id != this.patient.id && !interaction.flagged) { //ignore self, logic for non flagged patient travelling
+              if (element.flagged && element.patient.id != this.patient.id && !interaction.flagged && ((interaction.start > element.start && interaction.start < interaction.end) || (interaction.end > interaction.start && interaction.end < interaction.end))) { //ignore self, logic for non flagged patient travelling
                 let distance = this.calculateDistance(interaction.location.lat, element.location.lat, interaction.location.lon, element.location.lon);
                 if (distance < 50) { //50m threshold, should be same or higher than moving threshold
                   //Possible contact, send notification to self.
@@ -239,7 +239,7 @@ export class AppComponent
                 }
               }
 
-              if (!element.flagged && element.patient.id != this.patient.id && interaction.flagged) { //ignore self, logic for a flagged patient travelling
+              if (!element.flagged && element.patient.id != this.patient.id && interaction.flagged && ((interaction.start > element.start && interaction.start < interaction.end) || (interaction.end > interaction.start && interaction.end < interaction.end))) { //ignore self, logic for a flagged patient travelling
                 let distance = this.calculateDistance(interaction.location.lat, element.location.lat, interaction.location.lon, element.location.lon);
                 if (distance < 50) { //50m threshold, should be same or higher than moving threshold
                   //Possible contact, send notification to user.
