@@ -169,18 +169,6 @@ export class AppComponent
     },{timeout:10000})
   }
 
-  calculateDistance(lat1: number, lat2: number, lon1: number, lon2: number): number { //haversine formula to calculate distances on a sphere from spherical coordinate points
-    const radius = 6371e3; 
-    const phi1 = lat1 * Math.PI/180; //in rad
-    const phi2 = lat2 * Math.PI/180;
-    const deltaphi = (lat2-lat1) * Math.PI/180;
-    const deltalambda = (lon2-lon1) * Math.PI/180;
-    const haversine = Math.sin(deltaphi/2) * Math.sin(deltaphi/2) + Math.cos(phi1) * Math.cos(phi2) * Math.sin(deltalambda/2) * Math.sin(deltalambda/2);
-    const archaversine = 2 * Math.atan2(Math.sqrt(haversine), Math.sqrt(1-haversine));
-    const distance = radius * archaversine; // in m
-    return distance;
-  }
-
   removeOldInteractions() {
     this.patient.interactions.forEach(element => {
       //console.log(element)
