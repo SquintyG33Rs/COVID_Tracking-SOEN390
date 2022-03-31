@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import {QRCodeComponent} from "angular2-qrcode";
 import {formatDate} from "@angular/common";
 
+
 @Component({
   selector: 'app-home-page',
   templateUrl: './home.page.html',
@@ -155,9 +156,14 @@ export class HomePage implements OnInit
     console.log("SHOULD BE LINKED TO PAGE - CONTACTING A DOCTOR - AFTER IT STARTS WORKING...");
   }
 
+  private hash: any;
   locationCheckin(username: string) {
     console.log("Location Checkin for: " + username);
     console.log("CAN BE USED FOR IMPLEMENTING CONTACT TRACING...");
+    //hashing function button testint
+            var sha1 = require('sha-1');
+            this.hash = sha1('hello'); // aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d
+            console.log(this.hash);
   }
 
   generateQRCodeFromInfo() {
