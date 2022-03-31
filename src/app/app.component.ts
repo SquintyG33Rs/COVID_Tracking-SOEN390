@@ -48,7 +48,7 @@ export class AppComponent
         this.endpoints.getPatientByUserId(this.activeUser.id).subscribe(
           data => {
             this.patient = data[0];
-            this.endpoints.sendCovidNotification(this.activeUser, this.patient.interactions[0])
+            //this.endpoints.sendCovidNotification(this.activeUser, this.patient.interactions[0])
             this.geolocationLoop();
           });
       
