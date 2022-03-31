@@ -30,6 +30,7 @@ export class AppComponent
   public hash: any;
   public activeUser: any;
   public patient: any;
+  public step = 0;
   constructor( private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar, private router: Router, private endpoints: Endpoints)
   {
     // Check if active user exists.
@@ -48,7 +49,7 @@ export class AppComponent
         this.endpoints.getPatientByUserId(this.activeUser.id).subscribe(
           data => {
             this.patient = data[0];
-            this.endpoints.sendCovidNotification(this.activeUser, this.patient.interactions[0])
+            //this.endpoints.sendCovidNotification(this.activeUser, this.patient.interactions[0])
             this.geolocationLoop();
           });
       
@@ -103,22 +104,30 @@ export class AppComponent
    }
 
   async geolocationLoop() {
-    navigator.geolocation.getCurrentPosition(position => {
+    navigator.geolocation.getCurrentPosition(async position => {
       this.lat = position.coords.latitude; //chaning only after detected movement in case of slow movement
       this.lon = position.coords.longitude;
+      var roundlat = this.lat.toFixed(4);
+      var roundlon = this.lon.toFixed(4);
+      var posi = roundlat + roundlon;
+      //console.log(posi)
+      var sha1 = require('sha-1');
+      this.hash = sha1(posi);
+      console.log(this.hash);
+      
   },function(){
     console.log("User did not allow geolocation.");
   },{timeout:10000});
-    while (true) {
-      this.activeUser = JSON.parse(localStorage.getItem('user'));
-      //console.log(this.patient)
-      this.checkForContacts(this.patient.interactions[0]);
-      if (this.activeUser.account_type == "PATIENT") {
-          this.geolocation();
-          await this.delay(300000); //check every 5 minutes
-      }
-      await this.delay(10000);
+  while (true) {
+    this.activeUser = JSON.parse(localStorage.getItem('user'));
+    //console.log(this.patient)
+    //this.checkForContacts(this.patient.interactions[0]);
+    if (this.activeUser.account_type == "PATIENT") {
+        this.geolocation();
+        await this.delay(3000); //check every 5 minutes
     }
+    await this.delay(1000);
+  }
    }
 
    sideMenu()
@@ -145,53 +154,54 @@ export class AppComponent
 
     geolocation() {
       navigator.geolocation.getCurrentPosition(position => {
-        this.removeOldInteractions();
-        const distance = this.calculateDistance(this.lat, position.coords.latitude, this.lon, position.coords.longitude);
-        if (distance > 50) //50m threshold
-        {
-          this.lat = position.coords.latitude; //chaning only after detected movement in case of slow movement
+        if (!this.lat) {
+          this.lat = position.coords.latitude; //changing only after detected movement in case of slow movement
           this.lon = position.coords.longitude;
-          //console.log("moving")
-          if (this.record) { //started moving again after being stopped
-            this.end = new Date().getTime();
-            //console.log("moving again, recording over.")
-            //console.log("Start: " + this.start + ", loc: {lat: " + this.location.lat + ", lon: " + this.location.lon + " }, End: " + this.end)
+        }
 
-/*hashing function*/
-            var posi =  String(this.lat).concat(String(this.lon));
-            var sha1 = require('sha-1');
-            this.hash = sha1(posi);
-            /*
-            example:
-              var posi =  String(40.774929).concat(String(-114.419416));
-              this.hash = sha1(posi); //bdf6c2db6183883ce84012e53b7ab75113062e0a
-            */
-            console.log(this.hash);
-/*change database post to use this value instead*/
+        this.removeOldInteractions();
+        //const distance = this.calculateDistance(this.lat, position.coords.latitude, this.lon, position.coords.longitude);
+        var roundlat = position.coords.latitude.toFixed(4);
+        var roundlon = position.coords.longitude.toFixed(4);
+        var posi = roundlat + roundlon;
+        var sha1 = require('sha-1');
+        var newhash = sha1(posi);
+        console.log(newhash);
+        console.log(this.lat + ", " + this.lon);
+
+        if (this.hash != newhash) //same square ~10m, approaches 0 the closer to the poles you are
+        {
+          this.lat = position.coords.latitude; //changing only after detected movement in case of slow movement
+          this.lon = position.coords.longitude;
+          if (this.record && this.step >= 15) { //started moving again after being stopped
+            this.end = new Date().getTime();
 
             let flag = this.patient.flagged;
             this.endpoints.createInteraction(this.start, this.end, this.location, this.patient.id, flag).subscribe((data) => {
               let id = data.id;
               this.endpoints.addInteractionToPatient(this.patient.id, id);
               this.removeOldInteractions();
-              this.checkForContacts(data);
+              //this.checkForContacts(data);
             });
             this.record = false;
           }
+          this.step = 0;
           this.moving = true;
+          this.hash = newhash
         }
-        if (distance < 10) //10m threshold for gps inaccuracies
+        if (this.hash == newhash) //same square
         {
           if (this.moving) {
             //console.log("stopped")
             //console.log("location being recorded.")
             this.start = new Date().getTime();
-            this.location = {lat: this.lat, lon: this.lon}
+            this.location = this.hash;
             this.record = true;
           }
+          this.step++;
           this.moving = false;
         }
-        console.log(this.lat + ", " + this.lon);
+        console.log(this.hash);
 
       },function(){
         console.log("User did not allow geolocation.");
@@ -215,8 +225,10 @@ export class AppComponent
         //console.log(element)
         const interactionTime = Date.parse(element.start)
         const today = new Date().getTime();
-        if (today - interactionTime > 2.628e6) { // 1 month
-          this.endpoints.removeInteractionFromPatientHistory(this.patient.id, element.id);
+        const diff = today-interactionTime;
+        if (diff > 2628000000) { // 1 month
+          //console.log(diff)
+          this.endpoints.removeInteractionFromPatientHistory(this.patient.id, element.id); //doesn't work properly
         } 
       });
     }
