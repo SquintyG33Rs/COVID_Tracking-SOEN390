@@ -50,7 +50,7 @@ export class AppComponent
         this.endpoints.getPatientByUserId(this.activeUser.id).subscribe(
           data => {
             this.patient = data[0];
-            this.endpoints.sendCovidNotification(this.activeUser, this.patient.interactions[0])
+            //this.endpoints.sendCovidNotification(this.activeUser, this.patient.interactions[0])
             this.geolocationLoop();
           });
       
@@ -89,9 +89,9 @@ export class AppComponent
     //this.checkForContacts(this.patient.interactions[0]);
     if (this.activeUser.account_type == "PATIENT") {
         this.geolocation();
-        await this.delay(300); //check every 5 minutes
+        await this.delay(60000); //check every 5 minutes
     }
-    await this.delay(100);
+    await this.delay(1000);
   }
    }
 
@@ -187,18 +187,24 @@ export class AppComponent
     this.endpoints.getPatientByUserId(this.activeUser.id).subscribe(
       data => {
         this.patient = data[0];
-        
+        var start1 = Date.parse(interaction.start);
+        var end1 = Date.parse(interaction.end);
         this.endpoints.getInteractionsByLocation(interaction.location).subscribe((data) => {
-          console.log(data);
+          //console.log(data);
           data.forEach(element => {
+            var start2 = Date.parse(element.start);
+            var end2 = Date.parse(element.end)
             if (!interaction.flagged && element.patient.id != this.patient.id && element.flagged) { //non flagged patient looking for possible contacts from other patients
-              if (Math.min(element.end, interaction.end) - Math.max(element.start, interaction.start) > 900000) { //stayed in contact for 15m
+              //console.log(Math.min(end1, end2) - Math.max(start1, start2))
+              if (Math.min(end1, end2) - Math.max(start1, start2) > 900000) { //stayed in contact for 15m
+                console.log("sending email")
                 this.endpoints.sendCovidNotification(this.activeUser, interaction);
               }
             }
 
             else if (interaction.flagged && element.patient.id != this.patient.id && !element.flagged) {//flagged patient changed location, check for possible contacts with non flagged patients
-              if (Math.min(element.end, interaction.end) - Math.max(element.start, interaction.start) > 900000) { //stayed in contact for 15m
+              if (Math.min(end1, end2) - Math.max(start1, start2) > 900000) { //stayed in contact for 15m
+                console.log("sending email");
                 this.endpoints.getUserById(element.patient.is_user).subscribe((data) => {
                   this.endpoints.sendCovidNotification(data, element);
                 })
