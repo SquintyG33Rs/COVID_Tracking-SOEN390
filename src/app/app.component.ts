@@ -239,8 +239,8 @@ export class AppComponent
       });
   }
 
-
 }
+//Services for Android permissions, checking and generating the relevant popups for location tracking.
 const LocationPermission = {
     // Check if application having GPS access permission
     checkGPSPermission: async (): Promise<boolean> => {
@@ -262,7 +262,7 @@ const LocationPermission = {
             else { resolve(true);  }
         })
     },
-
+//
     requestGPSPermission: async (): Promise<string> => {
         return await new Promise((resolve, reject) => {
             LocationAccuracy.canRequest().then((canRequest: boolean) => {
@@ -289,7 +289,7 @@ const LocationPermission = {
             });
         })
     },
-
+//
     askToTurnOnGPS: async (): Promise<boolean> => {
         return await new Promise((resolve, reject) => {
             LocationAccuracy.canRequest().then((canRequest: boolean) => {
