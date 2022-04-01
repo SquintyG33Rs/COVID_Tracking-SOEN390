@@ -127,9 +127,14 @@ export  class  Endpoints {
     }
 
     public getInteractionById(interactionId): Observable<any>{
-        return this.http.get<any>(this.url + 'interactions/');
+        return this.http.get<any>(this.url + 'interactions/' + interactionId);
     }
     
+    public getInteractionsByLocation(location: string): Observable<any>{
+        let qparams = new HttpParams();
+        qparams = qparams.append("location", location);
+        return this.http.get<any>(this.url + 'interactions/', {params: qparams});
+    }
 
 
     //POST requests
@@ -364,6 +369,42 @@ export  class  Endpoints {
         flagged: flagged
     }
     return this.http.put<any>(this.url + 'interactions/' + interactionId, body);
+  }
+
+
+  //EMAIL
+
+  public sendMail(recipient: string, subject: string, text: string, replyto: string, html: string, attachments: string, cc: any) { //sends a configurable email, fields can be empty strings/arrays where applicable
+    //recipient, subject and text alone are sufficient to send an email.
+    console.log("send mail")
+    const body = {
+        to: recipient,
+        subject: subject,
+        text: text,
+        html: html,
+        attachments: attachments,
+        replyTo: replyto,
+        cc: cc
+    }
+    this.http.post<any>(this.url + 'email', body).subscribe();
+  }
+
+  //specific email endpoints
+  public sendCovidNotification(user: any, interaction: any) {
+    var date = new Date(Date.parse(interaction.start));
+    var humandDate = date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getUTCFullYear();
+    const body = {
+        to: user.email,
+        subject: "Possible contact with Covid-19",
+        //Need to covert the start and location into something readable and useful for the user.
+        html: "Hello " + user.first_name + " " + user.last_name + ", <br> \
+        This email was sent to inform you that on " + humandDate + ", there was a possibly that you may have come into contact \
+        with someone who was recently identified to have shown covid-19 symptoms. We highly suggest you monitor your condition for symptoms and book an appointment with a doctor. <br> <br> \
+        Thank you,<br> \
+        Team 23 of SOEN390 <br> <br> \
+        This message was sent automatically, do not reply to this email."
+    }
+    this.http.post<any>(this.url + 'email', body).subscribe();
   }
 
 }
