@@ -1,19 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
 import { IonicModule } from '@ionic/angular';
-import { HomePageRoutingModule } from './home-page-routing.module';
-import { HomePage } from './home.page';
-import { QRCodeModule } from "angular2-qrcode";
+
+import { PatientsPageRoutingModule } from './patients-routing.module';
+
+import { PatientsPage } from './patients.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule,
-    QRCodeModule,
+    PatientsPageRoutingModule
   ],
-  declarations: [HomePage]
+  declarations: [PatientsPage]
 })
-export class HomePageModule {}
+export class PatientsPageModule {}

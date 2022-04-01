@@ -27,5 +27,74 @@
 
 /* Font from Google Font */
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 
+@font-face {
+    font-family: 'SegoeUI';
+    font-style: normal;
+    font-weight: normal;
+    src: url('./assets/fonts/Segoe\ UI.ttf');
+}
 
+@font-face {
+    font-family: 'SegoeUI-Bold';
+    font-style: normal;
+    font-weight: bold;
+    src: url('./assets/fonts/Segoe\ UI\ Bold.ttf');
+}
+
+@font-face {
+    font-family: 'SegoeUI-BoldItalic';
+    font-style: italic;
+    font-weight: bold;
+    src: url('./assets/fonts/Segoe\ UI\ Bold\ Italic.ttf');
+}
+
+@font-face {
+    font-family: 'SegoeUI-Italic';
+    font-style: italic;
+    font-weight: normal;
+    src: url('./assets/fonts/Segoe\ UI\ Italic.ttf');
+}
+
+* {
+    font-family: 'SegoeUI';
+}
+
+.main-button {
+    --background: linear-gradient(90deg, rgba(36, 57, 73, 1) 0%, rgba(81, 127, 164, 1) 100%);
+    --box-shadow: none;
+    position: relative;
+    height: 50px;
+    margin-bottom: 15px;
+}
+
+.main-button::after {
+    content: " ";
+    position: absolute;
+    width: 80%;
+    right: 10%;
+    bottom: 0;
+    top: 10px;
+    height: 40px;
+    z-index: -1;
+    box-shadow: 0px 20px 20px -17px rgba(36, 57, 73, 0.2);
+}
+
+// Removing ion-button focus outline
+ion-button:focus {
+    outline: none !important;
+}
+
+ion-buttons:focus {
+    outline: none !important;
+}
+
+// Removing iOS and Android Header line for entire app
+ion-toolbar {
+    --border-width: 0 !important;
+}
+
+.header-md::after {
+    background: none;
+}

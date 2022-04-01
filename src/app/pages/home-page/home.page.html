@@ -1,5 +1,5 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar color="primary">
+<ion-header *ngIf="activeUser.account_type != 'MEDICALDOCTOR' && activeUser.account_type !='PATIENT' && activeUser.account_type !='ADMIN'" class="ion-no-border">
+  <ion-toolbar>
     <ion-menu-button style="color: #fff;" slot="start"></ion-menu-button>
     <ion-title class="ion-text-center">{{activeUser.first_name}}'s DASHBOARD</ion-title>
   </ion-toolbar>
@@ -23,9 +23,9 @@
   <div style="height: 2px; background-color: primary; margin-top: 10px;"></div>
 </ion-header>
 
-<ion-content class="ion-text-center & ion-padding">
+<ion-content *ngIf="activeUser.account_type != 'MEDICALDOCTOR' && activeUser.account_type !='PATIENT' && activeUser.account_type !='ADMIN'" class="ion-text-center & ion-padding">
   <!-- PATIENT DASHBOARD -->
-  <ion-grid *ngIf="activeUser.account_type === 'PATIENT'">
+  <ion-grid *ngIf="activeUser.account_type == PATIENT">
     <ion-row>
       <ion-col size-sm="8" offset-sm="2">
         <ion-card>
@@ -43,11 +43,11 @@
             <ion-col size="6">
               <ion-card-content>
                 <ion-item-group class="ion-text-left">
-                  <ion-label style="">First Name: {{activeUser.first_name}}</ion-label>
-                  <ion-label style="">Last Name: {{activeUser.last_name}}</ion-label>
-                  <ion-label style="">Email: {{activeUser.email}}</ion-label>
-                  <ion-label style="">Phone: {{activeUser.phone}}</ion-label>
-                  <ion-label style="">Address: {{activeUser.address}}</ion-label>
+                  <ion-label>First Name: {{activeUser.first_name}}</ion-label>
+                  <ion-label>Last Name: {{activeUser.last_name}}</ion-label>
+                  <ion-label>Email: {{activeUser.email}}</ion-label>
+                  <ion-label>Phone: {{activeUser.phone}}</ion-label>
+                  <ion-label>Address: {{activeUser.address}}</ion-label>
                 </ion-item-group>
               </ion-card-content>
             </ion-col>
@@ -347,18 +347,92 @@
     </ion-row>
   </ion-grid>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </ion-content>
+
+
+
+    
+
+
+     
+
+<!-- New Dashboard START-->
+<ion-content>
+  
+  <div class="main_content_div">
+    <div>
+      <ion-buttons class="menu_btn">
+        <ion-menu-button style="color:white;"></ion-menu-button>
+        <ion-button *ngIf="activeUser.account_type =='PATIENT'" style="color:white"> Covid-19 Status:
+          <ion-icon *ngIf="!flagged" src="/assets/icon/healthy-icon.svg" slot="end" style="color:#fff" ></ion-icon>
+          <ion-icon *ngIf="flagged" src="/assets/icon/sick-icon.svg" slot="end" style="color:#fff" ></ion-icon>
+        </ion-button>
+        <ion-button *ngIf="activeUser.account_type =='ADMIN'" style="color:white"> Admin
+          <ion-icon src="/assets/icon/admin-icon.svg" slot="end" style="color:#fff" ></ion-icon>
+        </ion-button>
+        <ion-button *ngIf="activeUser.account_type =='MEDICALDOCTOR'" style="color:white"> Doctor
+          <ion-icon src="/assets/icon/doctor-icon.svg" slot="end" style="color:#fff" ></ion-icon>
+        </ion-button>
+        <ion-button (click)="logOut()">
+          <ion-icon slot="icon-only" name="log-out-outline" style="color:#fff" ></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      
+    </div>
+    <div class="user_div">
+      <div class="first_div">
+        <ion-label class="welcome" style="color:whitesmoke">Welcome,</ion-label>
+        <ion-label *ngIf="activeUser.account_type == 'MEDICALDOCTOR'" class="username">Dr. {{this.activeUser.first_name}} {{this.activeUser.last_name}}</ion-label>
+        <ion-label *ngIf="activeUser.account_type != 'MEDICALDOCTOR'" class="username">{{this.activeUser.first_name}} {{this.activeUser.last_name}}</ion-label>
+      </div>
+      <div id="user_picture" class="user_picture"></div>
+    </div>
+    
+    <!-- Doctor Icons-->
+    <div *ngIf="activeUser.account_type == 'MEDICALDOCTOR'" class="icon_div animated bounceInUp">
+      <ion-label class="text_lbl">Covid-19 Tracker</ion-label>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="6" *ngFor="let icon of doctorIcons" (click)="goToPage(icon.name)">
+            <div id="col_div" class="col_div">
+              <img height = 100px src="{{icon.img}}">
+              <ion-label>{{icon.name}}</ion-label>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <!-- Patient Icons-->
+    <div *ngIf="activeUser.account_type == 'PATIENT'" class="icon_div animated bounceInUp">
+      <ion-label class="text_lbl">Covid-Tracker</ion-label>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="6"  *ngFor="let icon of patientIcons" (click)="goToPage(icon.name)">
+            <div id="col_div" class="col_div" >
+              <img height = 100px src="{{icon.img}}">
+              <ion-label>{{icon.name}}</ion-label>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <!-- Admin Icons-->
+    <div *ngIf="activeUser.account_type == 'ADMIN'" class="icon_div animated bounceInUp">
+      <ion-label class="text_lbl">Covid-Tracker</ion-label>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="6"  *ngFor="let icon of adminIcons" (click)="goToPage(icon.name)">
+            <div id="col_div" class="col_div" >
+              <img height = 100px src="{{icon.img}}">
+              <ion-label>{{icon.name}}</ion-label>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+  </div>
+</ion-content>
+<!-- New Dashboard END-->

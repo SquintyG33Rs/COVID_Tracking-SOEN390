@@ -1,6 +1,9 @@
 <ion-header class="ion-no-border">
   <ion-toolbar color="primary">
-    <ion-menu-button style="color: #fff;" slot="start"></ion-menu-button>
+    <ion-buttons slot="start">
+      <ion-menu-button style="color: #fff;" slot="start"></ion-menu-button>
+      <ion-back-button defaultHref="home-page"></ion-back-button>
+    </ion-buttons>
     <ion-title class="ion-text-center">{{activeUser.first_name}}'s DASHBOARD</ion-title>
   </ion-toolbar>
 </ion-header>

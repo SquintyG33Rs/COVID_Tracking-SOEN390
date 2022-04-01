@@ -13,7 +13,6 @@ import { ShowHidePasswordComponent } from './show-hide-password.component';
 })
 export class SigninPage implements OnInit {
   private endpoint;
-  private router: Router;
   private user;
 
   username: string;
@@ -23,7 +22,6 @@ export class SigninPage implements OnInit {
   constructor(router: Router, endpoints: Endpoints)
   {
     this.endpoint = endpoints;
-    this.router = router;
   }
 
   ngOnInit() { }

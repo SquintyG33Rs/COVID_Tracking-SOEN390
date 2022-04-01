@@ -1,14 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
 import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
-import { User } from "./entities/User";
 import { Router } from "@angular/router";
-import { DatabaseService } from "./database-services/database.service";
-import { HttpClient} from "@angular/common/http"
 import { Endpoints } from './app-endpoints';
-import { Patient } from './entities/Patient';
-import { AccountType } from './entities/AccountType';
+
 
 @Component({
   selector: 'app-root',
@@ -29,6 +25,11 @@ export class AppComponent
   public location: any;
   public activeUser: any;
   public patient: any;
+  public static getScreenWidth: any;
+  public static getScreenHeight: any;
+
+  
+
   constructor( private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar, private router: Router, private endpoints: Endpoints)
   {
     // Check if active user exists.
@@ -87,6 +88,18 @@ export class AppComponent
       console.log(data);
     })*/
   }
+  ngOnInit() 
+  {
+    AppComponent.getScreenWidth = window.innerWidth;
+    AppComponent.getScreenHeight = window.innerHeight;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() 
+  {
+    AppComponent.getScreenWidth = window.innerWidth;
+    AppComponent.getScreenHeight = window.innerHeight;
+  }
 
   initializeApp()
    {
@@ -122,16 +135,9 @@ export class AppComponent
    {
      this.navigate =
      [
-        { title: 'Home', url:'/home-page', icon: 'home-outline' /* find a list of all possible icons at https://ionic.io/ionicons */ },
-        { title: 'Update my Status', url:'/status-update', icon: 'newspaper-outline' },
-        { title: 'back to welcome', url:'/welcome-page', icon: 'planet-outline' }, //these three are only for demonstration purposes
-        {title:'Appointment',url:'/appointment',icon:'calendar-outline'},
-        { title: 'to sign-in', url:'/signin-page', icon: 'person-outline' },
-        { title: 'to sign-up', url:'/signup-page', icon: 'hand-right-outline' },
-        { title: 'Manage Profiles', url:'/manage-profiles', icon: 'people-outline' },
+        { title: 'Home', url:'/home-page', icon: 'home-outline'},
         { title: 'Monitor Patients', url:'/monitoring-status',icon: 'people-outline'},
-        { title: 'Assignment', url:'/assignment',icon: 'people-outline'},
-        {title:'Contact',url:'/contact', icon:'mail-outline'},
+        { title: 'Contact',url:'/contact', icon:'mail-outline'}
      ];
     }
 
