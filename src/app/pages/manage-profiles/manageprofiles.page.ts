@@ -5,6 +5,9 @@ import { User } from "../../entities/User";
 import { DatabaseService } from "../../database-services/database.service";
 import { AccountType } from 'src/app/entities/AccountType';
 import { Router } from "@angular/router";
+import { Endpoints } from '../../app-endpoints';
+import { Subscription } from 'rxjs';
+import { MyServiceEvent, RouteChangeDetection } from '../../scripts/RouteChangeListener';
 
 @Component({
     selector: 'app-manage-profiles',
@@ -12,59 +15,51 @@ import { Router } from "@angular/router";
     styleUrls: ['./manageprofiles.page.scss'],
 })
 export class ManageProfilesPage implements OnInit{
-    private activeUser: User;
-    public patients=[];
-    public appointments=[];
-    appointmentUsername:string;
-    appointmentUser:User;
-    date:string;
-    private router: Router;
-    successfullAppointment: boolean = false;
+    private endpoint;
+    private serviceSubscription: Subscription;
+    urlDetector: RouteChangeDetection = new RouteChangeDetection(this.router);
+    private activeUser;
     private clicked: boolean = false;
-    private users: User[];
-    private displayedUsers: User[];
+    private users;
+    private displayedUsers;
     private items: HTMLIonListElement[] = Array.from(document.querySelector('ion-list').children) as HTMLIonListElement[];
-    private editedUser: User = new User('', '', '', '', AccountType.PATIENT, '', '', '');
+    private editedUser;
     private editedUserIndex: number = 0;
 
 
-    constructor(private databaseService: DatabaseService, router: Router){
-        this.databaseService = databaseService;
-        this.activeUser = this.databaseService.activeUser;
-        this.users = this.databaseService.users;
-        this.displayedUsers = this.databaseService.users;        
-        this.router = router;
-        
-        //Getting all patients. It will be modified to get active user's patients later
-        for(let i=0; i<this.databaseService.users.length;i++){
-            //console.log(this.databaseService.users[i].accountType);
-            if(this.databaseService.users[i].accountType==AccountType.PATIENT){
-                //var x= this.databaseService.users[i].firstName+" "+this.databaseService.users[i].lastName
-                this.patients.push(this.databaseService.users[i]);
-                //console.log("yes");
-            }
-        }
-        //Getting all appointments. Must be modified to get only the upcoming appointments and not all
-        for(let i=0;i<this.databaseService.appointments.length;i++){
-            if(this.databaseService.appointments[i].doctor==this.activeUser){
-                this.appointments.push(this.databaseService.appointments[i]);
-            }
-        }
+    constructor(private endpoints: Endpoints, private router: Router){
+        this.endpoint = endpoints;
 
-
+        this.serviceSubscription = this.urlDetector.onChange.subscribe({
+            next: (event: MyServiceEvent) => {
+              this.onChangeRouteDetection(event.message);
+            }
+        });
     }
+
+    onChangeRouteDetection(message: string)
+  {
+
+
+  }
     
     ngOnInit() 
     {
-       
+        this.endpoints.getUsers().subscribe(
+            data => {
+              this.users = data;
+              this.displayedUsers = data;
+            },err => console.log(err)
+          )
     }
 
     search(query:string)
     {
-        this.displayedUsers = this.users.filter(user => user.username.toLowerCase().includes(query.toLowerCase()))
+        this.displayedUsers = this.users.filter(user => user.username.toLowerCase().includes(query.toLowerCase()));
+        this.clicked = false;
     }
 
-    buttonClick(user: User, i:number)
+    buttonClick(user, i:number)
     {  
         this.editedUser = user;
         this.editedUserIndex = i;
@@ -73,8 +68,8 @@ export class ManageProfilesPage implements OnInit{
 
     submit()
     {
-        this.databaseService.users[this.editedUserIndex] = this.editedUser;
-        
+        //Update database here by using editedUser variable
+
         this.router.navigate(['home-page']);
     }
 }
