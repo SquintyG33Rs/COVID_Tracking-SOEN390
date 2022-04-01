@@ -364,11 +364,30 @@ export  class  Endpoints {
     });
   }
 
-  public flagInteraction(interactionId: number, flagged: boolean) {
+  public flagInteraction(interactionId: number, flagged: boolean): Observable<any> {
     const body = {
         flagged: flagged
     }
     return this.http.put<any>(this.url + 'interactions/' + interactionId, body);
+  }
+
+  public modifyUser(user: any): Observable<any>{
+    const body = {
+        first_name: user.first_name,
+        last_name: user.last_name,
+        address: user.address,
+        phone: user.phone,
+        account_type: user.account_type,
+        email: user.email,
+    }
+    return this.http.put<any>(this.url + 'users/' + user.id, body);
+  }
+
+  public flagPatient(patientid: number, flag: boolean) {
+    const body = {
+        flagged: flag
+    }
+    return this.http.put<any>(this.url + 'patients/' + patientid, body);
   }
 
 

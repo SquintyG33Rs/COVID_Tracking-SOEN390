@@ -40,7 +40,7 @@ export class AppComponent
   constructor( private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar, private router: Router, private endpoints: Endpoints)
   {
     // Check if active user exists.
-    if (localStorage.getItem('user') === undefined || localStorage.getItem('user') === null)
+    if (JSON.parse(localStorage.getItem('user')) === undefined || JSON.parse(localStorage.getItem('user')) === null)
     {
       console.log("Could not find active user.")
     }

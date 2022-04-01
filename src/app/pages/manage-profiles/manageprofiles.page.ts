@@ -29,7 +29,7 @@ export class ManageProfilesPage implements OnInit{
 
     constructor(private endpoints: Endpoints, private router: Router){
         this.endpoint = endpoints;
-
+        this.activeUser = JSON.parse(localStorage.getItem('user'));
         this.serviceSubscription = this.urlDetector.onChange.subscribe({
             next: (event: MyServiceEvent) => {
               this.onChangeRouteDetection(event.message);
@@ -68,9 +68,20 @@ export class ManageProfilesPage implements OnInit{
 
     submit()
     {
-        //Update database here by using editedUser variable
+        this.endpoints.modifyUser(this.editedUser).subscribe((data) => {
+            if (this.activeUser.id == this.editedUser.id) {
+                //update local user
+                this.endpoints.getUserById(this.activeUser.id).subscribe((data) => {
+                    localStorage.setItem('user', JSON.stringify(data));
+                    this.router.navigate(['home-page']).then(() => { window.location.reload() });
+                })
+            }
+            else {
+                this.router.navigate(['home-page']);
+            }
+        });
 
-        this.router.navigate(['home-page']);
+        
     }
 }
 
