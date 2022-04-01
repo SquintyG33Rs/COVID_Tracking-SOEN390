@@ -3,14 +3,96 @@
     <ion-buttons >
       <ion-menu-button></ion-menu-button>
       <ion-title>MONITORING PATIENTS</ion-title>
-      <ion-button slot="right" (click)="logOut()">
-        <ion-icon name="log-out-outline" slot="icon-only"></ion-icon>
-      </ion-button>
     </ion-buttons>
 
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <p class="ion-text-center">User First Name: {{activeUser.firstName}}</p>
+
+<ion-content *ngIf="activeUser.account_type === 'MEDICALDOCTOR'"  padding>
+  <ion-col>
+    <ion-card *ngFor="let patient of patients">
+      <ion-card-header>
+        <ion-card-subtitle> {{patient.id}} </ion-card-subtitle>
+        <ion-card-title>{{patient.first_name}} {{patient.last_name}} </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-card-subtitle><b>Date</b></ion-card-subtitle>
+        <ion-card-content>{{update.date}}</ion-card-content>
+        <ion-card-subtitle> Temperature</ion-card-subtitle>
+        <ion-card-content>{{update.temperature}} degrees Celsius</ion-card-content>
+        <ion-card-subtitle> Weight</ion-card-subtitle>
+      <ion-card-content>{{update.weight}} lbs.</ion-card-content>
+        </ion-card-content>
+        <ion-list-header *ngIf="(update.cough === false && update.headache === false && update.sore_throat === false && update.fever === false && update.loss_of_taste_or_smell === false && update.tiredness === false); else symptoms">
+          <ion-label>No Symptoms</ion-label>
+        </ion-list-header>
+        <ng-template #symptoms>
+        <ion-list-header >Symptoms</ion-list-header>
+        <ion-item *ngIf="update.cough === true"><ion-card-content>Coughing</ion-card-content></ion-item>
+        <ion-item *ngIf="update.headache === true"><ion-card-content>Headache</ion-card-content></ion-item>
+        <ion-item *ngIf="update.sore_throat === true"><ion-card-content>Sore Throat</ion-card-content></ion-item>
+        <ion-item *ngIf="update.fever === true"><ion-card-content>Fever</ion-card-content></ion-item>
+        <ion-item *ngIf="update.loss_of_taste_or_smell === true"><ion-card-content>Loss of Taste or Smell</ion-card-content></ion-item>
+        <ion-item *ngIf="update.tiredness === true"><ion-card-content>Tiredness</ion-card-content></ion-item>
+        </ng-template>
+
+
+    </ion-card>
+
+  <!--<ion-row > -->
+  <ion-list *ngFor="let update of patientUpdates; first as isFirst " inset="true">
+    <ion-card>
+      <ion-card-title *ngIf="isFirst"><ion-list-header>MOST RECENT UPDATE</ion-list-header></ion-card-title>
+      <ion-card-title><ion-list-header>Patient Name: {{activePatient.is_user.first_name}} {{activePatient.is_user.last_name}}</ion-list-header></ion-card-title>
+      <ion-card-subtitle><ion-list-header>updated on {{update.created_at | date: 'MMMM dd, YYY HH:mm'}}</ion-list-header></ion-card-subtitle>
+
+      <ion-card-content>
+      <!-- <ion-accordion value="temperature" toggle-icon="arrow-down-circle"> -->
+        <ion-item slot="header">
+          <ion-label>Temperature (°C): {{update.temperature}}</ion-label>
+        </ion-item>
+
+
+      <!-- </ion-accordion> -->
+
+
+      <!-- <ion-accordion value="weight" toggle-icon="arrow-down-circle"> -->
+        <ion-item slot="header">
+          <ion-label>Weight (lbs.): {{update.weight}}</ion-label>
+        </ion-item>
+
+      <!-- </ion-accordion> -->
+
+
+
+
+        <div  *ngIf="(update.cough === false && update.headache === false && update.sore_throat === false && update.fever === false && update.loss_of_taste_or_smell === false && update.tiredness === false); else symptoms"></div>
+
+
+        <ng-template #symptoms>
+          <ion-accordion-group>
+            <ion-accordion value="symptoms" toggle-icon="arrow-down-circle">
+              <ion-item slot="header">
+                <ion-label>Symptoms</ion-label>
+              </ion-item>
+
+              <ion-list slot="content">
+                <ion-item *ngIf="update.cough === true"><ion-card-content><ion-label>Coughing</ion-label></ion-card-content></ion-item>
+                <ion-item *ngIf="update.headache === true"><ion-card-content><ion-label>Headache</ion-label></ion-card-content></ion-item>
+                <ion-item *ngIf="update.sore_throat === true"><ion-card-content><ion-label>Sore Throat</ion-label></ion-card-content></ion-item>
+                <ion-item *ngIf="update.fever === true"><ion-card-content><ion-label>Fever</ion-label></ion-card-content></ion-item>
+                <ion-item *ngIf="update.loss_of_taste_or_smell === true"><ion-card-content><ion-label>Loss of Taste or Smell</ion-label></ion-card-content></ion-item>
+                <ion-item *ngIf="update.tiredness === true"><ion-card-content><ion-label>Tiredness</ion-label></ion-card-content></ion-item>
+              </ion-list>
+
+            </ion-accordion>
+          </ion-accordion-group>
+        </ng-template>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+  <!--</ion-row>-->
+  </ion-col>
 </ion-content>
+

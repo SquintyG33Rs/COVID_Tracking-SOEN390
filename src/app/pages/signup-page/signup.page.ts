@@ -47,18 +47,14 @@ export class SignupPage implements OnInit
 
       if (signupUser.accountType === AccountType.PATIENT) {
         const userid = data.user.id;
-        this.endpoints.createStatus().subscribe((data) => {
+        this.endpoints.createPatient(userid).subscribe((data) => {
           console.log(data);
-          const statusid = data.id;
-          this.endpoints.createPatient(userid, statusid).subscribe((data) => {
-            console.log(data);
-            console.log('Sign-in User:');
-            console.log(JSON.parse(localStorage.getItem('user')));
-            //this.endpoints.activeUser = JSON.parse(localStorage.getItem('user'));
-            console.log('Route Forward To Sign-In Page.');
-            window.location.assign('/signin-page');
-          });
-        }, error => {console.log(error.error.message[0].messages[0].id);});
+          console.log('Sign-in User:');
+          console.log(JSON.parse(localStorage.getItem('user')));
+          //this.endpoints.activeUser = JSON.parse(localStorage.getItem('user'));
+          console.log('Route Forward To Sign-In Page.');
+          window.location.assign('/signin-page');
+        });
       }
       else if (signupUser.accountType == AccountType.MEDICALDOCTOR) {
         const userid = data.user.id;

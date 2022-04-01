@@ -161,11 +161,10 @@ export  class  Endpoints {
         return this.http.post<any>(this.url + 'doctors/', body);
     }
 
-    public createPatient(userid, statusid): Observable<any>{ //add an entry for Doctor, call this after successfully creating a user with accountType = PATIENT
+    public createPatient(userid): Observable<any>{ //add an entry for Doctor, call this after successfully creating a user with accountType = PATIENT
         const body = {
             is_user: userid,
-            flagged: false,
-            status: statusid
+            flagged: false
         }
         return this.http.post<any>(this.url + 'patients/', body);
     }
@@ -199,7 +198,7 @@ export  class  Endpoints {
         return this.http.post<any>(this.url + 'appointments/', body);
     }
 
-    public createStatus(): Observable<any> {
+    public createStatus(patientid): Observable<any> {
         let date = new Date()
         let dateString = date.getTime()
             const body= {
@@ -211,12 +210,13 @@ export  class  Endpoints {
             sore_throat: false,
             fever: false,
             loss_of_taste_or_smell: false,
-            tiredness: false
+            tiredness: false,
+            patient: patientid
         }
         return this.http.post<any>(this.url + 'statuses/', body);
     }
 
-    public createStatusWithParams(dateString, temperature, weight, cough, headache, sore_throat, fever, loss_of_taste_or_smell, tiredness): Observable<any> { //call
+    public createStatusWithParams(dateString, temperature, weight, cough, headache, sore_throat, fever, loss_of_taste_or_smell, tiredness, patientid): Observable<any> { //call
 
        const body = {
 
@@ -229,7 +229,7 @@ export  class  Endpoints {
             fever: fever,
             loss_of_taste_or_smell: loss_of_taste_or_smell,
             tiredness: tiredness,
-
+            patient: patientid
 
         }
         console.log(this.activeUser.id + " updated their status");

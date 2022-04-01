@@ -60,11 +60,9 @@ export class StatusUpdatePage implements OnInit{
         //create a new status update
         const statusUpdate: Update = new Update(this.date, this.temp, this.weight, this.cough, this.head, this.throat, this.fever, this.taste, this.tired);
         //store status update in database
-        this.endpoints.createStatusWithParams(statusUpdate.date, statusUpdate.temp, statusUpdate.weight, statusUpdate.cough, statusUpdate.head, statusUpdate.throat, statusUpdate.fever, statusUpdate.taste, statusUpdate.tired).subscribe(
+        this.endpoints.createStatusWithParams(statusUpdate.date, statusUpdate.temp, statusUpdate.weight, statusUpdate.cough, statusUpdate.head, statusUpdate.throat, statusUpdate.fever, statusUpdate.taste, statusUpdate.tired, this.activePatient.id).subscribe(
           (data) => {
             this.update = data;
-            console.log(this.update);
-            console.log(data);
             localStorage.setItem('update', JSON.stringify(data.update));
             //console.log('Status Updated!');
 
@@ -73,6 +71,7 @@ export class StatusUpdatePage implements OnInit{
 
               () => {
                 //push status in active patient's status history
+                console.log(this.update);
                 this.activePatient.status_history.push(this.update);
 
                 console.log(this.activePatient.status_history);
@@ -82,13 +81,13 @@ export class StatusUpdatePage implements OnInit{
                 this.endpoints.modifyPatientStatusHistory(this.activePatient.id, this.activePatient.status_history).subscribe(
 
                   (data) =>{
-                    console.log(JSON.stringify(data));
+                    console.log(data);
                   },err => console.log(err)
                 )
               },err => console.log(err)
             )
             //this.router.navigate(['/home-page']).then(() => console.log('Status Updated!'));
-            window.location.assign('/home-page');
+            this.router.navigate(['home-page']);
 
           },err => console.log(err)
 
@@ -127,18 +126,18 @@ export class StatusUpdatePage implements OnInit{
   */
     //get the authenticated user
     this.activeUser = JSON.parse(localStorage.getItem('user'));
-    console.log(JSON.parse(localStorage.getItem('user')));
+    //console.log(JSON.parse(localStorage.getItem('user')));
 
     if (this.activeUser.account_type === 'PATIENT')
         {
           this.endpoints.getPatientByUserId(this.activeUser.id).subscribe(
             data => {
               this.activePatient = data[0];
-              console.log(this.activePatient);
+              //console.log(this.activePatient);
 
               //active patient's status history
               this.patientUpdates = this.activePatient.status_history.sort(this.sortBy({created_at: -1}));
-              console.log(this.activePatient.status_history);
+              //console.log(this.activePatient.status_history);
 
             },err => console.log(err)
           )
@@ -150,7 +149,7 @@ export class StatusUpdatePage implements OnInit{
             res => {
               //sort updates by
               this.updates = res.sort(this.sortBy({created_at: -1}));
-              console.log(this.updates);
+              //console.log(this.updates);
 
             },
             err => console.log(err)
