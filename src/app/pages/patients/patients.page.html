@@ -1,0 +1,40 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button style="color: #fff;"></ion-menu-button>
+      <ion-back-button defaultHref="home-page"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Current Patient List
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="ion-padding">
+    <p>First name         Last name           User Id</p>
+  </div>
+
+  <ion-list id="patientList">
+
+  </ion-list>
+
+
+  <!--<ion-list>
+    <ion-item-sliding *ngFor="let patient of PatientsPage.patientArray; let i = index">
+      <ion-item>
+        <ion-label>{{patient}}</ion-label>
+      </ion-item>
+      <ion-item-options side="start" (ionSwipe)="test()">
+        <ion-item-option (click)="test()" expandable>Flag</ion-item-option>
+        <ion-item-option color="secondary" (click)="test()">Message</ion-item-option>
+      </ion-item-options>
+      <ion-item-options side="end" (ionSwipe)="delete(i)">
+        <ion-item-option color="danger" (click)="delete(i)" expandable>
+          <ion-icon name="close"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>-->

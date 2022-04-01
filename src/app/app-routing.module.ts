@@ -49,9 +49,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/contact/contact.module').then( m => m.ContactPageModule)
 
   },
-
-
-
+  {
+    path: 'patients',
+    loadChildren: () => import('./pages/patients/patients.module').then( m => m.PatientsPageModule)
+  },
 ];
 
 @NgModule({

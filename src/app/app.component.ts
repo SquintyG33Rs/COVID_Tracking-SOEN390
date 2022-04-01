@@ -1,11 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
 import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
-import { User } from "./entities/User";
 import { Router } from "@angular/router";
-import { DatabaseService } from "./database-services/database.service";
-import { HttpClient} from "@angular/common/http"
 import { Endpoints } from './app-endpoints';
 import { Patient } from './entities/Patient';
 import { AccountType } from './entities/AccountType';
@@ -35,7 +32,11 @@ export class AppComponent
   public hash: any;
   public activeUser: any;
   public patient: any;
-  public step = 0;
+  public static getScreenWidth: any;
+  public static getScreenHeight: any;
+  public step: number;
+  
+
   constructor( private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar, private router: Router, private endpoints: Endpoints)
   {
     // Check if active user exists.
@@ -73,6 +74,18 @@ export class AppComponent
     this.sideMenu();
     this.initializeApp();
 
+  }
+  ngOnInit() 
+  {
+    AppComponent.getScreenWidth = window.innerWidth;
+    AppComponent.getScreenHeight = window.innerHeight;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() 
+  {
+    AppComponent.getScreenWidth = window.innerWidth;
+    AppComponent.getScreenHeight = window.innerHeight;
   }
 
   initializeApp()

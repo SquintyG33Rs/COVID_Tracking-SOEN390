@@ -1,3 +1,4 @@
+/*
 * {
   --ion-font-family: 'DM Serif Text', serif !important;
 }
@@ -101,4 +102,23 @@ ion-content {
       }
     }
   }
+}
+*/
+
+.container {
+  height: 100%;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-header h1 {
+  margin-top: 0;
+  color: black;
+}
+
+.button-container {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }

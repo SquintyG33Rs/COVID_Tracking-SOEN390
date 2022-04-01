@@ -5,9 +5,6 @@
 import { Injectable } from  '@angular/core';
 import { HttpClient, HttpParams } from  '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from './entities/User'
-//import { UserI } from './entities/UserI'
-
 
 @Injectable()
 export  class  Endpoints {

@@ -1,12 +1,11 @@
 import { MyServiceEvent, RouteChangeDetection } from '../../scripts/RouteChangeListener';
 import { Component, OnInit } from '@angular/core';
 import { Endpoints } from '../../app-endpoints';
-import { User } from '../../entities/User';
 import { Router } from '@angular/router';
-import { AccountType } from 'src/app/entities/AccountType';
 import { Subscription } from 'rxjs';
 import {QRCodeComponent} from "angular2-qrcode";
-import {formatDate} from "@angular/common";
+import { AppComponent } from './../../app.component';
+import { PatientsPage } from '../patients/patients.page';
 
 
 @Component({
@@ -17,49 +16,139 @@ import {formatDate} from "@angular/common";
 export class HomePage implements OnInit
 {
   private endpoint;
-  private serviceSubscription: Subscription;
   private activeUser;
+  private activeUserProfilePictureURL :string = "";
   private activePatient;
   private activeDoctor;
   private patientUpdates: any = [];
   private recentUpdate: any;
   private currentDoctor: any;
   private flagged: boolean;
+  //private serviceSubscription: Subscription;
+  //urlDetector: RouteChangeDetection = new RouteChangeDetection(this.router);
+  
   updates: any = [];
   currentRouteURL: String;
-  urlDetector: RouteChangeDetection = new RouteChangeDetection(this.router);
+  
   sortBy = require('sortby');
-
-
-
-
+  doctorIcons: { name: string; img: string; }[];
+  patientIcons: { name: string; img: string; }[];
+  adminIcons: { name: string; img: string; }[];
 
   constructor(private endpoints: Endpoints, private router: Router)
   {
     this.endpoint = endpoints;
-
-    this.serviceSubscription = this.urlDetector.onChange.subscribe({
-      next: (event: MyServiceEvent) => {
-        this.onChangeRouteDetection(event.message);
-      }
-  });
   }
 
-  onChangeRouteDetection(message: string)
+  /*onChangeRouteDetection(message: string)
   {
-
-
-  }
+     
+    var desiredHeight = (AppComponent.getScreenHeight*0.212085).toString();
+    desiredHeight = desiredHeight+"px";
+    console.log(desiredHeight);
+    var colDivsArray = Array.from(document.getElementsByClassName("col_div") as HTMLCollectionOf<HTMLElement>);
+    for(var i=0; i<colDivsArray.length; i++)
+    {
+      colDivsArray[i].style.height = desiredHeight;
+    }
+    
+  }*/
 
   ngOnInit()
   {
+    
+    this.doctorIcons = 
+    [
+      {
+        name: "Patients",
+        img:"/assets/icon/patients-icon.png"
+      },
+      {
+        name: "Appointments",
+        img:"/assets/icon/appointment-icon.png"
+      },
+      {
+        name: "Messages",
+        img:"/assets/icon/messages-icon.png"
+      },
+      {
+        name: "Statistics",
+        img:"/assets/icon/statistics-icon.png"
+      },
+      {
+        name: "Calendar",
+        img:"/assets/icon/calendar-icon.png"
+      },
+      {
+        name: "Profile Settings",
+        img:"/assets/icon/settings-icon.png"
+      }
+    ]
+
+    this.patientIcons = 
+    [
+      {
+        name: "Contact Doctor",
+        img:"/assets/icon/contact-icon.png"
+      },
+      {
+        name: "Update Status",
+        img:"/assets/icon/update-status-icon.png"
+      },
+      {
+        name: "Messages",
+        img:"/assets/icon/messages-icon.png"
+      },
+      {
+        name: "Calendar",
+        img:"/assets/icon/calendar-icon.png"
+      },
+      {
+        name: "Profile Settings",
+        img:"/assets/icon/settings-icon.png"
+      },
+      {
+        name: "QR Code Generation",
+        img:"/assets/icon/qrcode-icon.png"
+      }
+    ]
+
+    this.adminIcons = 
+    [
+      {
+        name: "Doctor/Patient Assignment",
+        img:"/assets/icon/assignment-icon.png"
+      },
+      {
+        name: "Manage User Profiles",
+        img:"/assets/icon/manage-users-icon.png"
+      },
+      {
+        name: "Calendar",
+        img:"/assets/icon/calendar-icon.png"
+      },
+      {
+        name: "Profile Settings",
+        img:"/assets/icon/settings-icon.png"
+      },
+      {
+        name: "QR Code Generation",
+        img:"/assets/icon/qrcode-icon.png"
+      }
+    ]
+    
     this.activeUser = JSON.parse(localStorage.getItem('user'));
+    console.log("from HOME PAGE");
     console.log(this.activeUser);
 
 
 
     //if user is logged in
     if (this.activeUser !== null) {
+      
+      //try to get and set profile picture
+      this.getAndSetProfilePictureURL();
+
       //if user is a patient
       if (this.activeUser.account_type === 'PATIENT')
       {
@@ -102,12 +191,6 @@ export class HomePage implements OnInit
         this.endpoints.getDoctorByUserId(this.activeUser.id).subscribe(
           data => {
             this.activeDoctor = data[0];
-            console.log(this.activeDoctor);
-
-
-
-
-
           },err => console.log(err)
         )
       }
@@ -135,7 +218,7 @@ export class HomePage implements OnInit
     this.endpoint.activeUser = null;
     this.activeUser = null;
     localStorage.clear();
-    window.location.assign('/welcome-page');
+    this.router.navigateByUrl('/welcome-page');
     console.log('Logged out!');
     console.log(this.activeUser);
   }
@@ -193,4 +276,128 @@ export class HomePage implements OnInit
   getDoctorEmail() {
     return "Doctor Email";
   }
+
+  getAndSetProfilePictureURL()
+  {
+    // Check to see if there is any picture
+    if (this.activeUser.profile_picture != null) 
+    {
+      this.activeUserProfilePictureURL = "https://api.team23soen390.xyz"+this.activeUser.profile_picture.url;
+      document.getElementById("user_picture").style.backgroundImage = 'url("' + this.activeUserProfilePictureURL + '")';
+    }
+  }
+
+  goToPage(iconName :string)
+  {
+    switch(iconName) 
+    { 
+      case 'Appointments': 
+      { 
+        this.router.navigateByUrl('appointment');
+        break; 
+      }
+
+      case 'Calendar': 
+      { 
+        console.log('Calendar');
+        break; 
+      }
+
+      case 'Contact Doctor': 
+      { 
+        this.contactDoctor(this.activeUser.username);
+        break; 
+      }
+
+      case 'Doctor/Patient Assignment': 
+      { 
+        this.router.navigateByUrl('assignment');
+        break; 
+      }
+
+      case 'Profile Settings': 
+      { 
+        this.modifyPersonalInformation(this.activeUser.username);
+        break; 
+      }
+      
+      case 'Manage User Profiles': 
+      { 
+        this.router.navigateByUrl('manage-profiles');
+        break; 
+      }
+
+      case 'Messages': 
+      { 
+        console.log('Messages');
+        break; 
+      }
+
+      case 'Patients': 
+      { 
+        //this.getPatientsInArray();
+        this.router.navigate(['patients'], {
+          state: {data: this.activeDoctor.patients}
+        });
+        break; 
+      }
+
+      case 'QR Code Generation':
+      {
+        console.log('QR Code');
+        break;
+      }
+      
+      case 'Statistics': 
+      { 
+        console.log('Statistics');
+        break; 
+      }
+
+      case 'Update Status': 
+      { 
+        this.router.navigateByUrl('status-update');
+        break; 
+      }
+
+      default: break;
+   } 
+  }
+
+  getPatientsInArray() 
+  {
+    let size: number = this.activeDoctor.patients.length;
+    //console.log(size);
+
+    var userIds: any[] = [];
+    
+    this.activeDoctor.patients.forEach(patient => {
+      userIds.push(patient.is_user);
+    });
+
+    console.log(userIds);
+
+
+    var userList: any[] = [];
+
+    // parsing user data
+    for(let i =0 ; i < size; i++)
+    {
+      console.log(i);
+      this.endpoints.getUserById(userIds[i]).subscribe(
+        data => {
+        console.log(data);
+        userList.push(data);
+        }
+      )
+    }
+
+  }
+
 }
+
+
+
+
+
+
