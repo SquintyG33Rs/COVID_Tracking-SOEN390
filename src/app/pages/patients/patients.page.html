@@ -9,13 +9,13 @@
   </div>
 
   <div class="ion-padding">
-    <p>FirstName LastName ID</p>
+    <p>FirstName LastName (Email)</p>
   </div>
 
   <ion-list>
-    <ion-item-sliding *ngFor="let patient of items; let i = index">
+    <ion-item-sliding *ngFor="let patient of fullPatientList let i = index">
       <ion-item>
-        <ion-label>{{patient}}</ion-label>
+        <ion-label>{{patient.user.first_name}} {{patient.user.last_name}} ({{patient.user.email}})</ion-label>
       </ion-item>
       <ion-item-options side="start" (ionSwipe)="test()">
         <ion-item-option (click)="test()" expandable>Flag</ion-item-option>

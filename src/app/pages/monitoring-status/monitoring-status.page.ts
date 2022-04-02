@@ -24,9 +24,7 @@ export class MonitoringStatusPage implements OnInit {
       this.endpoints.getDoctorByUserId(this.activeUser.id).subscribe(
         res => {
           //sort updates by
-          console.log(res)
           this.patients = res[0].patients;
-          console.log(this.patients);
           this.endpoints.getUpdates().subscribe((statuses) => {
             this.endpoints.getUsers().subscribe((users) => {
               this.endpoints.getPatients().subscribe( (allPatients) => {
@@ -64,7 +62,6 @@ export class MonitoringStatusPage implements OnInit {
                   this.fullPatientList.push(user);
                   
                 });
-                console.log(this.fullPatientList);
                 this.complete = true;
               });
             });

@@ -14,7 +14,9 @@ export class PatientsPage implements OnInit {
 
   private activeUser;
   private activeDoctor: any;
-  private userIdArray = [];
+  private complete = false;
+  private fullPatientList = [];
+  private patients: any;
   private static patientArray :string [] = [];
   items = ['Patient1FirstName    Patient1LastName ID', 'Patient2FirstName    Patient2LastName ID', 'Patient3FirstName    Patient3LastName ID', 'Patient4FirstName    Patient4LastName ID'];
   private serviceSubscription: Subscription;
@@ -28,7 +30,7 @@ export class PatientsPage implements OnInit {
     this.endpoints = endpoints;
     this.urlDetector =  new RouteChangeDetection(this.router);
     this.serviceSubscription = this.urlDetector.onChange.subscribe({
-      next: (event: MyServiceEvent) => 
+      next: (event: MyServiceEvent) =>
       {
         this.onChangeRouteDetection(event.message);
       }});
@@ -59,54 +61,39 @@ export class PatientsPage implements OnInit {
 
   ngOnInit() 
   {
-    /*
-    this.activeUser = JSON.parse(localStorage.getItem('user'));
-    console.log(JSON.parse(localStorage.getItem('user')));
     
-    this.endpoints.getDoctorByUserId(this.activeUser.id).subscribe(
-        data => 
-        {
-          this.activeDoctor = data[0];
-          
-          for (let i = 0; i < this.activeDoctor.patients.length; i++) 
-          {
-            this.endpoints.getPatientByUserId(this.activeDoctor.patients[i].is_user).subscribe(
-              data => 
-              {
-                var patient = data[0].is_user;
-                let listEntry: string | number;
-                listEntry = patient.first_name + " " + patient.last_name + " " +patient.id;
-                console.log("listEntry");
-                console.log(listEntry);
-                PatientsPage.patientArray.push(listEntry.toString());
+    this.activeUser = JSON.parse(localStorage.getItem('user'));
+    //console.log(JSON.parse(localStorage.getItem('user')));
+    
+    if (this.activeUser.account_type == "MEDICALDOCTOR") {
+      this.endpoints.getDoctorByUserId(this.activeUser.id).subscribe(
+        res => {
+          //sort updates by
+          this.patients = res[0].patients;
+
+          this.endpoints.getUsers().subscribe((users) => {
+            this.endpoints.getPatients().subscribe( (allPatients) => {
+              this.patients.forEach(element => {
+                //console.log(element)
+                var foundUser = users.find(x => x.id == element.is_user);
+                var foundPatient = allPatients.find(x => x.id == element.id);
                 
-                if(i == this.activeDoctor.patients.length - 1)
-                {
-                  populate(PatientsPage.patientArray);
-                }
-          
-
-              },err => console.log(err)
-            )
-            
-          }
-
-          
-        },err => console.log(err)
-      )*/
+                var user = {
+                  user: foundUser,
+                  patient: element,
+                  //show: false
+                };
+                this.fullPatientList.push(user);
+                
+              });
+              console.log(this.fullPatientList);
+              this.complete = true;
+            });
+          });
+  
+        },
+        err => console.log(err))
+    }
   }
   
 }
-function populate(patientArray: string[]) {
-  //Tried to dynamicall create list, but attributes liks (click) or <ion-swipe> do not work...
-  let list = document.getElementById('patientList');
-  patientArray.forEach(patient => {
-
-    let ionItem = document.createElement("ion-item");
-    ionItem.innerHTML = "<ion-label>"+patient+"</ion-label>";
-    console.log(ionItem.innerHTML);
-
-    list.appendChild(ionItem);
-  });
-}
-
