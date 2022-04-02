@@ -56,7 +56,9 @@ export class PatientsPage implements OnInit {
     this.items.splice(i, 1);
   }
 
-
+  flagPatient(patient) {
+    console.log(patient);
+  }
 
 
   ngOnInit() 
@@ -76,7 +78,7 @@ export class PatientsPage implements OnInit {
               this.patients.forEach(element => {
                 //console.log(element)
                 var foundUser = users.find(x => x.id == element.is_user);
-                var foundPatient = allPatients.find(x => x.id == element.id);
+                //var foundPatient = allPatients.find(x => x.id == element.id);
                 
                 var user = {
                   user: foundUser,
