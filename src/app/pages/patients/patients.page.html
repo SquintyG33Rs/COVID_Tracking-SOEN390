@@ -1,26 +1,16 @@
-
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button style="color: #fff;"></ion-menu-button>
-      <ion-back-button defaultHref="home-page"></ion-back-button>
-    </ion-buttons>
-    <ion-title>
-      Current Patient List
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+
+  <div>
+      <ion-buttons slot="start">
+        <ion-menu-button style="color: #fff;"></ion-menu-button>
+        <ion-back-button defaultHref="home-page"></ion-back-button>
+        <ion-title>Current Patient List</ion-title>
+      </ion-buttons>
+  </div>
 
   <div class="ion-padding">
     <p>FirstName LastName ID</p>
   </div>
-
-  <ion-list id="patientList">
-
-  </ion-list>
-
 
   <ion-list>
     <ion-item-sliding *ngFor="let patient of items; let i = index">
@@ -38,3 +28,5 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
+
+</ion-content>
