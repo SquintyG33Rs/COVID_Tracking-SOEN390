@@ -17,6 +17,7 @@ export class PatientsPage implements OnInit {
   private complete = false;
   private fullPatientList = [];
   private patients: any;
+  private dateArray = [];
   private static patientArray :string [] = [];
   items = ['Patient1FirstName    Patient1LastName ID', 'Patient2FirstName    Patient2LastName ID', 'Patient3FirstName    Patient3LastName ID', 'Patient4FirstName    Patient4LastName ID'];
   private serviceSubscription: Subscription;
@@ -57,7 +58,72 @@ export class PatientsPage implements OnInit {
   }
 
   flagPatient(patient) {
+    this.endpoints.flagPatient(patient.patient.id, true).subscribe( (data) => {
+      this.flagAllInteractions(data);
+      console.log(patient);
+      this.endpoints.sendFlaggedNotification(patient.user).subscribe();
+    });
+  }
+
+  //check past interactions to check if they've come into contact with someone else.
+  flagAllInteractions(patient) {
     console.log(patient);
+    var i = 0;
+    patient.interactions.forEach(elem => {
+      this.endpoints.flagInteraction(elem.id, true).subscribe((data) => {
+        i++;
+        if (i == patient.interactions.length) {
+          this.checkForContacts(patient);
+        }
+      })
+    })
+  }
+
+  checkForContacts(patient) {
+    //console.log(patient)
+    this.endpoints.getInteractions().subscribe((data) => {
+      patient.interactions.forEach(interaction => {
+        this.endpoints.getInteractionsByLocation(interaction.location).subscribe((data) => {
+          var start1 = Date.parse(interaction.start);
+          var end1 = Date.parse(interaction.end);
+
+          for(const element of data) {
+              var start2 = Date.parse(element.start);
+              var end2 = Date.parse(element.end)
+              //console.log(element);
+              if (interaction.flagged && element.patient.id != patient.id && !element.flagged) {//flagged patient changed location, check for possible contacts with non flagged patients
+                if (Math.min(end1, end2) - Math.max(start1, start2) > 900) { //stayed in contact for 15m
+                  this.endpoints.getPatientByPatientId(element.patient.id).subscribe(async (data) => {
+                    var date = new Date(Date.parse(interaction.start));
+                    var humanDate = date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getUTCFullYear();
+                    var foundDate = data.notified.find(x => x.date == humanDate);
+                    var secondCheck = this.dateArray.find(x => x == humanDate);
+                    //console.log(secondCheck)
+                    if (!foundDate && !secondCheck) {
+                      //Not notified for this day yet
+                      this.dateArray.push(humanDate);
+                      this.endpoints.sendCovidNotification(data.is_user, element).subscribe();
+                      var notifyDate = {
+                      date: humanDate
+                      }
+                      this.endpoints.addNotifyPatient(data, notifyDate).subscribe();
+                    }
+
+                  });
+
+                }
+              }
+          }
+
+          
+        });
+      });
+    });
+    
+  }
+
+  unflagPatient(patient) {
+    this.endpoints.flagPatient(patient.id, false);
   }
 
 

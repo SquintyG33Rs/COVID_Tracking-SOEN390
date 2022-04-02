@@ -371,7 +371,7 @@ export  class  Endpoints {
     return this.http.put<any>(this.url + 'interactions/' + interactionId, body);
   }
 
-  public modifyUser(user: any): Observable<any>{
+  public modifyUser(user: any): Observable<any> {
     const body = {
         first_name: user.first_name,
         last_name: user.last_name,
@@ -383,17 +383,41 @@ export  class  Endpoints {
     return this.http.put<any>(this.url + 'users/' + user.id, body);
   }
 
-  public flagPatient(patientid: number, flag: boolean) {
+  public flagPatient(patientid: number, flag: boolean): Observable<any> {
     const body = {
         flagged: flag
     }
     return this.http.put<any>(this.url + 'patients/' + patientid, body);
   }
 
+  //prevent email spam
+  public modifyNotifiedPatient(patientid: number, dates: any): Observable<any> {
+    const body = {
+        notified: dates
+    }
+    return this.http.put<any>(this.url + 'patients/' + patientid, body);
+  }
+
+  public addNotifyPatient(patient, date: any): Observable<any> { //[{date: dd/mm/yyyy}, {date: dd/mm/yyyy}]
+
+        let notified = patient.notified;
+        if (notified) {
+            notified.push(date);
+        }
+        else {
+            notified = [date];
+        }
+        const body = {
+            notified: notified
+        }
+        return this.http.put<any>(this.url + 'patients/' + patient.id, body);
+    
+  }
+
 
   //EMAIL
 
-  public sendMail(recipient: string, subject: string, text: string, replyto: string, html: string, attachments: string, cc: any) { //sends a configurable email, fields can be empty strings/arrays where applicable
+  public sendMail(recipient: string, subject: string, text: string, replyto: string, html: string, attachments: string, cc: any): Observable<any> { //sends a configurable email, fields can be empty strings/arrays where applicable
     //recipient, subject and text alone are sufficient to send an email.
     console.log("send mail")
     const body = {
@@ -405,25 +429,46 @@ export  class  Endpoints {
         replyTo: replyto,
         cc: cc
     }
-    this.http.post<any>(this.url + 'email', body).subscribe();
+    return this.http.post<any>(this.url + 'email', body);
   }
 
   //specific email endpoints
-  public sendCovidNotification(user: any, interaction: any) {
+  public sendCovidNotification(user: any, interaction: any): Observable<any> {
     var date = new Date(Date.parse(interaction.start));
-    var humandDate = date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getUTCFullYear();
+    var humanDate = date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getUTCFullYear();
     const body = {
         to: user.email,
         subject: "Possible contact with Covid-19",
         //Need to covert the start and location into something readable and useful for the user.
         html: "Hello " + user.first_name + " " + user.last_name + ", <br> \
-        This email was sent to inform you that on " + humandDate + ", there was a possibly that you may have come into contact \
+        This email was sent to inform you that on " + humanDate + ", there was a possibly that you may have come into contact \
         with someone who was recently identified to have shown covid-19 symptoms. We highly suggest you monitor your condition for symptoms and book an appointment with a doctor. <br> <br> \
         Thank you,<br> \
         Team 23 of SOEN390 <br> <br> \
         This message was sent automatically, do not reply to this email."
     }
-    this.http.post<any>(this.url + 'email', body).subscribe();
+    return this.http.post<any>(this.url + 'email', body);
+  }
+
+  public sendFlaggedNotification(user: any): Observable<any> {
+    const body = {
+        to: user.email,
+        subject: "Covid-19 help",
+        //Need to covert the start and location into something readable and useful for the user.
+        html: "Hello " + user.first_name + " " + user.last_name + ", <br> \
+        In light of your tests results that came in positive, we would like to extend to you a list of possible things you may do to alleviate the symptoms (if there are any) as well as keep others safe. \
+        1. Take over the counter medicine to alleviate headaches, sneezing, coughing, etc. Be advised that not all medicine will work nor is appropriate for everyone. <br>\
+        2. Keep yourself warm and well hydrated. <br> \
+        3. Do not strain yourself by doing exercise or work. Take time off to rest and recover. <br> \
+        4. Isolate yourself and keep a good hygiene. <br>\
+        Although you may not show symptoms, you are still highly infectious. Keep away from others and isolate for at least 2 weeks. Should you wish to learn more, you can visit \
+        https://www.fda.gov/emergency-preparedness-and-response/counterterrorism-and-emerging-threats/coronavirus-disease-2019-covid-19.<br> \
+        Thank you for keeping others safe. We wish you a smooth and rapid recovery. <br> <br> \
+        Best wishes,<br> \
+        Team 23 of SOEN390 <br> <br> \
+        This message was sent automatically, do not reply to this email."
+    }
+    return this.http.post<any>(this.url + 'email', body);
   }
 
 }

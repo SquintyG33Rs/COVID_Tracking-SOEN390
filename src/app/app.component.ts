@@ -25,7 +25,7 @@ export class AppComponent
   public lat: number;
   public lon: number;
   public moving: boolean;
-  public record: boolean;
+  public record = true;
   public start: any;
   public end: any;
   public location: any;
@@ -35,7 +35,6 @@ export class AppComponent
   public static getScreenWidth: any;
   public static getScreenHeight: any;
   public step: number;
-  
 
   constructor( private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar, private router: Router, private endpoints: Endpoints)
   {
@@ -106,7 +105,7 @@ export class AppComponent
     //this.checkForContacts(this.patient.interactions[0]);
     if (this.activeUser.account_type == "PATIENT") {
         this.geolocation();
-        await this.delay(60000); //check every 5 minutes
+        await this.delay(60000); //check every minute
     }
     await this.delay(1000);
   }
@@ -145,12 +144,18 @@ export class AppComponent
       var newhash = sha1(posi);
       if (!this.hash){
         this.hash = newhash;
+        this.start = new Date().getTime();
+        this.location = this.hash;
+        this.record = true;
+        this.step = 0;
+        this.moving = false;
       }
       //console.log(newhash);
       //console.log(this.lat + ", " + this.lon);
 
       if (this.hash != newhash) //same square ~10m, approaches 0 the closer to the poles you are
       {
+        
         if (this.record && this.step >= 15) { //started moving again after being stopped for 15 loops
           this.end = new Date().getTime();
 
@@ -201,7 +206,7 @@ export class AppComponent
       const diff = today-interactionTime;
       if (diff > 2628000000) { // 1 month
         //console.log(diff)
-        this.endpoints.removeInteractionFromPatientHistory(this.patient.id, element.id); //doesn't work properly
+        //this.endpoints.removeInteractionFromPatientHistory(this.patient.id, element.id); //doesn't work properly
       } 
     });
   }
@@ -220,17 +225,28 @@ export class AppComponent
             var end2 = Date.parse(element.end)
             if (!interaction.flagged && element.patient.id != this.patient.id && element.flagged) { //non flagged patient looking for possible contacts from other patients
               //console.log(Math.min(end1, end2) - Math.max(start1, start2))
-              if (Math.min(end1, end2) - Math.max(start1, start2) > 900000) { //stayed in contact for 15m
-                console.log("sending email")
-                this.endpoints.sendCovidNotification(this.activeUser, interaction);
+
+              var date = new Date(Date.parse(interaction.start));
+              var humanDate = date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getUTCFullYear();
+              var foundDate = this.patient.notified.find(x => x.date == humanDate);
+              var notifyDate = {
+                date: humanDate
+                }
+              if (Math.min(end1, end2) - Math.max(start1, start2) > 900000 && !foundDate) { //stayed in contact for 15m
+                this.endpoints.sendCovidNotification(this.activeUser, interaction).subscribe();
+                this.endpoints.addNotifyPatient(data, notifyDate).subscribe();
               }
             }
 
             else if (interaction.flagged && element.patient.id != this.patient.id && !element.flagged) {//flagged patient changed location, check for possible contacts with non flagged patients
               if (Math.min(end1, end2) - Math.max(start1, start2) > 900000) { //stayed in contact for 15m
-                console.log("sending email");
-                this.endpoints.getUserById(element.patient.is_user).subscribe((data) => {
-                  this.endpoints.sendCovidNotification(data, element);
+                this.endpoints.getPatientByPatientId(element.patient.id).subscribe((data) => {
+                  var foundDate = data.notified.find(x => x.date == humanDate);
+                  if (!foundDate) {
+                    this.endpoints.sendCovidNotification(data.is_user, element).subscribe();
+                    this.endpoints.addNotifyPatient(data, notifyDate).subscribe();
+                  }
+                  
                 })
               }
             }
