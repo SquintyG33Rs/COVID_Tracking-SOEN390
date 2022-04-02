@@ -26,10 +26,10 @@ export class HomePage implements OnInit
   private flagged: boolean;
   //private serviceSubscription: Subscription;
   //urlDetector: RouteChangeDetection = new RouteChangeDetection(this.router);
-  
+
   updates: any = [];
   currentRouteURL: String;
-  
+
   sortBy = require('sortby');
   doctorIcons: { name: string; img: string; }[];
   patientIcons: { name: string; img: string; }[];
@@ -42,7 +42,7 @@ export class HomePage implements OnInit
 
   /*onChangeRouteDetection(message: string)
   {
-     
+
     var desiredHeight = (AppComponent.getScreenHeight*0.212085).toString();
     desiredHeight = desiredHeight+"px";
     console.log(desiredHeight);
@@ -51,13 +51,13 @@ export class HomePage implements OnInit
     {
       colDivsArray[i].style.height = desiredHeight;
     }
-    
+
   }*/
 
   ngOnInit()
   {
-    
-    this.doctorIcons = 
+
+    this.doctorIcons =
     [
       {
         name: "Patients",
@@ -85,7 +85,7 @@ export class HomePage implements OnInit
       }
     ]
 
-    this.patientIcons = 
+    this.patientIcons =
     [
       {
         name: "Contact Doctor",
@@ -113,7 +113,7 @@ export class HomePage implements OnInit
       }
     ]
 
-    this.adminIcons = 
+    this.adminIcons =
     [
       {
         name: "Doctor/Patient Assignment",
@@ -136,7 +136,7 @@ export class HomePage implements OnInit
         img:"/assets/icon/qrcode-icon.png"
       }
     ]
-    
+
     this.activeUser = JSON.parse(localStorage.getItem('user'));
     console.log("from HOME PAGE");
     console.log(this.activeUser);
@@ -145,7 +145,7 @@ export class HomePage implements OnInit
 
     //if user is logged in
     if (this.activeUser !== null) {
-      
+
       //try to get and set profile picture
       this.getAndSetProfilePictureURL();
 
@@ -280,7 +280,7 @@ export class HomePage implements OnInit
   getAndSetProfilePictureURL()
   {
     // Check to see if there is any picture
-    if (this.activeUser.profile_picture != null) 
+    if (this.activeUser.profile_picture != null)
     {
       this.activeUserProfilePictureURL = "https://api.team23soen390.xyz"+this.activeUser.profile_picture.url;
       document.getElementById("user_picture").style.backgroundImage = 'url("' + this.activeUserProfilePictureURL + '")';
@@ -289,57 +289,60 @@ export class HomePage implements OnInit
 
   goToPage(iconName :string)
   {
-    switch(iconName) 
-    { 
-      case 'Appointments': 
-      { 
-        this.router.navigateByUrl('appointment');
-        break; 
+    switch(iconName)
+    {
+      case 'Appointments':
+      {
+        window.location.assign("/appointment");
+        //this.router.navigateByUrl('appointment');
+        break;
       }
 
-      case 'Calendar': 
-      { 
+      case 'Calendar':
+      {
         console.log('Calendar');
-        break; 
+        break;
       }
 
-      case 'Contact Doctor': 
-      { 
+      case 'Contact Doctor':
+      {
         this.contactDoctor(this.activeUser.username);
-        break; 
+        break;
       }
 
-      case 'Doctor/Patient Assignment': 
-      { 
-        this.router.navigateByUrl('assignment');
-        break; 
+      case 'Doctor/Patient Assignment':
+      {
+        window.location.assign("/assignment");
+        //this.router.navigateByUrl('assignment');
+        break;
       }
 
-      case 'Profile Settings': 
-      { 
+      case 'Profile Settings':
+      {
         this.modifyPersonalInformation(this.activeUser.username);
-        break; 
-      }
-      
-      case 'Manage User Profiles': 
-      { 
-        this.router.navigateByUrl('manage-profiles');
-        break; 
+        break;
       }
 
-      case 'Messages': 
-      { 
+      case 'Manage User Profiles':
+      {
+        window.location.assign("/manage-profiles");
+        //this.router.navigateByUrl('manage-profiles');
+        break;
+      }
+
+      case 'Messages':
+      {
         console.log('Messages');
-        break; 
+        break;
       }
 
-      case 'Patients': 
-      { 
+      case 'Patients':
+      {
         //this.getPatientsInArray();
         this.router.navigate(['patients'], {
           state: {data: this.activeDoctor.patients}
         });
-        break; 
+        break;
       }
 
       case 'QR Code Generation':
@@ -347,30 +350,31 @@ export class HomePage implements OnInit
         console.log('QR Code');
         break;
       }
-      
-      case 'Statistics': 
-      { 
+
+      case 'Statistics':
+      {
         console.log('Statistics');
-        break; 
+        break;
       }
 
-      case 'Update Status': 
-      { 
-        this.router.navigateByUrl('status-update');
-        break; 
+      case 'Update Status':
+      {
+        window.location.assign("/status-update");
+        //this.router.navigateByUrl('status-update');
+        break;
       }
 
       default: break;
-   } 
+   }
   }
 
-  getPatientsInArray() 
+  getPatientsInArray()
   {
     let size: number = this.activeDoctor.patients.length;
     //console.log(size);
 
     var userIds: any[] = [];
-    
+
     this.activeDoctor.patients.forEach(patient => {
       userIds.push(patient.is_user);
     });
