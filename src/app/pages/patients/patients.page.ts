@@ -62,7 +62,9 @@ export class PatientsPage implements OnInit {
       this.flagAllInteractions(data);
       console.log(patient);
       this.endpoints.sendFlaggedNotification(patient.user).subscribe();
+      patient.patient.flagged = true;
     });
+    
   }
 
   //check past interactions to check if they've come into contact with someone else.
@@ -123,7 +125,10 @@ export class PatientsPage implements OnInit {
   }
 
   unflagPatient(patient) {
-    this.endpoints.flagPatient(patient.id, false);
+    this.endpoints.flagPatient(patient.patient.id, false).subscribe(() => {
+      patient.patient.flagged = false;
+    });
+    
   }
 
 
