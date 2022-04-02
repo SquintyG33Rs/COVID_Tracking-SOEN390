@@ -35,18 +35,37 @@ export class MonitoringStatusPage implements OnInit {
                   var foundUser = users.find(x => x.id == element.is_user);
                   var foundStatus = statuses.find(x => x.id == element.status);
                   var foundPatient = allPatients.find(x => x.id == element.id);
-                  //console.log(foundStatus)
+
+                  if (foundStatus) {
+                    var date = new Date(Date.parse(foundStatus.date));
+                    var humandDate = date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getUTCFullYear();
+                    foundStatus.date = humandDate
+                  }
+
+                  if (foundPatient.status_history) {
+                    foundPatient.status_history.sort((a, b) => parseInt(b.id) - parseInt(a.id))
+                    foundPatient.status_history.shift();
+                    foundPatient.status_history.forEach(elem => {
+                      var date = new Date(Date.parse(elem.date));
+                      var humandDate = date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getUTCFullYear();
+                      elem.date = humandDate;
+                    })
+                  }
+                  
                   var user = {
-                    patient_id: element.id,
+                    email: foundUser.email,
                     first_name: foundUser.first_name,
                     last_name: foundUser.last_name,
                     status: foundStatus,
-                    status_history: foundPatient.status_history.sort(this.sortBy({date: -1}))
+                    status_history: foundPatient.status_history,
+                    show: false
+                    
                   };
-                  this.fullPatientList.push(user)
+                  this.fullPatientList.push(user);
                   
                 });
                 console.log(this.fullPatientList);
+                this.complete = true;
               });
             });
           });
@@ -55,6 +74,10 @@ export class MonitoringStatusPage implements OnInit {
         err => console.log(err))
     }
 
+  }
+
+  toggle(patient) {
+    patient.show = !patient.show;
   }
 
 

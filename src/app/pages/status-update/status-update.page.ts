@@ -37,14 +37,10 @@ export class StatusUpdatePage implements OnInit{
 
 
 
-
   constructor(endpoints: Endpoints, router: Router) {
     this.endpoints = endpoints;
     this.router = router;
   }
-
-
-
 
 
   async ngOnUpdate(){
