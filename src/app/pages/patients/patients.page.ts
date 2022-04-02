@@ -1,4 +1,3 @@
-import { User } from './../../entities/User';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
@@ -17,12 +16,13 @@ export class PatientsPage implements OnInit {
   private activeDoctor: any;
   private userIdArray = [];
   private static patientArray :string [] = [];
-  items = ['test1', 'test2', 'test3'];
+  items = ['Patient1FirstName    Patient1LastName ID', 'Patient2FirstName    Patient2LastName ID', 'Patient3FirstName    Patient3LastName ID', 'Patient4FirstName    Patient4LastName ID'];
   private serviceSubscription: Subscription;
   private urlDetector: RouteChangeDetection; 
 
   constructor(private endpoints: Endpoints,private router: Router,private databaseService: DatabaseService) 
   {
+    /*
     this.databaseService = databaseService;
     this.router = router;
     this.endpoints = endpoints;
@@ -32,6 +32,7 @@ export class PatientsPage implements OnInit {
       {
         this.onChangeRouteDetection(event.message);
       }});
+    */
   }
 
   onChangeRouteDetection(message: any) 
@@ -58,6 +59,7 @@ export class PatientsPage implements OnInit {
 
   ngOnInit() 
   {
+    /*
     this.activeUser = JSON.parse(localStorage.getItem('user'));
     console.log(JSON.parse(localStorage.getItem('user')));
     
@@ -91,14 +93,15 @@ export class PatientsPage implements OnInit {
 
           
         },err => console.log(err)
-      )
+      )*/
   }
   
 }
 function populate(patientArray: string[]) {
-
+  //Tried to dynamicall create list, but attributes liks (click) or <ion-swipe> do not work...
   let list = document.getElementById('patientList');
   patientArray.forEach(patient => {
+
     let ionItem = document.createElement("ion-item");
     ionItem.innerHTML = "<ion-label>"+patient+"</ion-label>";
     console.log(ionItem.innerHTML);
