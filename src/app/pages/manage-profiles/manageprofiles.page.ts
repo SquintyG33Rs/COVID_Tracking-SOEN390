@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { BreadcrumbCollapsedClickEventDetail, IonicModule } from '@ionic/angular';
-import { User } from "../../entities/User";
-import { DatabaseService } from "../../database-services/database.service";
-import { AccountType } from 'src/app/entities/AccountType';
 import { Router } from "@angular/router";
 import { Endpoints } from '../../app-endpoints';
 import { Subscription } from 'rxjs';

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { Endpoints } from 'src/app/app-endpoints';
-import { DatabaseService } from 'src/app/database-services/database.service';
 import { MyServiceEvent, RouteChangeDetection } from 'src/app/scripts/RouteChangeListener';
 
 @Component({
@@ -23,7 +22,7 @@ export class PatientsPage implements OnInit {
   private serviceSubscription: Subscription;
   private urlDetector: RouteChangeDetection; 
 
-  constructor(private endpoints: Endpoints,private router: Router,private databaseService: DatabaseService) 
+  constructor(private endpoints: Endpoints,private router: Router) 
   {
     /*
     this.databaseService = databaseService;

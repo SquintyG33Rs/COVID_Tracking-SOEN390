@@ -1,15 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import {AlertController, IonicModule} from '@ionic/angular';
-import { User } from "../../entities/User";
-import { DatabaseService } from "../../database-services/database.service";
-import { AccountType } from 'src/app/entities/AccountType';
+import { AlertController, IonicModule } from '@ionic/angular';
 import { Router } from "@angular/router";
-import { Appointment } from 'src/app/entities/Appointment';
-import {Endpoints} from "../../app-endpoints";
-import {Doctor} from "../../entities/Doctor";
-import {Patient} from "../../entities/Patient";
-import {formatDate} from "@angular/common";
+import { Endpoints } from "../../app-endpoints";
+import { formatDate } from "@angular/common";
 
 @Component({
   selector: 'app-appointment',

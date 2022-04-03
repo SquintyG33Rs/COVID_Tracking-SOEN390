@@ -1,7 +1,5 @@
-import { AccountType } from './../../entities/AccountType';
 import { Component, OnInit } from '@angular/core';
 import { Endpoints } from "../../app-endpoints";
-import { User } from "../../entities/User";
 import { Router } from "@angular/router";
 import { ShowHidePasswordComponent } from './show-hide-password.component';
 
@@ -17,7 +15,6 @@ export class SigninPage implements OnInit {
 
   username: string;
   password: string;
-  accountType: AccountType;
 
   constructor(router: Router, endpoints: Endpoints)
   {

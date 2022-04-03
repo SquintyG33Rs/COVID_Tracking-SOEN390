@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Endpoints } from '../../app-endpoints';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import {QRCodeComponent} from "angular2-qrcode";
+import { QRCodeComponent } from "angular2-qrcode";
 import { AppComponent } from './../../app.component';
 import { PatientsPage } from '../patients/patients.page';
 
@@ -236,7 +236,7 @@ export class HomePage implements OnInit
 
   contactDoctor(username: string) {
     console.log("Contact Doctor for: " + username);
-    console.log("SHOULD BE LINKED TO PAGE - CONTACTING A DOCTOR - AFTER IT STARTS WORKING...");
+    window.location.assign("/contact'");
   }
 
   private hash: any;

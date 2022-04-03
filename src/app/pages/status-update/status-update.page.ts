@@ -1,9 +1,9 @@
 import { AccountType } from '../../entities/AccountType';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup} from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Update } from '../../entities/Update';
 import { Endpoints } from '../../app-endpoints';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -107,19 +107,7 @@ export class StatusUpdatePage implements OnInit{
   }
 
 
-  ngOnInit() {/*
-  	this.updateForm = new FormGroup({
-  	date : new FormControl(),
-	temp : new FormControl(),
-	weight : new FormControl(),
-	cough : new FormControl(),
-	head : new FormControl(),
-	throat : new FormControl(),
-	fever : new FormControl(),
-	taste : new FormControl(),
-	tired : new FormControl()
-  });
-  */
+  ngOnInit() {
     //get the authenticated user
     this.activeUser = JSON.parse(localStorage.getItem('user'));
     //console.log(JSON.parse(localStorage.getItem('user')));

@@ -1,8 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 import {Endpoints} from "../../app-endpoints";
-import {Patient} from "../../entities/Patient";
-import {Doctor} from "../../entities/Doctor";
 import {AlertController, NavController} from "@ionic/angular";
 
 @Component({
