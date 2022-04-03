@@ -231,12 +231,14 @@ export class HomePage implements OnInit
 
   updateHealthStatus(username: string) {
     console.log("Update Health Status for: " + username);
-    window.location.assign("/status-update");
+    //window.location.assign("/status-update");
+    this.router.navigateByUrl('/status-update')
   }
 
   contactDoctor(username: string) {
     console.log("Contact Doctor for: " + username);
-    window.location.assign("/contact");
+    //window.location.assign("/contact");
+    this.router.navigateByUrl('/contact')
   }
 
   private hash: any;
@@ -293,8 +295,8 @@ export class HomePage implements OnInit
     {
       case 'Appointments':
       {
-        window.location.assign("/appointment");
-        //this.router.navigateByUrl('appointment');
+        //window.location.assign("/appointment");
+        this.router.navigateByUrl('appointment');
         break;
       }
 
@@ -312,8 +314,8 @@ export class HomePage implements OnInit
 
       case 'Doctor/Patient Assignment':
       {
-        window.location.assign("/assignment");
-        //this.router.navigateByUrl('assignment');
+        //window.location.assign("/assignment");
+        this.router.navigateByUrl('assignment');
         break;
       }
 
@@ -325,8 +327,8 @@ export class HomePage implements OnInit
 
       case 'Manage User Profiles':
       {
-        window.location.assign("/manage-profiles");
-        //this.router.navigateByUrl('manage-profiles');
+        //window.location.assign("/manage-profiles");
+        this.router.navigateByUrl('manage-profiles');
         break;
       }
 
@@ -359,8 +361,8 @@ export class HomePage implements OnInit
 
       case 'Update Status':
       {
-        window.location.assign("/status-update");
-        //this.router.navigateByUrl('status-update');
+        //window.location.assign("/status-update");
+        this.router.navigateByUrl('status-update');
         break;
       }
 
