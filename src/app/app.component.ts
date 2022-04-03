@@ -188,13 +188,13 @@ export class AppComponent
 
       },function(){
         console.log("geolocation turned off.");
-      	if(!LocationPermission.checkGPSPermission()){
+      	/*if(!LocationPermission.checkGPSPermission()){
       		console.log(LocationPermission.requestGPSPermission());
       		if(LocationPermission.askToTurnOnGPS()){
       			console.log("GPS turned on");
       		}
       	}else{
-    	}
+    	}*/
       },{timeout:10000})
     }
 
