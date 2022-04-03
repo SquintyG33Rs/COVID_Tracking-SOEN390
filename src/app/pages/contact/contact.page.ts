@@ -43,52 +43,16 @@ export class ContactPage implements OnInit{
     isMedicalDoctor:boolean=false;
     targetUsername:string;
     patients=[];
-    
+
 
     constructor( router:Router){
-        this.activeUser=this.activeUser;
         this.router=router;
-        this.targetUsername="patient.username"
-        //Getting all messages that the active user is in.
-        //Will be modified later so that the messages are the ones that has the patient or  it's doctor
-        for(let i=0;i<this.messages.length;i++){
-            if(this./*databaseService.*/messages[i].sender==this.activeUser || 
-                this./*databaseService.*/messages[i].receiver==this.activeUser){
-                    this.messages.push(this./*databaseService.*/messages[i])
-                }
-        }
-        
-        //Sort the messages by date
-        this.messages.sort((a, b) => a.date - b.date);
 
-        //If the user is a patient, the target user is his doctor
-        //Need to be modified later because now the target doctor will always be the default one
-
-        if(this.activeUser.accountType=='PATIENT'){
-            //this.targetUser=/*this.databaseService.users[1]*/;
-            this.isPatient=true;
-        }
-
-        //If user is a doctor
-        if(this.activeUser.accountType=='MEDICALDOCTOR'){
-            this.isMedicalDoctor=true;
-
-            //Get all patients,should modified later so that the doctor get his assigned patients
-            //for(let i=0; i<this./*databaseService.users.*/length;i++){
-                //console.log(this./*databaseService.users[i].*/accountType);
-                //if(this./*databaseService.users[i].*/accountType==AccountType.PATIENT){
-                    //var x= this./*databaseService.users[i].*/firstName+" "+this./*databaseService.*/users[i].lastName
-                    //this.patients.push(/*this.databaseService.users[i]*/);
-                    //console.log("yes");
-                //}
-            //}
-            
-        }   
     }
 
     sendMessage(){
         this.date=new Date();
-        
+
 
         //Finding the patient
 
@@ -97,7 +61,7 @@ export class ContactPage implements OnInit{
         this.successfulMessage=true;
         setTimeout(() => { this.router.navigate(['home-page'],{skipLocationChange: true}).then(() => this.router.navigate(['contact'])); }, 1000); //should change this, it must only refresh the same page
     }
-    
+
     filterMessages(username){
         this.targetUsername=username;
         var messagesList=document.getElementsByClassName("Messages") as HTMLCollectionOf<HTMLElement>;
@@ -121,6 +85,44 @@ export class ContactPage implements OnInit{
         }
     }
     ngOnInit() {
-        
+      this.activeUser = JSON.parse(localStorage.getItem('user'));
+      console.log(this.activeUser);
+
+      this.targetUsername="patient.username"
+      //Getting all messages that the active user is in.
+      //Will be modified later so that the messages are the ones that has the patient or  it's doctor
+      for(let i=0;i<this.messages.length;i++){
+        if(this./*databaseService.*/messages[i].sender==this.activeUser ||
+          this./*databaseService.*/messages[i].receiver==this.activeUser){
+          this.messages.push(this./*databaseService.*/messages[i])
+        }
+      }
+
+      //Sort the messages by date
+      this.messages.sort((a, b) => a.date - b.date);
+
+      //If the user is a patient, the target user is his doctor
+      //Need to be modified later because now the target doctor will always be the default one
+
+      if(this.activeUser.accountType=='PATIENT'){
+        //this.targetUser=/*this.databaseService.users[1]*/;
+        this.isPatient=true;
+      }
+
+      //If user is a doctor
+      if(this.activeUser.accountType=='MEDICALDOCTOR'){
+        this.isMedicalDoctor=true;
+
+        //Get all patients,should modified later so that the doctor get his assigned patients
+        //for(let i=0; i<this./*databaseService.users.*/length;i++){
+        //console.log(this./*databaseService.users[i].*/accountType);
+        //if(this./*databaseService.users[i].*/accountType==AccountType.PATIENT){
+        //var x= this./*databaseService.users[i].*/firstName+" "+this./*databaseService.*/users[i].lastName
+        //this.patients.push(/*this.databaseService.users[i]*/);
+        //console.log("yes");
+        //}
+        //}
+
+      }
     }
 }

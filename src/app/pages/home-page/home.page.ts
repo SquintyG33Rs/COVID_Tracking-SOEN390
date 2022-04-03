@@ -236,7 +236,7 @@ export class HomePage implements OnInit
 
   contactDoctor(username: string) {
     console.log("Contact Doctor for: " + username);
-    window.location.assign("/contact'");
+    window.location.assign("/contact");
   }
 
   private hash: any;
