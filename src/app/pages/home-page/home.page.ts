@@ -281,11 +281,15 @@ export class HomePage implements OnInit
 
   getAndSetProfilePictureURL()
   {
-    // Check to see if there is any picture
+    // Check to see if there is any picture else set default picture
     if (this.activeUser.profile_picture != null)
     {
       this.activeUserProfilePictureURL = "https://api.team23soen390.xyz"+this.activeUser.profile_picture.url;
       document.getElementById("user_picture").style.backgroundImage = 'url("' + this.activeUserProfilePictureURL + '")';
+    }
+    else
+    {
+      document.getElementById("user_picture").style.backgroundImage = 'url("' + '/assets/images/default-profile-pic.jpg' + '")';
     }
   }
 
