@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Endpoints } from 'src/app/app-endpoints';
 
 @Component({
@@ -14,7 +13,7 @@ export class PatientsPage implements OnInit {
   private patients: any;
   private dateArray = [];
   
-  constructor(private endpoints: Endpoints,private router: Router) {}
+  constructor(private endpoints: Endpoints) {}
 
   test() 
   {
