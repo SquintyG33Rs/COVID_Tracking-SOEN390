@@ -9,33 +9,22 @@
     </ion-toolbar>
 </ion-header>
 
-
 <ion-content padding>
     <div id="TargetProfile">
       <ion-title>
-        <!--If active user is a patient, the target is his doctor, right now its automatically the default doctor-->
-        <p *ngIf="isPatient">Your Doctor:
-          <br>{{targetUser.firstName+" "+targetUser.lastName}}
-          <br>Phone number: {{targetUser.telephone}}
-          <br>email: {{targetUser.email}}
-        </p>
-        <!--If active user is a doctor-->
-        <div *ngIf="isMedicalDoctor">
-          <h1>Choose your patient</h1>
-          <h2>{{targetUsername}}</h2>
-          <ion-button style="margin-right: 15px" (click)="resetTarget()">reset</ion-button>
-          <ul ngDefaultControl [(ngModel)]="targetUsername" *ngFor="let item of patients" style="height: 50px; overflow: scroll;">
-            <li>
-                <ion-button type="button" class="switch"  style="margin-right: 15px" (click)="filterMessages(item.username)">
-                  {{item.username}}
-                </ion-button>
-            </li>
-          </ul>
+        <div *ngIf="activePatient && ready">
+          <!--If active user is a patient, the target is his doctor, right now its automatically the default doctor-->
+            Your Doctor: {{activePatient.current_doctor.is_user.first_name}} {{activePatient.current_doctor.is_user.last_name}} ({{activePatient.current_doctor.is_user.email}})
+          <!--If active user is a doctor-->
+        </div>
+        <div *ngIf="activeUser.account_type === MEDICALDOCTOR">
+          ads
         </div>
 
 
       </ion-title>
     </div>
+    
     <div id="MessageBox" style="height: 400px; overflow:scroll; background-color: white;">
         <ion-list *ngFor="let item of messages" style="background-color: white; color: black; overflow:scroll;">
           <div class="Messages" [attr.data-sender]="item.sender.username" [attr.data-receiver]="item.receiver.username">
@@ -55,7 +44,7 @@
         <ion-input placeholder="Send message" style="background-color: grey; border-radius: 4px; float: left;
         width: 85%;"  ngDefaultControl [(ngModel)]="message">
         </ion-input>
-        <ion-button (click)="sendMessage()" style="float: right;">
+        <ion-button (click)="sendMessage(message)" style="float: right;">
           <ion-icon name="send-outline"></ion-icon>
         </ion-button>
     </div>

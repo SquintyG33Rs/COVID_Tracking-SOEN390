@@ -236,6 +236,16 @@ export  class  Endpoints {
         return this.http.post<any>(this.url + 'statuses/', body);
     }
 
+    public createMessage(userid: number, title: string, content: string): Observable<any>{ //docid and patientid are not the same as their userid, call getDoctorby..() to get their doctor id
+        const body = {
+            author: userid,
+            message_content: content,
+            title: title,
+            read: false
+        }
+        return this.http.post<any>(this.url + 'messages/', body);
+    }
+
     //PUT requests
     //docid and patientid are not the same as their userid, call getDoctorby..() to get their doctor id
     public addPatientToDoctor(docid, patientids): Observable<any>{ //patientid can be an array of patientid
@@ -440,6 +450,28 @@ export  class  Endpoints {
     }
     return this.http.put<any>(this.url + 'users/' + userid, body);
   }
+
+  public setReadMessage(messageId: number, read: boolean): Observable<any> {
+    const body = {
+        read: read
+    }
+    return this.http.put<any>(this.url + 'messages/' + messageId, body);
+  }
+
+  public sendMessageToDoctor(current_doctor: any, messageId: number): Observable<any> {
+
+    let messages = current_doctor.incoming_messages;
+    if (messages) {
+        messages.push(messageId);
+    }
+    else {
+        messages = [messageId];
+    }
+    const body = {
+        incoming_messages: messages
+    }
+    return this.http.put<any>(this.url + 'doctors/' + current_doctor.id, body); 
+}
 
 
   //EMAIL
