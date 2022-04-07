@@ -337,6 +337,7 @@ export class HomePage implements OnInit
       case 'Profile Settings':
       {
         this.modifyPersonalInformation(this.activeUser.username);
+        this.router.navigateByUrl('settings');
         break;
       }
 

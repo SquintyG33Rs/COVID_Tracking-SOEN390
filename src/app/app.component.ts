@@ -123,6 +123,7 @@ export class AppComponent
         { title: 'Monitor Patients', url:'/monitoring-status',icon: 'people-outline' },
         { title: 'Assignment', url:'/assignment',icon: 'people-outline' },
         { title: 'Contact',url:'/contact', icon:'mail-outline' },
+        { title: 'Settings',url:'/settings', icon:'settings-outline' },
      ];
     }
 

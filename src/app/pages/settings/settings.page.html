@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button defaultHref="home-page" slot="start"></ion-back-button>
+    <ion-title>Settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<div class="wrapper">
+    <ion-card class="form-wrapper">
+      <ion-card-header>
+        <ion-card-title>Update Information</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-item>
+          <ion-icon name="mail-outline"></ion-icon>
+          <ion-input style = "color:black" type="text" placeholder="Email" [(ngModel)]="email"></ion-input>
+        </ion-item>
+          <ion-button (click)="updateEmail()" shape="round" expand="block">Update email</ion-button>
+        <ion-item>
+          <ion-icon name="lock-closed-outline"></ion-icon>
+          <ion-input style = "color:black" type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="lock-closed-outline"></ion-icon>
+          <ion-input style = "color:black" type="password" placeholder="confirm" [(ngModel)]="passwordConfirm"></ion-input>
+        </ion-item>
+          <ion-button (click)="updatePassword()" shape="round" expand="block">Update Password</ion-button>
+        <ion-item>
+          <ion-icon name="home-outline"></ion-icon>
+          <ion-input style = "color:black" type="text" placeholder="Address" [(ngModel)]="address"></ion-input>
+        </ion-item>
+          <ion-button (click)="updateAddress()" shape="round" expand="block">Update Address</ion-button>
+        <ion-item>
+          <ion-icon name="call-outline"></ion-icon>
+          <ion-input style = "color:black" type="text" placeholder="Phone Number" [(ngModel)]="telephone"></ion-input>
+        </ion-item>
+          <ion-button (click)="updatePhone()" shape="round" expand="block">Update number</ion-button>
+        
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
