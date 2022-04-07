@@ -259,16 +259,16 @@ export class HomePage implements OnInit
       'lastName': this.activeUser.last_name,
       'covidStatus': "NEGATIVE",  // Must be filled from the Patient's Health Status.
     }]
-    //console.log(/*JSON.stringify*/(qrInfo[0]));
+    //console.log(JSON.stringify(qrInfo[0]));
     return JSON.stringify(qrInfo[0]);
   }
 
-  async updateQRCode() {//function is only async to show in the box.
-    var alt = '<img src="/assets/images/default-profile-pic.jpg" alt="QR">';
+  updateQRCode() {
+    var alt = '<img src="/assets/images/Dummy_QRcode.png" alt="QR">'; //dummy value for testing
       //this is the way the docs show it so i pushed this to repo but it doesn't work
     var qrValue = '<div> <qr-code [value]="generateQRCodeFromInfo()"[size]="450" #QRCODE> </qr-code> </div>';
     console.log("QR-Code is updated and generated.");
-    console.log(qrValue);
+    console.log(alt);
     return alt;//alt for testing
   }
 
