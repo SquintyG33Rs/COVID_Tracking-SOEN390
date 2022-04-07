@@ -410,8 +410,35 @@ export  class  Endpoints {
         const body = {
             notified: notified
         }
-        return this.http.put<any>(this.url + 'patients/' + patient.id, body);
-    
+        return this.http.put<any>(this.url + 'patients/' + patient.id, body); 
+  }
+
+  public updateUserEmail(userid: number, email: string): Observable<any> {
+    const body = {
+        email: email
+    }
+    return this.http.put<any>(this.url + 'users/' + userid, body);
+  }
+
+  public updateUserPassword(userid: number, password: string): Observable<any> {
+    const body = {
+        password: password
+    }
+    return this.http.put<any>(this.url + 'users/' + userid, body);
+  }
+
+  public updateUserAddress(userid: number, address: string): Observable<any> {
+    const body = {
+        address: address
+    }
+    return this.http.put<any>(this.url + 'users/' + userid, body);
+  }
+
+  public updateUserPhone(userid: number, phone: any): Observable<any> {
+    const body = {
+        phone: phone
+    }
+    return this.http.put<any>(this.url + 'users/' + userid, body);
   }
 
 
@@ -419,7 +446,6 @@ export  class  Endpoints {
 
   public sendMail(recipient: string, subject: string, text: string, replyto: string, html: string, attachments: string, cc: any): Observable<any> { //sends a configurable email, fields can be empty strings/arrays where applicable
     //recipient, subject and text alone are sufficient to send an email.
-    console.log("send mail")
     const body = {
         to: recipient,
         subject: subject,
@@ -434,7 +460,6 @@ export  class  Endpoints {
 
   public sendMessageToMail(recipient: string, subject: string, text: string): Observable<any> { //sends a configurable email, fields can be empty strings/arrays where applicable
     //recipient, subject and text alone are sufficient to send an email.
-    console.log("send mail")
     const body = {
         to: recipient,
         subject: subject,
