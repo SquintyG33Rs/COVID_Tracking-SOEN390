@@ -364,7 +364,7 @@
     <div>
       <ion-buttons class="menu_btn">
         <ion-menu-button style="color:white;"></ion-menu-button>
-        <ion-button *ngIf="activeUser.account_type =='PATIENT'" style="color:white"> Covid-19 Status:
+        <ion-button *ngIf="activeUser.account_type =='PATIENT'" (click)="infoAlert()" style="color:white"> Covid-19 Status:
           <ion-icon *ngIf="!flagged" src="/assets/icon/healthy-icon.svg" slot="end" style="color:#fff" ></ion-icon>
           <ion-icon *ngIf="flagged" src="/assets/icon/sick-icon.svg" slot="end" style="color:#fff" ></ion-icon>
         </ion-button>

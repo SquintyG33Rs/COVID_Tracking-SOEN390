@@ -417,6 +417,22 @@ export class HomePage implements OnInit
 
   }
 
+  async infoAlert(){
+    var text = 'TEMP';
+    if(this.flagged){
+      text = 'You have been identified to have contracted COVID, if you have a negative test contact your doctor to update your status.' ;
+    }else{
+      text = 'Status : Healthy';
+    }
+      const alert = await this.alertController.create({
+      header: 'Info',
+      message: text,
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+  }
+
 }
 
 
