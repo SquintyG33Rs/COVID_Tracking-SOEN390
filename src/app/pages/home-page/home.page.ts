@@ -102,7 +102,7 @@ export class HomePage implements OnInit
         img:"/assets/icon/messages-icon.png"
       },
       {
-        name: "Calendar",
+        name: "Appointments",
         img:"/assets/icon/calendar-icon.png"
       },
       {
@@ -318,12 +318,6 @@ export class HomePage implements OnInit
       {
         //window.location.assign("/appointment");
         this.router.navigateByUrl('appointment');
-        break;
-      }
-
-      case 'Calendar':
-      {
-        console.log('Calendar');
         break;
       }
 
