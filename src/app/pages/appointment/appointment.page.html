@@ -4,12 +4,13 @@
       <ion-menu-button style="color: #fff;" slot="start"></ion-menu-button>
       <ion-back-button defaultHref="home-page"></ion-back-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">{{activeUser.first_name}}'s DASHBOARD</ion-title>
+    <ion-title class="ion-text-center">{{activeUser.first_name}}'s Appointments</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-text-center & ion-padding">
-  <!-- PATIENT DASHBOARD -->
+<div *ngIf="activeUser.account_type =='MEDICALDOCTOR'">
+  <!-- DOCTOR DASHBOARD -->
   <ion-grid >
     <ion-row>
       <ion-col size-sm="8" offset-sm="2">
@@ -46,4 +47,38 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+</div>
+
+<div *ngIf="activeUser.account_type =='PATIENT'">
+  <!-- PATIENT DASHBOARD -->
+  <ion-grid >
+    <ion-row>
+      <ion-col size-sm="8" offset-sm="2">
+        <ion-card>
+
+          <ion-card-header color="primary" class="ion-text-center">
+            <ion-card-title style="font-size: 15px">Your sheduled appointments</ion-card-title>
+          </ion-card-header>
+
+          <ion-row>
+            <ion-col>
+              <ion-card class="ion-no-padding, ion-no-margin">
+                <ion-card-content>
+                  <!--ion-row>
+                    <ion-datetime [(ngModel)]="date" minute-values="0,15,30,45"></ion-datetime>
+                  </ion-row-->
+                  <ion-row *ngFor="let appointment of readableAppointments">
+                    <p>
+                      {{appointment}}
+                    </p>
+                  </ion-row>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
 </ion-content>

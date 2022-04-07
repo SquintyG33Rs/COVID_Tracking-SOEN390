@@ -14,6 +14,7 @@ export class AppointmentPage implements OnInit{
   private endpoints: Endpoints;
   private router: Router;
   private appointments: any = [];
+  private readableAppointments: any = [];
   private alertController: AlertController;
 
   private doctor: any;
@@ -125,7 +126,20 @@ export class AppointmentPage implements OnInit{
       this.endpoints.getAppointmentsByPatientUserId(this.activeUser.id).subscribe((data) => {
         this.appointments = data;
         console.log(this.appointments);
+        this.stringDisplayDates();
       });
+    }
+  }
+
+  stringDisplayDates(){
+    for(let index =0 ; index<this.appointments.length ; ++index)
+    {
+      var TEMP = this.appointments[index].date;
+      console.log("input date "+TEMP);
+      this.readableAppointments[index] = new Date(TEMP);
+      var date = new Date('2022-04-29T16:00:00.000Z');
+      console.log("dummy date log "+date);
+      console.log("parsed date "+this.readableAppointments[index]);
     }
   }
 
