@@ -432,6 +432,17 @@ export  class  Endpoints {
     return this.http.post<any>(this.url + 'email', body);
   }
 
+  public sendMessageToMail(recipient: string, subject: string, text: string): Observable<any> { //sends a configurable email, fields can be empty strings/arrays where applicable
+    //recipient, subject and text alone are sufficient to send an email.
+    console.log("send mail")
+    const body = {
+        to: recipient,
+        subject: subject,
+        text: text
+    }
+    return this.http.post<any>(this.url + 'email', body);
+  }
+
   //specific email endpoints
   public sendCovidNotification(user: any, interaction: any): Observable<any> {
     var date = new Date(Date.parse(interaction.start));

@@ -119,13 +119,13 @@ export class AppointmentPage implements OnInit{
     if (this.activeUser.account_type == "MEDICALDOCTOR") {
       this.endpoints.getAppointmentsByDoctorUserId(this.activeUser.id).subscribe((data) => {
         this.appointments = data;
-        console.log(this.appointments);
+        //console.log(this.appointments);
       });
     }
     else if (this.activeUser.account_type == "PATIENT") {
       this.endpoints.getAppointmentsByPatientUserId(this.activeUser.id).subscribe((data) => {
         this.appointments = data;
-        console.log(this.appointments);
+        //console.log(this.appointments);
         this.stringDisplayDates();
       });
     }
@@ -135,11 +135,7 @@ export class AppointmentPage implements OnInit{
     for(let index =0 ; index<this.appointments.length ; ++index)
     {
       var TEMP = this.appointments[index].date;
-      console.log("input date "+TEMP);
       this.readableAppointments[index] = new Date(TEMP);
-      var date = new Date('2022-04-29T16:00:00.000Z');
-      console.log("dummy date log "+date);
-      console.log("parsed date "+this.readableAppointments[index]);
     }
   }
 
