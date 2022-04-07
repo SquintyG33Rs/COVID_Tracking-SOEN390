@@ -339,6 +339,7 @@ export class HomePage implements OnInit
       case 'Messages':
       {
         console.log('Messages');
+        this.router.navigateByUrl('messages');
         break;
       }
 

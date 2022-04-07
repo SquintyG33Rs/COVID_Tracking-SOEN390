@@ -52,7 +52,11 @@ const routes: Routes = [
   {
     path: 'patients',
     loadChildren: () => import('./pages/patients/patients.module').then( m => m.PatientsPageModule)
+  },  {
+    path: 'messages',
+    loadChildren: () => import('./pages/messages/messages.module').then( m => m.MessagesPageModule)
   },
+
 
 ];
 
