@@ -5,16 +5,14 @@
 import { Injectable } from  '@angular/core';
 import { HttpClient, HttpParams } from  '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Sockets } from './app-socket';
 
 @Injectable()
 export  class  Endpoints {
 
     private url:string = 'https://api.team23soen390.xyz/';
-    constructor(private  http : HttpClient) { }
+    constructor(private  http : HttpClient, private sockets: Sockets) { }
     private activeUser = JSON.parse(localStorage.getItem('user'));
-
-
-
 
     //GET requests
     public getUsers(): Observable<any[]>{
@@ -136,6 +134,10 @@ export  class  Endpoints {
         return this.http.get<any>(this.url + 'interactions/', {params: qparams});
     }
 
+    public getMessageByMessageId(messageid: number): Observable<any>{
+        return this.http.get<any>(this.url + 'messages/' + messageid);
+    }
+
 
     //POST requests
     //pass user object
@@ -236,12 +238,12 @@ export  class  Endpoints {
         return this.http.post<any>(this.url + 'statuses/', body);
     }
 
-    public createMessage(userid: number, title: string, content: string): Observable<any>{ //docid and patientid are not the same as their userid, call getDoctorby..() to get their doctor id
+    public createMessage(userid: number, content: string, targetid: number): Observable<any>{ //docid and patientid are not the same as their userid, call getDoctorby..() to get their doctor id
         const body = {
             author: userid,
             message_content: content,
-            title: title,
-            read: false
+            read: false,
+            target: targetid
         }
         return this.http.post<any>(this.url + 'messages/', body);
     }
@@ -458,19 +460,41 @@ export  class  Endpoints {
     return this.http.put<any>(this.url + 'messages/' + messageId, body);
   }
 
-  public sendMessageToDoctor(current_doctor: any, messageId: number): Observable<any> {
-
-    let messages = current_doctor.incoming_messages;
-    if (messages) {
-        messages.push(messageId);
+  public sendMessage(user: any, target: any, message: any) {
+    
+    let inbox = target.inbox;
+    console.log(target)
+    if (inbox) {
+        inbox.push(message);
     }
     else {
-        messages = [messageId];
+        inbox = [message];
     }
     const body = {
-        incoming_messages: messages
+        inbox: inbox
     }
-    return this.http.put<any>(this.url + 'doctors/' + current_doctor.id, body); 
+    let outbox = user.outbox;
+    if (outbox) {
+        outbox.push(message);
+    }
+    else {
+        outbox = [message];
+    }
+    const body2 = {
+        outbox: outbox
+    }
+    this.http.put<any>(this.url + 'users/' + target.id, body).subscribe(() => {
+        this.http.put<any>(this.url + 'users/' + user.id, body2).subscribe((data) => {
+            const messagebody = {
+                type: 'New Message',
+                target: target.id,
+                message_id: message.id
+              }
+              this.sockets.sendMessage(messagebody);
+        })
+        
+    });
+
 }
 
 
