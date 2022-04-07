@@ -6,5 +6,16 @@
       <ion-title>Incoming Messages</ion-title>
     </ion-buttons>
   </div>
-  <p>MESSAGES</p>
+
+  <div class="ion-padding">
+    <p></p>
+  </div>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let message of messages">
+      <ion-item>
+        <ion-label>{{message.message_content}}</ion-label>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>
