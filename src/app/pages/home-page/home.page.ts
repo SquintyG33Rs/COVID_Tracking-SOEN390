@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Endpoints } from '../../app-endpoints';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { QRCodeComponent } from "angular2-qrcode";
 import { AppComponent } from './../../app.component';
 import { PatientsPage } from '../patients/patients.page';
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -24,6 +24,7 @@ export class HomePage implements OnInit
   private recentUpdate: any;
   private currentDoctor: any;
   private flagged: boolean;
+  private alertController;
   //private serviceSubscription: Subscription;
   //urlDetector: RouteChangeDetection = new RouteChangeDetection(this.router);
 
@@ -35,9 +36,10 @@ export class HomePage implements OnInit
   patientIcons: { name: string; img: string; }[];
   adminIcons: { name: string; img: string; }[];
 
-  constructor(private endpoints: Endpoints, private router: Router)
+  constructor(private endpoints: Endpoints, private router: Router, private  AlertController : AlertController)
   {
     this.endpoint = endpoints;
+    this.alertController = AlertController;
   }
 
   /*onChangeRouteDetection(message: string)
@@ -261,10 +263,25 @@ export class HomePage implements OnInit
     return JSON.stringify(qrInfo[0]);
   }
 
-  updateQRCode(QRCODE: QRCodeComponent) {
-    QRCODE.value = this.generateQRCodeFromInfo();
+  async updateQRCode() {//function is only async to show in the box.
+    var alt = '<img src="/assets/images/default-profile-pic.jpg" alt="QR">';
+      //this is the way the docs show it so i pushed this to repo but it doesn't work
+    var qrValue = '<div> <qr-code [value]="generateQRCodeFromInfo()"[size]="450" #QRCODE> </qr-code> </div>';
     console.log("QR-Code is updated and generated.");
+    console.log(qrValue);
+    return alt;//alt for testing
   }
+
+  async showQrCodeAlert() {
+    const alert = await this.alertController.create({
+      header: 'QR-Code',
+      message: this.updateQRCode(),
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+  }
+
 
 
   getDoctorName() {
@@ -355,6 +372,7 @@ export class HomePage implements OnInit
       case 'QR Code Generation':
       {
         console.log('QR Code');
+        this.showQrCodeAlert();
         break;
       }
 
