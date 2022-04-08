@@ -32,6 +32,11 @@ export class PatientsPage implements OnInit {
     this.router.navigateByUrl('messages');
   }
 
+  email(patient)
+  {
+    console.log("Send email to: "+patient.user.first_name);
+  }
+
   flagPatient(patient) 
   {
     this.endpoints.flagPatient(patient.patient.id, true).subscribe( (data) => {
