@@ -1,0 +1,18 @@
+services:
+  caddy:
+    container_name: caddy
+    image: caddy
+#    user: root
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - $PWD/Caddyfile:/etc/caddy/Caddyfile
+      - ./data:/data
+      - ./config:/config
+
+networks:
+  default:
+    name: caddy
+    external: true

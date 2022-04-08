@@ -1,0 +1,16 @@
+.config
+.local
+.npm
+.ssh
+.bash_history
+.bashrc
+.cloud-local-test.skip
+.profile
+.wget-hsts
+
+COVID_Tracking-SOEN390
+Strapi/node_modules
+Strapi/app/.cache
+Strapi/app/.tmp
+Strapi/app/.env
+Strapi/app/node_modules

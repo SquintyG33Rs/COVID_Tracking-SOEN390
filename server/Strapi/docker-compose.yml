@@ -1,0 +1,11 @@
+services:
+  strapi:
+    image: strapi/strapi
+    volumes:
+      - ./app:/srv/app
+    networks:
+      - caddy
+
+networks:
+    caddy:
+      external: true

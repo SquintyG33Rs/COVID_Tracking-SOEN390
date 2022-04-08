@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "interactions",
+  "info": {
+    "name": "Interaction",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "start": {
+      "type": "datetime"
+    },
+    "end": {
+      "type": "datetime"
+    },
+    "patient": {
+      "model": "patient"
+    },
+    "flagged": {
+      "type": "boolean"
+    },
+    "location": {
+      "type": "string"
+    }
+  }
+}

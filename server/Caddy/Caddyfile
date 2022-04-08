@@ -1,0 +1,9 @@
+https://api.team23soen390.xyz {
+    reverse_proxy strapi:1337 {
+        header_down Access-Control-Allow-Origin *
+    }
+}
+
+https://team23soen390.xyz {
+    reverse_proxy web:4200 
+}

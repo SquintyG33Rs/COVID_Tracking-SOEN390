@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "doctors",
+  "info": {
+    "name": "doctor",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "is_user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "patients": {
+      "collection": "patient"
+    }
+  }
+}

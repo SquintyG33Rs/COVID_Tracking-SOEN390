@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "patients",
+  "info": {
+    "name": "patient",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "is_user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "current_doctor": {
+      "model": "doctor"
+    },
+    "flagged": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "model": "status"
+    },
+    "status_history": {
+      "collection": "status"
+    },
+    "interactions": {
+      "collection": "interaction"
+    },
+    "notified": {
+      "type": "json"
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "statuses",
+  "info": {
+    "name": "Status",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "date": {
+      "type": "datetime"
+    },
+    "temperature": {
+      "type": "float"
+    },
+    "weight": {
+      "type": "float"
+    },
+    "cough": {
+      "type": "boolean"
+    },
+    "headache": {
+      "type": "boolean"
+    },
+    "sore_throat": {
+      "type": "boolean"
+    },
+    "fever": {
+      "type": "boolean"
+    },
+    "loss_of_taste_or_smell": {
+      "type": "boolean"
+    },
+    "tiredness": {
+      "type": "boolean"
+    },
+    "patient": {
+      "model": "patient"
+    }
+  }
+}

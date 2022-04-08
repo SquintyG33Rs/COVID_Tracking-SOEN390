@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "socket.io": "^4.4.1",
+    "strapi-plugin-socket-io": "^2.1.2"
+  }
+}

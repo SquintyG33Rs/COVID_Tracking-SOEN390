@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "messages",
+  "info": {
+    "name": "message",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "message_content": {
+      "type": "richtext"
+    },
+    "author": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "read": {
+      "type": "boolean"
+    },
+    "target": {
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}
