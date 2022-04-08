@@ -77,9 +77,33 @@ export class MessagesPage implements OnInit {
   
       else if(this.activeUser.account_type=='MEDICALDOCTOR'){
         this.endpoints.getDoctorByUserId(this.activeUser.id).subscribe((data) => {
-            this.activeDoctor = data[0]
+          var check = JSON.parse(localStorage.getItem('patient'))
+          this.activeDoctor = data[0]
+
+          if (check) {
+            this.chosen = check.user;
+            this.target = check.user.id;
+            localStorage.removeItem('patient')
+            this.activeUser.inbox.forEach(e => 
+              {
+                if (e.author == this.target) {
+                  e.created_at = Date.parse(e.created_at);
+                  this.chat.push(e)
+                }
+              })
+            this.activeUser.outbox.forEach(e => 
+              {
+                if (e.target == this.target) {
+                  e.created_at = Date.parse(e.created_at);
+                  this.chat.push(e)
+                }
+              })
+            this.chat.sort((a,b) => (a.created_at > b.created_at) ? 1 : ((b.created_at > a.created_at) ? -1 : 0))
+            this.complete = true;
+            this.ready = true;
+          }
+          else {
             this.patients = data[0].patients;
-      
             this.endpoints.getUsers().subscribe((users) => {
               this.patients.forEach(element => 
                 {
@@ -92,7 +116,9 @@ export class MessagesPage implements OnInit {
                 });
               this.complete = true;
             });
-          },err => console.log(err))
+          }
+          
+        },err => console.log(err))
       }
     })
     
@@ -127,10 +153,8 @@ export class MessagesPage implements OnInit {
         }
       })
     this.chat.sort((a,b) => (a.created_at > b.created_at) ? 1 : ((b.created_at > a.created_at) ? -1 : 0))
-    console.log(this.chat)
     this.complete = true;
     this.ready = true;
-    console.log(this.activeDoctor)
   }
 
 }

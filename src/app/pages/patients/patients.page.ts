@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Endpoints } from 'src/app/app-endpoints';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-patients',
@@ -15,7 +16,7 @@ export class PatientsPage implements OnInit {
   private dateArray = [];
   alertController: any;
   
-  constructor(private endpoints: Endpoints, private  AlertController : AlertController) 
+  constructor(private endpoints: Endpoints, private  AlertController : AlertController, private router: Router) 
   {
     this.alertController = AlertController;
   }
@@ -27,7 +28,8 @@ export class PatientsPage implements OnInit {
 
   sendMessage(patient) 
   {
-    console.log(patient);
+    localStorage.setItem('patient', JSON.stringify(patient));
+    this.router.navigateByUrl('messages');
   }
 
   flagPatient(patient) 
