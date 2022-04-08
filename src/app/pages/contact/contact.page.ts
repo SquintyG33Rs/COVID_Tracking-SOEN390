@@ -16,9 +16,6 @@ export class ContactPage implements OnInit{
     public activeUser: any;
     private router:Router;
     private activePatient: any;
-    private activeDoctor: any;
-    private ready = false;
-    private messages = []
 
 
     constructor( router:Router, private endpoints: Endpoints){
@@ -26,14 +23,20 @@ export class ContactPage implements OnInit{
 
     }
 
-    ngOnInit() {
+  ngOnInit() {
+    this.activeUser = JSON.parse(localStorage.getItem('user'));
+    this.endpoints.getUserById(this.activeUser.id).subscribe(data =>{
+      localStorage.setItem('user', JSON.stringify(data));
+      this.activeUser = JSON.parse(localStorage.getItem('user'));
 
-        this.activeUser = JSON.parse(localStorage.getItem('user'));
-      
-        this.endpoints.getDoctorByUserId(this.activeUser.id).subscribe(
-        res =>
-        {
-            this.messages = res[0].incoming_messages;
-        },err => console.log(err))
-    }
+      if(this.activeUser.account_type=='PATIENT'){
+        this.endpoints.getPatientByUserId(this.activeUser.id).subscribe((data) => {
+            this.activePatient = data[0];
+            this.endpoints.getUserById(this.activePatient.current_doctor.is_user).subscribe(data => {
+                this.activePatient.current_doctor.is_user = data;
+            })
+        })
+      }
+    })
+  }
 }
