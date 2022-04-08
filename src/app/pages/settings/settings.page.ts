@@ -29,20 +29,14 @@ export class SettingsPage implements OnInit {
     this.endpoints = endpoints;
     this.router = router;
     this.alertController = AlertController;
-    
   }
 
-  ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('user'))
-  }
+  ngOnInit() { }
 
 
   async updateEmail(){
     if(this.email!=null){
-      this.endpoints.updateUserEmail(this.user.id, this.email).subscribe((data) => {
-        localStorage.setItem('user', JSON.stringify(data))
-        window.location.reload()
-      });
+      console.log(this.email);
     }else{
       this.showEmptyAlert();
     }
@@ -50,10 +44,7 @@ export class SettingsPage implements OnInit {
   async updatePassword(){
     if(this.password!=null){
       if(this.password === this.passwordConfirm){
-        this.endpoints.updateUserPassword(this.user.id, this.password).subscribe((data) => {
-          localStorage.setItem('user', JSON.stringify(data))
-          window.location.reload()
-        });
+      console.log(this.password);
       }else{
         this.passwordMatch();
       }
@@ -63,20 +54,14 @@ export class SettingsPage implements OnInit {
   }
   async updateAddress(){
     if(this.address!=null){
-      this.endpoints.updateUserAddress(this.user.id, this.address).subscribe((data) => {
-        localStorage.setItem('user', JSON.stringify(data))
-        window.location.reload()
-      });
+      console.log(this.address);
     }else{
       this.showEmptyAlert();
     }
   }
   async updatePhone(){
     if(this.telephone!=null){
-      this.endpoints.updateUserPhone(this.user.id, this.telephone).subscribe((data) => {
-        localStorage.setItem('user', JSON.stringify(data))
-        window.location.reload()
-      });
+      console.log(this.telephone);
     }else{
       this.showEmptyAlert();
     }

@@ -9,7 +9,6 @@ import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { Endpoints } from './app-endpoints';
-import { Sockets } from './app-socket';
 
 @NgModule({
   declarations: [
@@ -28,7 +27,6 @@ import { Sockets } from './app-socket';
     Endpoints,
     StatusBar,
     SplashScreen,
-    Sockets,
     {
   	provide: RouteReuseStrategy,
   	useClass: IonicRouteStrategy

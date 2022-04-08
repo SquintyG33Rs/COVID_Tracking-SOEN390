@@ -9,8 +9,6 @@ import { max } from 'lodash';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { LocationAccuracy } from '@ionic-native/location-accuracy';
 import { Capacitor } from "@capacitor/core";
-import { Sockets } from './app-socket';
-
 
 @Component({
   selector: 'app-root',
@@ -35,7 +33,8 @@ export class AppComponent
   public static getScreenWidth: any;
   public static getScreenHeight: any;
   public step: number;
-  constructor( private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar, private router: Router, private endpoints: Endpoints, private sockets: Sockets)
+
+  constructor( private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar, private router: Router, private endpoints: Endpoints)
   {
     // Check if active user exists.
     if (JSON.parse(localStorage.getItem('user')) === undefined || JSON.parse(localStorage.getItem('user')) === null)
@@ -48,7 +47,6 @@ export class AppComponent
       // Read Active-User from Disk:
       this.activeUser = JSON.parse(localStorage.getItem('user'));
       console.log(this.activeUser);
-
       
       if (this.activeUser.account_type == "PATIENT") {
         this.endpoints.getPatientByUserId(this.activeUser.id).subscribe(

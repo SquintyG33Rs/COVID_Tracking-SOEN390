@@ -5,14 +5,16 @@
 import { Injectable } from  '@angular/core';
 import { HttpClient, HttpParams } from  '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Sockets } from './app-socket';
 
 @Injectable()
 export  class  Endpoints {
 
     private url:string = 'https://api.team23soen390.xyz/';
-    constructor(private  http : HttpClient, private sockets: Sockets) { }
+    constructor(private  http : HttpClient) { }
     private activeUser = JSON.parse(localStorage.getItem('user'));
+
+
+
 
     //GET requests
     public getUsers(): Observable<any[]>{
@@ -134,10 +136,6 @@ export  class  Endpoints {
         return this.http.get<any>(this.url + 'interactions/', {params: qparams});
     }
 
-    public getMessageByMessageId(messageid: number): Observable<any>{
-        return this.http.get<any>(this.url + 'messages/' + messageid);
-    }
-
 
     //POST requests
     //pass user object
@@ -236,16 +234,6 @@ export  class  Endpoints {
         }
         console.log(this.activeUser.id + " updated their status");
         return this.http.post<any>(this.url + 'statuses/', body);
-    }
-
-    public createMessage(userid: number, content: string, targetid: number): Observable<any>{ //docid and patientid are not the same as their userid, call getDoctorby..() to get their doctor id
-        const body = {
-            author: userid,
-            message_content: content,
-            read: false,
-            target: targetid
-        }
-        return this.http.post<any>(this.url + 'messages/', body);
     }
 
     //PUT requests
@@ -422,86 +410,16 @@ export  class  Endpoints {
         const body = {
             notified: notified
         }
-        return this.http.put<any>(this.url + 'patients/' + patient.id, body); 
-  }
-
-  public updateUserEmail(userid: number, email: string): Observable<any> {
-    const body = {
-        email: email
-    }
-    return this.http.put<any>(this.url + 'users/' + userid, body);
-  }
-
-  public updateUserPassword(userid: number, password: string): Observable<any> {
-    const body = {
-        password: password
-    }
-    return this.http.put<any>(this.url + 'users/' + userid, body);
-  }
-
-  public updateUserAddress(userid: number, address: string): Observable<any> {
-    const body = {
-        address: address
-    }
-    return this.http.put<any>(this.url + 'users/' + userid, body);
-  }
-
-  public updateUserPhone(userid: number, phone: any): Observable<any> {
-    const body = {
-        phone: phone
-    }
-    return this.http.put<any>(this.url + 'users/' + userid, body);
-  }
-
-  public setReadMessage(messageId: number, read: boolean): Observable<any> {
-    const body = {
-        read: read
-    }
-    return this.http.put<any>(this.url + 'messages/' + messageId, body);
-  }
-
-  public sendMessage(user: any, target: any, message: any) {
+        return this.http.put<any>(this.url + 'patients/' + patient.id, body);
     
-    let inbox = target.inbox;
-    console.log(target)
-    if (inbox) {
-        inbox.push(message);
-    }
-    else {
-        inbox = [message];
-    }
-    const body = {
-        inbox: inbox
-    }
-    let outbox = user.outbox;
-    if (outbox) {
-        outbox.push(message);
-    }
-    else {
-        outbox = [message];
-    }
-    const body2 = {
-        outbox: outbox
-    }
-    this.http.put<any>(this.url + 'users/' + target.id, body).subscribe(() => {
-        this.http.put<any>(this.url + 'users/' + user.id, body2).subscribe((data) => {
-            const messagebody = {
-                type: 'New Message',
-                target: target.id,
-                message_id: message.id
-              }
-              this.sockets.sendMessage(messagebody);
-        })
-        
-    });
-
-}
+  }
 
 
   //EMAIL
 
   public sendMail(recipient: string, subject: string, text: string, replyto: string, html: string, attachments: string, cc: any): Observable<any> { //sends a configurable email, fields can be empty strings/arrays where applicable
     //recipient, subject and text alone are sufficient to send an email.
+    console.log("send mail")
     const body = {
         to: recipient,
         subject: subject,
@@ -516,6 +434,7 @@ export  class  Endpoints {
 
   public sendMessageToMail(recipient: string, subject: string, text: string): Observable<any> { //sends a configurable email, fields can be empty strings/arrays where applicable
     //recipient, subject and text alone are sufficient to send an email.
+    console.log("send mail")
     const body = {
         to: recipient,
         subject: subject,
@@ -557,23 +476,6 @@ export  class  Endpoints {
         https://www.fda.gov/emergency-preparedness-and-response/counterterrorism-and-emerging-threats/coronavirus-disease-2019-covid-19.<br> \
         Thank you for keeping others safe. We wish you a smooth and rapid recovery. <br> <br> \
         Best wishes,<br> \
-        Team 23 of SOEN390 <br> <br> \
-        This message was sent automatically, do not reply to this email."
-    }
-    return this.http.post<any>(this.url + 'email', body);
-  }
-
-  public sendAppointmentNotification(doctorUser: any, user: any, unixTime: number): Observable<any> {
-    var date = new Date(unixTime)
-    const body = {
-        to: user.email,
-        subject: "Appointment with doctor.",
-        html: "Hello " + user.first_name + " " + user.last_name + ", <br> \
-        This is a confirmation email for your scheduled appointment on " + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getUTCFullYear() + " at " + date.getHours() + ":" + date.getMinutes() + " \
-        with Dr. " + doctorUser.first_name + " " + doctorUser.last_name + ".<br>\
-        Verify that the above information is correct. Feel free to reach out to your doctor if you have any concerns. <br>\
-        <br>\
-        Regards,<br>\
         Team 23 of SOEN390 <br> <br> \
         This message was sent automatically, do not reply to this email."
     }

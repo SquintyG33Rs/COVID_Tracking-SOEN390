@@ -59,10 +59,13 @@ export class AppointmentPage implements OnInit{
 
 
   ngOnAppointment(date, patientid){
+    console.log(patientid)
     const unixTime = Date.parse(date)
+    console.log(unixTime)
     if (date != undefined && patientid != undefined)
     {
       this.endpoints.createAppointment(this.doctor.id, patientid, unixTime).subscribe((app) => {
+        console.log(app);
         this.patient = app.patient;
         console.log(this.patient);
         //get the doctor user details
@@ -71,7 +74,6 @@ export class AppointmentPage implements OnInit{
             //reassign doctor user details instead of just their user ID
             this.patient.is_user = pat;
             this.showSuccessAlert();
-            this.endpoints.sendAppointmentNotification(this.activeUser, pat, unixTime).subscribe();
             setTimeout (()=> window.location.assign('/appointment'),3000);
           }
         )

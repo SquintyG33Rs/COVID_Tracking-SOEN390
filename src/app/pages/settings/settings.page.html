@@ -12,32 +12,28 @@
       </ion-card-header>
 
       <ion-card-content>
-        Email
         <ion-item>
           <ion-icon name="mail-outline"></ion-icon>
-          <ion-input style = "color:black" type="text" placeholder={{user.email}} [(ngModel)]="email"></ion-input>
+          <ion-input style = "color:black" type="text" placeholder="Email" [(ngModel)]="email"></ion-input>
         </ion-item>
           <ion-button (click)="updateEmail()" shape="round" expand="block">Update email</ion-button>
-          Password
         <ion-item>
           <ion-icon name="lock-closed-outline"></ion-icon>
-          <ion-input style = "color:black" type="password" placeholder="******" [(ngModel)]="password"></ion-input>
+          <ion-input style = "color:black" type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
         </ion-item>
         <ion-item>
           <ion-icon name="lock-closed-outline"></ion-icon>
-          <ion-input style = "color:black" type="password" placeholder="Confirm Password" [(ngModel)]="passwordConfirm"></ion-input>
+          <ion-input style = "color:black" type="password" placeholder="confirm" [(ngModel)]="passwordConfirm"></ion-input>
         </ion-item>
           <ion-button (click)="updatePassword()" shape="round" expand="block">Update Password</ion-button>
-          Address
         <ion-item>
           <ion-icon name="home-outline"></ion-icon>
-          <ion-input style = "color:black" type="text" placeholder={{user.address}} [(ngModel)]="address"></ion-input>
+          <ion-input style = "color:black" type="text" placeholder="Address" [(ngModel)]="address"></ion-input>
         </ion-item>
           <ion-button (click)="updateAddress()" shape="round" expand="block">Update Address</ion-button>
-          Phone Number
         <ion-item>
           <ion-icon name="call-outline"></ion-icon>
-          <ion-input style = "color:black" type="text" placeholder={{user.phone}} [(ngModel)]="telephone"></ion-input>
+          <ion-input style = "color:black" type="text" placeholder="Phone Number" [(ngModel)]="telephone"></ion-input>
         </ion-item>
           <ion-button (click)="updatePhone()" shape="round" expand="block">Update number</ion-button>
         

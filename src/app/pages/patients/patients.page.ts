@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Endpoints } from 'src/app/app-endpoints';
-import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-patients',
@@ -14,27 +12,17 @@ export class PatientsPage implements OnInit {
   private fullPatientList = [];
   private patients: any;
   private dateArray = [];
-  alertController: any;
   
-  constructor(private endpoints: Endpoints, private  AlertController : AlertController, private router: Router) 
-  {
-    this.alertController = AlertController;
-  }
+  constructor(private endpoints: Endpoints) {}
 
   test() 
   {
     console.log('my test works');
   }
 
-  sendMessage(patient) 
+  delete(i) 
   {
-    localStorage.setItem('patient', JSON.stringify(patient));
-    this.router.navigateByUrl('messages');
-  }
-
-  email(patient)
-  {
-    console.log("Send email to: "+patient.user.first_name);
+    console.log('my delete works');
   }
 
   flagPatient(patient) 
@@ -109,7 +97,8 @@ export class PatientsPage implements OnInit {
     });
   }
 
-   ngOnInit() 
+
+  ngOnInit() 
   {
     this.activeUser = JSON.parse(localStorage.getItem('user'));
 
@@ -133,31 +122,4 @@ export class PatientsPage implements OnInit {
       });
     },err => console.log(err))
   }
-
-  async infoAlert(patient)
-  {
-    var fullName ="Full Name: "+ patient.user.first_name+" "+patient.user.last_name;
-    var address = "Address: "+patient.user.address;
-    var covidStatus = "Covid Status: ";
-    var phoneNumber = "Phone Number: "+patient.user.phone;
-    var email = "Email Address: "+patient.user.email;
-    if(patient.patient.flagged)
-    {
-      covidStatus += "Positive";
-    }
-    else
-    {
-      covidStatus += "Negative";
-    }
-    
-    const alert = await this.alertController.create({
-      header: 'Patient Information',
-      message: fullName + '<br>' + address + '<br>' + phoneNumber + '<br>' + email +  '<br>' + covidStatus,
-      buttons: ['OK'],
-    });
-    await alert.present();
-  }
 }
-
-// When the user clicks on div, open the popup
-

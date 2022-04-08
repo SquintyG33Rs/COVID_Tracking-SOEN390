@@ -1,33 +1,3 @@
-ion-content{    
-  --background:linear-gradient( to right, #243949, #517fa4);
-  --ion-color-primary: none;  
-}
-
-ion-item{
-  //background-color:rgba(18, 28, 36, 0.9);
-  //color: none;
-}
-
-ion-item a{
-  display:block;
-}
-
-ion-item a:hover, a:focus {
-  color: silver;
-}
-
-ion-list{
-  list-style-image: url('/assets/images/default-profile-pic.jpg');
-}
-  
-img{
-  border-radius: 30px;
-}
-
-ion-thumbnail{
-  padding: 5px;
-}
-
-.bg-transparent{
-  background: transparent;
-}
+ion-content{
+    --background:linear-gradient( to right, #243949, #517fa4);
+  }
