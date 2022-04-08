@@ -24,7 +24,6 @@ export class MessagesPage implements OnInit {
   constructor(private endpoints: Endpoints, private sockets: Sockets) { }
 
   showDate(message) {
-    console.log(message)
     if (message.date) {
       message.date = false;
     }
@@ -34,7 +33,6 @@ export class MessagesPage implements OnInit {
   }
 
   sendMessage(message){ //patient or doctor id
-    console.log(message)
     if(message) {
       this.endpoints.createMessage(this.activeUser.id, message, this.target).subscribe(newmessage => {
         this.endpoints.sendMessage(this.activeUser, this.chosen, newmessage);
