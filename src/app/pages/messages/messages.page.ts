@@ -23,6 +23,16 @@ export class MessagesPage implements OnInit {
 
   constructor(private endpoints: Endpoints, private sockets: Sockets) { }
 
+  showDate(message) {
+    console.log(message)
+    if (message.date) {
+      message.date = false;
+    }
+    else {
+      message.date = true;
+    }
+  }
+
   sendMessage(message){ //patient or doctor id
     console.log(message)
     if(message) {
@@ -88,6 +98,11 @@ export class MessagesPage implements OnInit {
               {
                 if (e.author == this.target) {
                   e.created_at = Date.parse(e.created_at);
+                  var date = new Date(e.created_at);
+                  var day = date.getDate()
+                  var month = date.getMonth()
+                  var year = date.getUTCFullYear()
+                  e.sentDate = day + "/" + month + "/" + year
                   this.chat.push(e)
                 }
               })
@@ -95,6 +110,11 @@ export class MessagesPage implements OnInit {
               {
                 if (e.target == this.target) {
                   e.created_at = Date.parse(e.created_at);
+                  var date = new Date(e.created_at);
+                  var day = date.getDate()
+                  var month = date.getMonth()
+                  var year = date.getUTCFullYear()
+                  e.sentDate = day + "/" + month + "/" + year
                   this.chat.push(e)
                 }
               })
@@ -142,6 +162,11 @@ export class MessagesPage implements OnInit {
       {
         if (e.author == this.target) {
           e.created_at = Date.parse(e.created_at);
+          var date = new Date(e.created_at);
+          var day = date.getDate()
+          var month = date.getMonth()
+          var year = date.getUTCFullYear()
+          e.sentDate = day + "/" + month + "/" + year
           this.chat.push(e)
         }
       })
@@ -149,6 +174,11 @@ export class MessagesPage implements OnInit {
       {
         if (e.target == this.target) {
           e.created_at = Date.parse(e.created_at);
+          var date = new Date(e.created_at);
+          var day = date.getDate()
+          var month = date.getMonth()
+          var year = date.getUTCFullYear()
+          e.sentDate = day + "/" + month + "/" + year
           this.chat.push(e)
         }
       })

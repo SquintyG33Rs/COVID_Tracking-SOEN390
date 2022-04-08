@@ -22,17 +22,23 @@
       </ion-title>
     </div>
     
-    <div id="MessageBox" style="height: 80vh; overflow:scroll; background-color: white;">
+    <div #MessageBox id="MessageBox" style="height: 80vh; overflow:scroll; background-color: white; overflow-x:hidden">
         <ion-list style="background-color: white; color: black; overflow:hidden;">
-          <li *ngFor="let message of chat">
-            <div *ngIf="message.author == this.activeUser.id" style="float: right;">
-              {{message.message_content}}
-            </div>
-            <div *ngIf="message.author != this.activeUser.id" style="float: left;">
-              {{message.message_content}}
-            </div>
-            <br>
+          <div class="message">
+          <li *ngFor="let message of chat" (click)="showDate(message)">
+            
+              <p *ngIf="message.author == this.activeUser.id" class="from-me">
+                  {{message.message_content}}
+                  <span class="date" *ngIf="message.date"> <br>{{message.sentDate}} </span>
+              </p>
+              
+              <p *ngIf="message.author != this.activeUser.id" class="from-them">
+                  {{message.message_content}}
+                  <span class="date" *ngIf="message.date"> <br>{{message.sentDate}} </span>
+              </p>
+              
           </li>
+        </div>
         </ion-list>
     </div>
 
