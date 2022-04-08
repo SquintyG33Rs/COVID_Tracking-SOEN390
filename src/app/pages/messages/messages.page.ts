@@ -40,7 +40,6 @@ export class MessagesPage implements OnInit {
         this.endpoints.sendMessage(this.activeUser, this.chosen, newmessage);
         newmessage.author = newmessage.author.id;
         this.chat.push(newmessage);
-        console.log(newmessage)
       })
     }
     this.message = ""
@@ -69,6 +68,11 @@ export class MessagesPage implements OnInit {
                   {
                     if (e.author == this.target) {
                       e.created_at = Date.parse(e.created_at);
+                      var date = new Date(e.created_at);
+                      var day = date.getDate()
+                      var month = date.getMonth()
+                      var year = date.getUTCFullYear()
+                      e.sentDate = day + "/" + month + "/" + year
                       this.chat.push(e)
                     }
                   })
@@ -76,6 +80,11 @@ export class MessagesPage implements OnInit {
                   {
                     if (e.target == this.target) {
                       e.created_at = Date.parse(e.created_at);
+                      var date = new Date(e.created_at);
+                      var day = date.getDate()
+                      var month = date.getMonth()
+                      var year = date.getUTCFullYear()
+                      e.sentDate = day + "/" + month + "/" + year
                       this.chat.push(e)
                     }
                   })
@@ -185,6 +194,7 @@ export class MessagesPage implements OnInit {
     this.chat.sort((a,b) => (a.created_at > b.created_at) ? 1 : ((b.created_at > a.created_at) ? -1 : 0))
     this.complete = true;
     this.ready = true;
+    
   }
 
 }
