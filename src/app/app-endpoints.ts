@@ -563,4 +563,21 @@ export  class  Endpoints {
     return this.http.post<any>(this.url + 'email', body);
   }
 
+  public sendAppointmentNotification(doctorUser: any, user: any, unixTime: number): Observable<any> {
+    var date = new Date(unixTime)
+    const body = {
+        to: user.email,
+        subject: "Appointment with doctor.",
+        html: "Hello " + user.first_name + " " + user.last_name + ", <br> \
+        This is a confirmation email for your scheduled appointment on " + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getUTCFullYear() + " at " + date.getHours() + ":" + date.getMinutes() + " \
+        with Dr. " + doctorUser.first_name + " " + doctorUser.last_name + ".<br>\
+        Verify that the above information is correct. Feel free to reach out to your doctor if you have any concerns. <br>\
+        <br>\
+        Regards,<br>\
+        Team 23 of SOEN390 <br> <br> \
+        This message was sent automatically, do not reply to this email."
+    }
+    return this.http.post<any>(this.url + 'email', body);
+  }
+
 }
