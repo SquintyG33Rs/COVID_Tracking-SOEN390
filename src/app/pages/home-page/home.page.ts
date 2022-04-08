@@ -259,16 +259,16 @@ export class HomePage implements OnInit
       'lastName': this.activeUser.last_name,
       'covidStatus': "NEGATIVE",  // Must be filled from the Patient's Health Status.
     }]
-    //console.log(/*JSON.stringify*/(qrInfo[0]));
+    //console.log(JSON.stringify(qrInfo[0]));
     return JSON.stringify(qrInfo[0]);
   }
 
-  async updateQRCode() {//function is only async to show in the box.
-    var alt = '<img src="/assets/images/default-profile-pic.jpg" alt="QR">';
+  updateQRCode() {
+    var alt = '<img src="/assets/images/Dummy_QRcode.png" alt="QR">'; //dummy value for testing
       //this is the way the docs show it so i pushed this to repo but it doesn't work
     var qrValue = '<div> <qr-code [value]="generateQRCodeFromInfo()"[size]="450" #QRCODE> </qr-code> </div>';
     console.log("QR-Code is updated and generated.");
-    console.log(qrValue);
+    console.log(alt);
     return alt;//alt for testing
   }
 
@@ -316,7 +316,6 @@ export class HomePage implements OnInit
     {
       case 'Appointments':
       {
-        //window.location.assign("/appointment");
         this.router.navigateByUrl('appointment');
         break;
       }
@@ -329,21 +328,18 @@ export class HomePage implements OnInit
 
       case 'Doctor/Patient Assignment':
       {
-        //window.location.assign("/assignment");
         this.router.navigateByUrl('assignment');
         break;
       }
 
       case 'Profile Settings':
       {
-        this.modifyPersonalInformation(this.activeUser.username);
         this.router.navigateByUrl('settings');
         break;
       }
 
       case 'Manage User Profiles':
       {
-        //window.location.assign("/manage-profiles");
         this.router.navigateByUrl('manage-profiles');
         break;
       }
@@ -357,10 +353,7 @@ export class HomePage implements OnInit
 
       case 'Patients':
       {
-        //this.getPatientsInArray();
-        this.router.navigate(['patients'], {
-          state: {data: this.activeDoctor.patients}
-        });
+        this.router.navigateByUrl('patients');
         break;
       }
 
@@ -379,7 +372,6 @@ export class HomePage implements OnInit
 
       case 'Update Status':
       {
-        //window.location.assign("/status-update");
         this.router.navigateByUrl('status-update');
         break;
       }
@@ -388,44 +380,20 @@ export class HomePage implements OnInit
    }
   }
 
-  getPatientsInArray()
+  async infoAlert()
   {
-    let size: number = this.activeDoctor.patients.length;
-    //console.log(size);
-
-    var userIds: any[] = [];
-
-    this.activeDoctor.patients.forEach(patient => {
-      userIds.push(patient.is_user);
-    });
-
-    console.log(userIds);
-
-
-    var userList: any[] = [];
-
-    // parsing user data
-    for(let i =0 ; i < size; i++)
-    {
-      console.log(i);
-      this.endpoints.getUserById(userIds[i]).subscribe(
-        data => {
-        console.log(data);
-        userList.push(data);
-        }
-      )
-    }
-
-  }
-
-  async infoAlert(){
     var text = 'TEMP';
-    if(this.flagged){
+
+    if(this.flagged)
+    {
       text = 'You have been identified to have contracted COVID, if you have a negative test contact your doctor to update your status.' ;
-    }else{
+    }
+    else
+    {
       text = 'Status : Healthy';
     }
-      const alert = await this.alertController.create({
+    
+    const alert = await this.alertController.create({
       header: 'Info',
       message: text,
       buttons: ['OK'],
@@ -433,7 +401,6 @@ export class HomePage implements OnInit
 
     await alert.present();
   }
-
 }
 
 

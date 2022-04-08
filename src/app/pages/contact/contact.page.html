@@ -1,68 +1,21 @@
-<ion-header class="ion-no-border">
-    <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-          <ion-back-button defaultHref="home-page"></ion-back-button>
-        </ion-buttons>
-      <ion-title>Messages</ion-title>
-      <p></p>
-    </ion-toolbar>
-</ion-header>
+<ion-content>
+  <div>
+    <ion-buttons slot="start">
+      <ion-menu-button style="color: #fff;"></ion-menu-button>
+      <ion-back-button defaultHref="home-page"></ion-back-button>
+      <ion-title>Contact</ion-title>
+    </ion-buttons>
+  </div>
 
+  <div class="ion-padding">
+    <p></p>
+  </div>
 
-<ion-content padding>
-    <div id="TargetProfile">
-      <ion-title>
-        <!--If active user is a patient, the target is his doctor, right now its automatically the default doctor-->
-        <p *ngIf="isPatient">Your Doctor:
-          <br>{{targetUser.firstName+" "+targetUser.lastName}}
-          <br>Phone number: {{targetUser.telephone}}
-          <br>email: {{targetUser.email}}
-        </p>
-        <!--If active user is a doctor-->
-        <div *ngIf="isMedicalDoctor">
-          <h1>Choose your patient</h1>
-          <h2>{{targetUsername}}</h2>
-          <ion-button style="margin-right: 15px" (click)="resetTarget()">reset</ion-button>
-          <ul ngDefaultControl [(ngModel)]="targetUsername" *ngFor="let item of patients" style="height: 50px; overflow: scroll;">
-            <li>
-                <ion-button type="button" class="switch"  style="margin-right: 15px" (click)="filterMessages(item.username)">
-                  {{item.username}}
-                </ion-button>
-            </li>
-          </ul>
-        </div>
-
-
-      </ion-title>
-    </div>
-    <div id="MessageBox" style="height: 400px; overflow:scroll; background-color: white;">
-        <ion-list *ngFor="let item of messages" style="background-color: white; color: black; overflow:scroll;">
-          <div class="Messages" [attr.data-sender]="item.sender.username" [attr.data-receiver]="item.receiver.username">
-            <li style="width: 100%; border-bottom: 1px solid black ;">
-              <ion-label>From: {{item.sender.username}}</ion-label>
-              <br>
-              <ion-label>To: {{item.receiver.username}}</ion-label>
-              <br>
-              <ion-label>Date: {{item.date | date:'yyyy-MM-dd HH:mm'}}</ion-label>
-              <p>{{item.message}}</p>
-            </li>
-          </div>
-        </ion-list>
-    </div>
-
-    <div id="SendMessage">
-        <ion-input placeholder="Send message" style="background-color: grey; border-radius: 4px; float: left;
-        width: 85%;"  ngDefaultControl [(ngModel)]="message">
-        </ion-input>
-        <ion-button (click)="sendMessage()" style="float: right;">
-          <ion-icon name="send-outline"></ion-icon>
-        </ion-button>
-    </div>
-
-    <ion-footer class="ion-no-border" *ngIf="successfulMessage">
-      <ion-toolbar color="primary">
-          <ion-title class="ion-text-center">Message successfully<br> sended</ion-title>
-      </ion-toolbar>
-    </ion-footer>
+  <ion-list>
+    <ion-item-sliding *ngFor="let message of messages">
+      <ion-item>
+        <ion-label>{{message.message_content}}</ion-label>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>
