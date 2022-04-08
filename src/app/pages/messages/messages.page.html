@@ -38,7 +38,7 @@
 
     <div id="SendMessage">
         <ion-input placeholder="Send message" style="background-color: grey; margin-top: 4px; border-radius: 4px; float: left;
-        width: 90%; height: 50px;"  ngDefaultControl [(ngModel)]="message">
+        width: 90%; height: 50px;"  ngDefaultControl [(ngModel)]="message" (keypress)="sendByEnter($event.keyCode, message)">
         </ion-input>
         <ion-button (click)="sendMessage(message)" style="float: right; height: 50px; width: 10%; position: absolute;">
           <ion-icon name="send-outline"></ion-icon>

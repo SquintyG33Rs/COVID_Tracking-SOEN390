@@ -19,6 +19,7 @@ export class MessagesPage implements OnInit {
   private chosen: any;
   private fullPatientList = [];
   private complete = false;
+  message: string="";
 
   constructor(private endpoints: Endpoints, private sockets: Sockets) { }
 
@@ -32,7 +33,13 @@ export class MessagesPage implements OnInit {
         console.log(newmessage)
       })
     }
-    
+    this.message = ""
+  }
+
+  sendByEnter(keycode, message){
+    if (keycode == 13) {
+      this.sendMessage(message)
+    }
   }
 
   ngOnInit() {
