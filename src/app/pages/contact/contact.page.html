@@ -1,27 +1,33 @@
-<ion-content>
-  <div>
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-menu-button style="color: #fff;"></ion-menu-button>
       <ion-back-button defaultHref="home-page"></ion-back-button>
-      <ion-title>Contact</ion-title>
     </ion-buttons>
-  </div>
+    <ion-title>Contact</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-  <div class="ion-padding">
-    <p></p>
-  </div>
+  <ion-content *ngIf="activeUser.account_type === 'PATIENT'">
+    <ion-card>
+      <div *ngIf="activePatient">
+        <ion-list lines="full" class="ion-no-margin">
+          <ion-item>
+            <ion-label> Your doctor is {{activePatient.current_doctor.is_user.first_name}} {{activePatient.current_doctor.is_user.last_name}}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>Email: {{activePatient.current_doctor.is_user.email}}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>Phone Number: {{activePatient.current_doctor.is_user.phone}}</ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-card>
+  </ion-content>
 
-  <ion-col *ngIf="activeUser.account_type === 'PATIENT'">
-    <div *ngIf="activePatient">
-
-      <p> Your doctor is {{activePatient.current_doctor.is_user.first_name}} {{activePatient.current_doctor.is_user.last_name}}</p>
-      <p>Email: {{activePatient.current_doctor.is_user.email}}</p>
-      <p>Phone Number: {{activePatient.current_doctor.is_user.phone}}</p>
-
-    </div>
-  </ion-col>
-
-  <ion-col *ngIf="activeUser.account_type != 'PATIENT'">
-    <p>not a patient shh</p>
-  </ion-col>
+<ion-content *ngIf="activeUser.account_type != 'PATIENT'">
+  <ion-card>
+    <ion-label>not a patient shh</ion-label>
+  </ion-card>
 </ion-content>

@@ -127,7 +127,7 @@ export class AppComponent
         { title: 'Contact',url:'/contact', icon:'mail-outline' },
         { title: 'Settings',url:'/settings', icon:'settings-outline' },
      ];
-    }
+  }
 
   async delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
