@@ -2,14 +2,11 @@
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.After;
-import org.junit.FixMethodOrder;
-import org.junit.runners.MethodSorters;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsNot.not;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -25,8 +22,7 @@ import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class LoginHomeelementsTest {
+public class PatientUserTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
@@ -42,7 +38,7 @@ public class LoginHomeelementsTest {
     driver.quit();
   }
   @Test
-  public void loginHomeelements() {
+  public void patientUser() {
     driver.get("http://localhost:8100/welcome-page");
     driver.manage().window().setSize(new Dimension(1944, 1210));
     {
@@ -50,7 +46,6 @@ public class LoginHomeelementsTest {
       wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".img-container > img")));
     }
     driver.findElement(By.cssSelector(".main-button")).click();
-    driver.findElement(By.name("ion-input-0")).click();
     {
       WebDriverWait wait = new WebDriverWait(driver, 30);
       wait.until(ExpectedConditions.elementToBeClickable(By.name("ion-input-0")));

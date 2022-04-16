@@ -5,7 +5,7 @@
   "url": "http://localhost:8100",
   "tests": [{
     "id": "307008e2-e772-471b-a76c-590e89b28182",
-    "name": "Login + Home elements",
+    "name": "PatientUser",
     "commands": [{
       "id": "144d6c6a-b99f-424e-96e3-bf513fa165d3",
       "comment": "",
@@ -40,19 +40,6 @@
         ["css=.main-button", "css:finder"],
         ["xpath=//ion-router-outlet[@id='main-content']/app-welcome-page/ion-content/div/div[3]/ion-button", "xpath:idRelative"],
         ["xpath=//ion-button", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "83207111-80f5-4712-a069-4db22381b498",
-      "comment": "",
-      "command": "click",
-      "target": "name=ion-input-0",
-      "targets": [
-        ["name=ion-input-0", "name"],
-        ["css=.has-focus > .native-input", "css:finder"],
-        ["xpath=//input[@name='ion-input-0']", "xpath:attributes"],
-        ["xpath=//ion-router-outlet[@id='main-content']/app-signin-page/ion-content/div[2]/ion-card/ion-card-content/ion-item/ion-input/input", "xpath:idRelative"],
-        ["xpath=//input", "xpath:position"]
       ],
       "value": ""
     }, {
@@ -610,6 +597,344 @@
         ["xpath=//span[contains(.,'OK')]", "xpath:innerText"]
       ],
       "value": ""
+    }]
+  }, {
+    "id": "f3317364-862b-4589-8b73-af2c06ea26d7",
+    "name": "DoctorUser",
+    "commands": [{
+      "id": "8ebc84ea-6e15-4e72-8e7d-af0332736d04",
+      "comment": "",
+      "command": "open",
+      "target": "/welcome-page",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f010e3d5-591f-454e-b1f4-502c06932e8f",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1944x1210",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "031c02e0-1587-47f8-bcfe-86e41bef3d44",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "css=.img-container > img",
+      "targets": [
+        ["css=.img-container > img", "css:finder"],
+        ["xpath=//ion-router-outlet[@id='main-content']/app-welcome-page/ion-content/div/div[2]/img", "xpath:idRelative"],
+        ["xpath=//div[2]/img", "xpath:position"]
+      ],
+      "value": "30000"
+    }, {
+      "id": "a29085cd-7ca2-4cbb-9c5b-e77d079f672a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.main-button",
+      "targets": [
+        ["css=.main-button", "css:finder"],
+        ["xpath=//ion-router-outlet[@id='main-content']/app-welcome-page/ion-content/div/div[3]/ion-button", "xpath:idRelative"],
+        ["xpath=//ion-button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6525e7ec-9073-4aab-8ac1-a7b6c8ec1d49",
+      "comment": "",
+      "command": "waitForElementEditable",
+      "target": "name=ion-input-0",
+      "targets": [
+        ["name=ion-input-0", "name"],
+        ["css=.has-focus > .native-input", "css:finder"],
+        ["xpath=//input[@name='ion-input-0']", "xpath:attributes"],
+        ["xpath=//ion-router-outlet[@id='main-content']/app-signin-page/ion-content/div[2]/ion-card/ion-card-content/ion-item/ion-input/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "30000"
+    }, {
+      "id": "a7b6a354-7585-4792-a521-ee5ae61bee57",
+      "comment": "",
+      "command": "type",
+      "target": "name=ion-input-0",
+      "targets": [
+        ["name=ion-input-0", "name"],
+        ["css=.has-focus > .native-input", "css:finder"],
+        ["xpath=//input[@name='ion-input-0']", "xpath:attributes"],
+        ["xpath=//ion-router-outlet[@id='main-content']/app-signin-page/ion-content/div[2]/ion-card/ion-card-content/ion-item/ion-input/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "testdoc"
+    }, {
+      "id": "25576662-7f91-4df9-9a86-e9ea73cafd6e",
+      "comment": "",
+      "command": "type",
+      "target": "name=ion-input-1",
+      "targets": [
+        ["name=ion-input-1", "name"],
+        ["css=.ng-untouched > .native-input", "css:finder"],
+        ["xpath=//input[@name='ion-input-1']", "xpath:attributes"],
+        ["xpath=//ion-router-outlet[@id='main-content']/app-signin-page/ion-content/div[2]/ion-card/ion-card-content/ion-item[2]/app-show-hide-password/ion-input/input", "xpath:idRelative"],
+        ["xpath=//app-show-hide-password/ion-input/input", "xpath:position"]
+      ],
+      "value": "123456"
+    }, {
+      "id": "87adec9c-c511-46ed-963c-83a6ab109cea",
+      "comment": "",
+      "command": "click",
+      "target": "css=.button-round",
+      "targets": [
+        ["css=.button-round", "css:finder"],
+        ["xpath=//ion-router-outlet[@id='main-content']/app-signin-page/ion-content/div[2]/ion-card/ion-card-content/ion-button", "xpath:idRelative"],
+        ["xpath=//ion-card-content/ion-button", "xpath:position"],
+        ["xpath=//ion-button[contains(.,'SIGN-IN')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "463714fe-7dcc-4050-b02a-5631e1775d81",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "css=.text_lbl",
+      "targets": [
+        ["css=.text_lbl", "css:finder"],
+        ["xpath=//ion-router-outlet[@id='main-content']/app-home-page/ion-content/div/div[3]/ion-label", "xpath:idRelative"],
+        ["xpath=//div[3]/ion-label", "xpath:position"],
+        ["xpath=//ion-label[contains(.,'Covid-Tracker')]", "xpath:innerText"]
+      ],
+      "value": "30000"
+    }, {
+      "id": "853092ec-281c-4055-9c3f-b30f5b09a819",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.md:nth-child(1) > #col_div > .sc-ion-label-md-h",
+      "targets": [
+        ["css=.md:nth-child(1) > #col_div > .sc-ion-label-md-h", "css:finder"],
+        ["xpath=//div[@id='col_div']/ion-label", "xpath:idRelative"],
+        ["xpath=//ion-col/div/ion-label", "xpath:position"],
+        ["xpath=//ion-label[contains(.,'Patients')]", "xpath:innerText"]
+      ],
+      "value": "Patients"
+    }, {
+      "id": "cdec3646-8708-42ff-aa90-fe70ec4749e1",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.md:nth-child(2) > #col_div > .sc-ion-label-md-h",
+      "targets": [
+        ["css=.md:nth-child(2) > #col_div > .sc-ion-label-md-h", "css:finder"],
+        ["xpath=(//div[@id='col_div']/ion-label)[2]", "xpath:idRelative"],
+        ["xpath=//ion-col[2]/div/ion-label", "xpath:position"],
+        ["xpath=//ion-label[contains(.,'Appointments')]", "xpath:innerText"]
+      ],
+      "value": "Appointments"
+    }, {
+      "id": "ce509eff-b617-4e2e-994c-9f4c3d86f338",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.md:nth-child(3) .sc-ion-label-md-h",
+      "targets": [
+        ["css=.md:nth-child(3) .sc-ion-label-md-h", "css:finder"],
+        ["xpath=(//div[@id='col_div']/ion-label)[3]", "xpath:idRelative"],
+        ["xpath=//ion-col[3]/div/ion-label", "xpath:position"],
+        ["xpath=//ion-label[contains(.,'Messages')]", "xpath:innerText"]
+      ],
+      "value": "Messages"
+    }, {
+      "id": "12d4e451-db53-4cf7-8ce4-42005dd7eb0d",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.md:nth-child(4) .sc-ion-label-md-h",
+      "targets": [
+        ["css=.md:nth-child(3) .sc-ion-label-md-h", "css:finder"],
+        ["xpath=(//div[@id='col_div']/ion-label)[3]", "xpath:idRelative"],
+        ["xpath=//ion-col[3]/div/ion-label", "xpath:position"],
+        ["xpath=//ion-label[contains(.,'Messages')]", "xpath:innerText"]
+      ],
+      "value": "Satistics"
+    }, {
+      "id": "97477a83-2035-4288-a43c-7b26dba1e877",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.md:nth-child(5) .sc-ion-label-md-h",
+      "targets": [
+        ["css=.md:nth-child(3) .sc-ion-label-md-h", "css:finder"],
+        ["xpath=(//div[@id='col_div']/ion-label)[3]", "xpath:idRelative"],
+        ["xpath=//ion-col[3]/div/ion-label", "xpath:position"],
+        ["xpath=//ion-label[contains(.,'Messages')]", "xpath:innerText"]
+      ],
+      "value": "Callendar"
+    }, {
+      "id": "3b1549c1-6ada-4618-ba58-e6e52e2db189",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.md:nth-child(6) .sc-ion-label-md-h",
+      "targets": [
+        ["css=.md:nth-child(3) .sc-ion-label-md-h", "css:finder"],
+        ["xpath=(//div[@id='col_div']/ion-label)[3]", "xpath:idRelative"],
+        ["xpath=//ion-col[3]/div/ion-label", "xpath:position"],
+        ["xpath=//ion-label[contains(.,'Messages')]", "xpath:innerText"]
+      ],
+      "value": "Profile Settings"
+    }]
+  }, {
+    "id": "97efc97d-3861-44c7-b79f-31b0c2c83723",
+    "name": "AdminUser",
+    "commands": [{
+      "id": "8b0c966a-9e6e-4736-adc9-dfaaca4e4133",
+      "comment": "",
+      "command": "open",
+      "target": "/welcome-page",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8f1da391-337b-4694-80a8-e22195804064",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1944x1210",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fcc39b0a-9bba-4a98-b35b-f759a76b012c",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "css=.img-container > img",
+      "targets": [
+        ["css=.img-container > img", "css:finder"],
+        ["xpath=//ion-router-outlet[@id='main-content']/app-welcome-page/ion-content/div/div[2]/img", "xpath:idRelative"],
+        ["xpath=//div[2]/img", "xpath:position"]
+      ],
+      "value": "30000"
+    }, {
+      "id": "315c5452-846a-4714-a1e5-0f02e9ce224a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.main-button",
+      "targets": [
+        ["css=.main-button", "css:finder"],
+        ["xpath=//ion-router-outlet[@id='main-content']/app-welcome-page/ion-content/div/div[3]/ion-button", "xpath:idRelative"],
+        ["xpath=//ion-button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5ba07612-f913-49cd-83d9-246eb0fe2f0d",
+      "comment": "",
+      "command": "waitForElementEditable",
+      "target": "name=ion-input-0",
+      "targets": [
+        ["name=ion-input-0", "name"],
+        ["css=.has-focus > .native-input", "css:finder"],
+        ["xpath=//input[@name='ion-input-0']", "xpath:attributes"],
+        ["xpath=//ion-router-outlet[@id='main-content']/app-signin-page/ion-content/div[2]/ion-card/ion-card-content/ion-item/ion-input/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "30000"
+    }, {
+      "id": "2c6e4e60-1376-4101-816a-f17098bae48c",
+      "comment": "",
+      "command": "type",
+      "target": "name=ion-input-0",
+      "targets": [
+        ["name=ion-input-0", "name"],
+        ["css=.has-focus > .native-input", "css:finder"],
+        ["xpath=//input[@name='ion-input-0']", "xpath:attributes"],
+        ["xpath=//ion-router-outlet[@id='main-content']/app-signin-page/ion-content/div[2]/ion-card/ion-card-content/ion-item/ion-input/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "rochA123"
+    }, {
+      "id": "532f9c95-db6f-4d67-9585-1691ebf11125",
+      "comment": "",
+      "command": "type",
+      "target": "name=ion-input-1",
+      "targets": [
+        ["name=ion-input-1", "name"],
+        ["css=.ng-untouched > .native-input", "css:finder"],
+        ["xpath=//input[@name='ion-input-1']", "xpath:attributes"],
+        ["xpath=//ion-router-outlet[@id='main-content']/app-signin-page/ion-content/div[2]/ion-card/ion-card-content/ion-item[2]/app-show-hide-password/ion-input/input", "xpath:idRelative"],
+        ["xpath=//app-show-hide-password/ion-input/input", "xpath:position"]
+      ],
+      "value": "rochA123"
+    }, {
+      "id": "abfe87dc-1c0b-4dca-8517-fb28f01a9393",
+      "comment": "",
+      "command": "click",
+      "target": "css=.button-round",
+      "targets": [
+        ["css=.button-round", "css:finder"],
+        ["xpath=//ion-router-outlet[@id='main-content']/app-signin-page/ion-content/div[2]/ion-card/ion-card-content/ion-button", "xpath:idRelative"],
+        ["xpath=//ion-card-content/ion-button", "xpath:position"],
+        ["xpath=//ion-button[contains(.,'SIGN-IN')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ab352ac0-5379-417c-b458-afe2152f1896",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "css=.text_lbl",
+      "targets": [
+        ["css=.text_lbl", "css:finder"],
+        ["xpath=//ion-router-outlet[@id='main-content']/app-home-page/ion-content/div/div[3]/ion-label", "xpath:idRelative"],
+        ["xpath=//div[3]/ion-label", "xpath:position"],
+        ["xpath=//ion-label[contains(.,'Covid-Tracker')]", "xpath:innerText"]
+      ],
+      "value": "30000"
+    }, {
+      "id": "caa4ee9b-6f5d-4c60-8ee4-34fc264975ed",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.md:nth-child(1) > #col_div > .sc-ion-label-md-h",
+      "targets": [
+        ["css=.md:nth-child(1) > #col_div > .sc-ion-label-md-h", "css:finder"],
+        ["xpath=//div[@id='col_div']/ion-label", "xpath:idRelative"],
+        ["xpath=//ion-col/div/ion-label", "xpath:position"],
+        ["xpath=//ion-label[contains(.,'Doctor/Patient Assignment')]", "xpath:innerText"]
+      ],
+      "value": "Doctor/Patient Assignment"
+    }, {
+      "id": "e9096ab6-3109-4555-b5a3-381eee077118",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.md:nth-child(2) > #col_div > .sc-ion-label-md-h",
+      "targets": [
+        ["css=.md:nth-child(1) > #col_div > .sc-ion-label-md-h", "css:finder"],
+        ["xpath=//div[@id='col_div']/ion-label", "xpath:idRelative"],
+        ["xpath=//ion-col/div/ion-label", "xpath:position"],
+        ["xpath=//ion-label[contains(.,'Doctor/Patient Assignment')]", "xpath:innerText"]
+      ],
+      "value": "Manage User Profiles"
+    }, {
+      "id": "35cb5d8c-47b6-47b1-a906-87349b5d5b3c",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.md:nth-child(3) .sc-ion-label-md-h",
+      "targets": [
+        ["css=.md:nth-child(3) .sc-ion-label-md-h", "css:finder"],
+        ["xpath=(//div[@id='col_div']/ion-label)[3]", "xpath:idRelative"],
+        ["xpath=//ion-col[3]/div/ion-label", "xpath:position"],
+        ["xpath=//ion-label[contains(.,'Calendar')]", "xpath:innerText"]
+      ],
+      "value": "Calendar"
+    }, {
+      "id": "59124ff4-6025-4fcd-a740-16610560d067",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.md:nth-child(4) .sc-ion-label-md-h",
+      "targets": [
+        ["css=.md:nth-child(3) .sc-ion-label-md-h", "css:finder"],
+        ["xpath=(//div[@id='col_div']/ion-label)[3]", "xpath:idRelative"],
+        ["xpath=//ion-col[3]/div/ion-label", "xpath:position"],
+        ["xpath=//ion-label[contains(.,'Calendar')]", "xpath:innerText"]
+      ],
+      "value": "Profile Settings"
+    }, {
+      "id": "9653c446-b040-47c4-b424-2ff4c07a0ba7",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.md:nth-child(5) .sc-ion-label-md-h",
+      "targets": [
+        ["css=.md:nth-child(3) .sc-ion-label-md-h", "css:finder"],
+        ["xpath=(//div[@id='col_div']/ion-label)[3]", "xpath:idRelative"],
+        ["xpath=//ion-col[3]/div/ion-label", "xpath:position"],
+        ["xpath=//ion-label[contains(.,'Calendar')]", "xpath:innerText"]
+      ],
+      "value": "QR Code Generation"
     }]
   }],
   "suites": [{
