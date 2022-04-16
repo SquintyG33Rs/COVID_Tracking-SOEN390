@@ -33,3 +33,4 @@ npm-debug.log*
 /android
 /strapi
 /temp
+TEST/target/*
