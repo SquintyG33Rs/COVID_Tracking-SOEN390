@@ -24,3 +24,6 @@ in root directory.
   *see screenshot below for reference*
   
 ![image](https://user-images.githubusercontent.com/78240268/155800502-54ef1501-3548-4f22-9e74-efdf8d7e628f.png)
+
+automated testing can be run with maven and junit or directly in Selenium IDE(chrome plugin)
+refer to maven documentation for installation then simply use "mvn test" in /TEST directory
