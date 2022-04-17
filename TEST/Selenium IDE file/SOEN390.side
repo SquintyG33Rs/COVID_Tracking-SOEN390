@@ -561,7 +561,7 @@
       ],
       "value": "QR Code Generation"
     }, {
-      "id": "c3896e79-7a5c-434a-84ea-ca3f613017b0",
+      "id": "7406a58d-89a6-406d-b693-a921a0cf8114",
       "comment": "",
       "command": "waitForElementVisible",
       "target": "id=alert-1-hdr",
@@ -572,6 +572,17 @@
         ["xpath=//ion-alert[@id='ion-overlay-1']/div[2]/div/h2", "xpath:idRelative"],
         ["xpath=//h2", "xpath:position"],
         ["xpath=//h2[contains(.,'QR-Code')]", "xpath:innerText"]
+      ],
+      "value": "30000"
+    }, {
+      "id": "c3896e79-7a5c-434a-84ea-ca3f613017b0",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "css=#alert-1-msg > img",
+      "targets": [
+        ["css=#alert-1-msg > img", "css:finder"],
+        ["xpath=//div[@id='alert-1-msg']/img", "xpath:idRelative"],
+        ["xpath=//div[2]/img", "xpath:position"]
       ],
       "value": "30000"
     }, {
